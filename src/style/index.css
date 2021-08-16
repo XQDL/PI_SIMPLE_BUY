@@ -34,7 +34,9 @@ header{
     flex-direction: column;
 
     background-color: rgb(19, 18, 18);
-    background-image: url('../img/bg.jpg');    
+    background: url('../img/bg3.jpg') no-repeat;    
+    background-size: contain;
+
 
 }
 
