@@ -1,8 +1,11 @@
-class Endereco:
-    def __init__(self, id, rua, numero, cep, complemento, cidade):
-        self.id = id
-        self.rua = rua
-        self.numero = numero
-        self.cep = cep
-        self.complemento = complemento
-        self.cidade = cidade
+import Empresa
+from models import BaseModel as model
+import peewee as pw
+import Cidade, Administrador
+
+class Endereco(model.BaseModel):
+        rua = pw.CharField()
+        numero = pw.IntegerField()
+        cep = pw.CharField()
+        complemento = pw.CharField()
+        cidade = pw.ForeignKeyField(Cidade)

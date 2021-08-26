@@ -1,4 +1,8 @@
-class Estado:
-    def __init__(self, id, nome):
-        self.id = id
-        self.nome = nome
+
+from models import BaseModel as model
+import peewee as pw
+
+
+
+class Estado(model.BaseModel):
+        nome = pw.CharField()

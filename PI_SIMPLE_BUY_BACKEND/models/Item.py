@@ -1,5 +1,9 @@
-class Item:
-    def __init__(self, id, descricao, unidadeMedida):
-        self.id = id
-        self.descricao = descricao
-        self.unidadeMedida = unidadeMedida
+import Empresa
+from models import BaseModel as model
+import peewee as pw
+import Comprador, Administrador
+
+
+class Item(model.BaseModel):
+        descricao = pw.CharField()
+        unidadeMedida = pw.CharField()

@@ -1,12 +1,17 @@
-class OrdemFornecimento:
-    def __init__(self, id, itens, valorUnitario, icms, ipi, frete, fornecedor, contratante, dataEntrega, comprador):
-        self.id = id
-        self.itens = itens
-        self.valorUnitario = valorUnitario
-        self.icms = icms
-        self.ipi = ipi
-        self.frete = frete
-        self.fornecedor = fornecedor
-        self.contratante = contratante
-        self.dataEntrega = dataEntrega
-        self.comprador = comprador
+import Empresa
+from models import BaseModel as model
+import peewee as pw
+import EmpresaCompradora, Fornecedor, Item, Comprador
+
+
+class OrdemFornecimento(model.BaseModel):
+
+        itens = pw.ForeignKeyField(Item)
+        valorUnitario = pw.FloatField()
+        icms = pw.FloatField()
+        ipi = pw.FloatField()
+        frete = pw.CharField()
+        fornecedor = pw.ForeignKeyField(Fornecedor)
+        contratante = pw.ForeignKeyField(EmpresaCompradora)
+        dataEntrega = pw.DateTimeField()
+        comprador = pw.ForeignKeyField(Comprador)

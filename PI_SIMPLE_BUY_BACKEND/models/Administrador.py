@@ -1,12 +1,17 @@
-class Administrador:
-    def __init__(self, id, nomeUsuario, senha, nome, email, telefone, empresa):
-        self.id = id
-        self.nomeUsuario = nomeUsuario
-        self.senha = senha
-        self.nome = nome
-        self.email = email
-        self.telefone = telefone
-        self.empresa = empresa
+from models import BaseModel as model
+import peewee as pw
+import EmpresaCompradora
+
+
+class Administrador(model.BaseModel):
+
+    nomeUsuario = pw.CharField(unique=True)
+    senha = pw.CharField()
+    nome = pw.CharField()
+    email = pw.CharField()
+    telefone = pw.CharField()
+    empresa = pw.ForeignKeyField(EmpresaCompradora)
+
 
     def cadastrarItem(self):
         print('Cadastar Item')

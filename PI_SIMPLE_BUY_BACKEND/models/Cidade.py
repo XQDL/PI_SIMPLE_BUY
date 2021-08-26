@@ -1,5 +1,9 @@
-class Cidade:
-    def __init__(self, id, nome, estado):
-        self.id = id
-        self.nome = nome
-        self.estado = estado
+from models import BaseModel as model
+import peewee as pw
+import Estado
+
+
+class Cidade(model.BaseModel):
+
+        nome = pw.CharField()
+        estado = pw.ForeignKeyField(Estado)
