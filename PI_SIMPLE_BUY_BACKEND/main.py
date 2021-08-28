@@ -1,22 +1,34 @@
-from models.Administrador import Administrador
-import peewee
-
+from models.CreateTable import CreateTable
+from models.Estado import Estado
+from dao.GenericDao import GenericDao
 
 if __name__ == '__main__':
-    try:
-        Administrador.create_table()
-        print("Tabela 'Author' criada com sucesso!")
-    except peewee.OperationalError:
-        print("Tabela 'Author' ja existe!")
+    create = CreateTable()
+    create.createAll()
 
-    # adm = Administrador.create(
-    #     nomeUsuario = 'AndreVinni89',
-    #     senha = '123',
-    #     nome = 'Andre',
-    #     email = 'Andrevinnicius89@gmail.com',
-    #     telefone = "41997175818"
-    # )
+    estado = Estado(nome='Rio de Janeiro')
+    dao = GenericDao()
+    dao.create(estado)
 
-    res = Administrador.select()
-    for r in res:
-        print(r.nomeUsuario)
+    estado.nome = 'Paraiba'
+
+    dao.update(estado)
+
+    print(estado)
+
+    estados = dao.selectAll(Estado)
+
+    print(estados)
+
+    for i in estados:
+        print(i)
+
+    dao.delete(estado)
+
+    estados = dao.selectAll(Estado)
+
+    for i in estados:
+        print(i)
+
+
+

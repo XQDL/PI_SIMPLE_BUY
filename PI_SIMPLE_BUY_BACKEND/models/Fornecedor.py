@@ -1,8 +1,8 @@
-import Empresa
-from models import BaseModel as model
-import peewee as pw
-import Classe
+from models.Empresa import Empresa
 
-class Fornecedor(Empresa.Empresa):
+import peewee as pw
+from models.Classe import Classe
+
+class Fornecedor(Empresa):
 
         classes = pw.ForeignKeyField(Classe)

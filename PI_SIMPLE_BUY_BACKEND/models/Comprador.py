@@ -1,6 +1,6 @@
 from models import BaseModel as model
 import peewee as pw
-import EmpresaCompradora
+from models.EmpresaCompradora import EmpresaCompradora
 
 class Comprador(model.BaseModel):
 

@@ -1,13 +1,16 @@
-import Empresa
+
 from models import BaseModel as model
 import peewee as pw
-import EmpresaCompradora, Fornecedor, Item, Comprador
+
+from models.EmpresaCompradora import EmpresaCompradora
+from models.Fornecedor import Fornecedor
+
+from models.Comprador import Comprador
 
 
 class OrdemFornecimento(model.BaseModel):
 
-        itens = pw.ForeignKeyField(Item)
-        valorUnitario = pw.FloatField()
+
         icms = pw.FloatField()
         ipi = pw.FloatField()
         frete = pw.CharField()

@@ -1,6 +1,6 @@
 from models import BaseModel as model
 import peewee as pw
-import Estado
+from models.Estado import Estado
 
 
 class Cidade(model.BaseModel):

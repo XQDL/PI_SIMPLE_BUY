@@ -1,6 +1,5 @@
 from models import BaseModel as model
 import peewee as pw
-import EmpresaCompradora
 
 
 class Administrador(model.BaseModel):
@@ -10,7 +9,7 @@ class Administrador(model.BaseModel):
     nome = pw.CharField()
     email = pw.CharField()
     telefone = pw.CharField()
-    empresa = pw.ForeignKeyField(EmpresaCompradora)
+
 
 
     def cadastrarItem(self):

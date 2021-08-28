@@ -1,7 +1,9 @@
-import Empresa
+
 from models import BaseModel as model
 import peewee as pw
-import Cidade, Administrador
+from models.Cidade import Cidade
+
+
 
 class Endereco(model.BaseModel):
         rua = pw.CharField()

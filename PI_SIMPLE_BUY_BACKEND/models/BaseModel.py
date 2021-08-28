@@ -7,3 +7,4 @@ class BaseModel(peewee.Model):
     """Classe model base"""
     class Meta:
         database = db
+

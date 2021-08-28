@@ -1,10 +1,9 @@
-import Empresa
-from models import BaseModel as model
+from models.Empresa import Empresa
 import peewee as pw
-import Comprador, Administrador
+
+from models.Administrador import Administrador
 
 
-class EmpresaCompradora(Empresa.Empresa):
 
-        compradores = pw.ForeignKeyField(Comprador)
+class EmpresaCompradora(Empresa):
         administrador = pw.ForeignKeyField(Administrador)
