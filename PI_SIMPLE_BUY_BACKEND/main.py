@@ -3,32 +3,33 @@ from models.Estado import Estado
 from dao.GenericDao import GenericDao
 
 if __name__ == '__main__':
+
+    # Criando tabelas
     create = CreateTable()
     create.createAll()
 
-    estado = Estado(nome='Rio de Janeiro')
+    # criando um estado
+    estado = Estado(nome='Parana')
     dao = GenericDao()
     dao.create(estado)
 
-    estado.nome = 'Paraiba'
+    # Alterando o nome do estado
+    estado.nome = 'Santa Catarina'
 
     dao.update(estado)
-
     print(estado)
 
+    # Selecionando todos os estados
     estados = dao.selectAll(Estado)
 
     print(estados)
 
-    for i in estados:
-        print(i)
-
+    # Deletando um estado especifico
     dao.delete(estado)
 
     estados = dao.selectAll(Estado)
 
-    for i in estados:
-        print(i)
+    print(estados)
 
 
 

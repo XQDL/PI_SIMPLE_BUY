@@ -4,10 +4,18 @@ import peewee
 class GenericDao:
 
     def create(self, model):
-        return model.save()
+        try:
+            return model.save()
+        except:
+            return 'Erro ao Salvar'
+
 
     def update(self, model):
-        return model.save()
+        try:
+            return model.save()
+        except:
+            return 'Erro ao Salvar'
+
 
     def delete(self, model):
         return model.delete_instance()

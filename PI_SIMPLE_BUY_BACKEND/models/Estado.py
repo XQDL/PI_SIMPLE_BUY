@@ -5,4 +5,8 @@ import peewee as pw
 
 
 class Estado(model.BaseModel):
-        nome = pw.CharField()
+    nome = pw.CharField()
+
+    def __str__(self):
+        return self.nome
+

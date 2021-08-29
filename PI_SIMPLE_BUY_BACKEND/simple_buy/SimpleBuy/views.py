@@ -1,7 +1,12 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
-# Create your views here.
-from django.http import HttpResponse
+
+
 
 def index(request):
-    return HttpResponse('./index.html')
+
+    context = {
+        'latest_question_list': 'for ',
+    }
+    return render(request, 'SimpleBuy/index.html')

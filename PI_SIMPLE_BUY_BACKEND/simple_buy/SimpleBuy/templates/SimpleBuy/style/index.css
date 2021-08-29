@@ -1,0 +1,120 @@
+*{
+    margin: 0;
+
+    
+}
+
+header{
+    display: flex;
+    width: 99vw;
+    height: 10vh;
+    background-color: rgb(14, 13, 13);
+    align-items: center;
+    justify-content: space-center;
+  
+
+}
+
+.container-header{
+    width: 90vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto;
+}
+
+#logo{
+    font-size: 2.5rem;
+    color: white;
+    margin-left: .8rem;
+    font-family: 'Style Script', cursive;
+}
+
+header a{
+    color: white;
+    background-color: rgba(240, 248, 255, 0);
+    text-decoration: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.7rem;
+    transition: .4s;
+
+}
+
+header a:hover{
+    color: rgb(81, 81, 88);
+
+}
+
+header nav{
+    width: 13vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.container{
+    width: 99vw;
+    height: 120vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    background-color: rgb(19, 18, 18);
+    background: url('../img/bg4.jpg') no-repeat;    
+
+}
+
+.container-2{
+    width: 99vw;
+    height: 60vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    background-color: rgb(19, 18, 18);
+    background: url('../img/bg24.jpg') no-repeat;    
+
+}
+
+.tittle{
+    margin-bottom: 10rem;
+    font-size: 10rem;
+    color: white;
+    font-family: 'Style Script', cursive;
+    padding: 1rem;
+    border-radius: 1.5rem;
+
+}
+
+.container-buttons{
+    display: flex;
+    width: 25vw;
+    justify-content: space-between;
+}
+
+.button{
+    height: 4rem;
+    width: 10rem;
+    background-color: rgb(48, 48, 48);
+    color: white;
+    border: 0;
+    border-radius: .7rem;
+    font-size: 1.5rem;
+
+}
+
+.bg-main{
+    height: 30vh;
+    background-color: white;
+    text-align: center;
+}
+
+.bg-main .content{
+    width: 80vw;
+    margin: auto;
+}
