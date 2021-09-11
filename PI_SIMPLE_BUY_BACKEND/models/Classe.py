@@ -3,5 +3,4 @@ import peewee as pw
 
 
 class Classe(model.BaseModel):
-
        nome = pw.CharField(unique=True)

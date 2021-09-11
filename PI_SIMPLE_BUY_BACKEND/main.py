@@ -1,6 +1,6 @@
 from models.CreateTable import CreateTable
 from models.Estado import Estado
-from dao.GenericDao import GenericDao
+from bo.BoEstado import BoEstado
 
 if __name__ == '__main__':
 
@@ -10,24 +10,24 @@ if __name__ == '__main__':
 
     # criando um estado
     estado = Estado(nome='Parana')
-    dao = GenericDao()
-    dao.create(estado)
+    boEstado = BoEstado()
+    boEstado.create(estado)
 
     # Alterando o nome do estado
-    estado.nome = 'Santa Catarina'
+    estado.nome = 'Santa Catarina232'
 
-    dao.update(estado)
+    boEstado.update(estado)
     print(estado)
 
     # Selecionando todos os estados
-    estados = dao.selectAll(Estado)
+    estados = boEstado.selectAll(Estado)
 
     print(estados)
 
     # Deletando um estado especifico
-    dao.delete(estado)
+    # boEstado.delete(estado)
 
-    estados = dao.selectAll(Estado)
+    estados = boEstado.selectAll(Estado)
 
     print(estados)
 
