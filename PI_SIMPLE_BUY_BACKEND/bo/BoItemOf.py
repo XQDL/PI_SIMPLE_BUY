@@ -1,19 +1,19 @@
-from models.Fornecedor import Fornecedor
+from models.ItemOf import ItemOf
 from dao.GenericDao import GenericDao
 
 
-class BoFornecedor():
+class BoItemOf():
         def __init__(self):
                 self.dao = GenericDao()
 
-        def create(self, model: Fornecedor):
+        def create(self, model: ItemOf):
                 return self.dao.create(model)
 
-        def update(self, model: Fornecedor):
+        def update(self, model: ItemOf):
                 return self.dao.update(model)
 
-        def delete(self, model: Fornecedor):
+        def delete(self, model: ItemOf):
                 return self.dao.delete(model)
 
-        def selectAll(self, model: Fornecedor):
+        def selectAll(self, model: ItemOf):
                 return self.dao.selectAll(model)
