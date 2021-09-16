@@ -55,6 +55,7 @@ if __name__ == '__main__':
     # Selecionando todos os estados
     estados = boEstado.selectAll(Estado)
 
+    print('Estados:')
     print(estados)
 
     # criando um cidade
@@ -66,10 +67,11 @@ if __name__ == '__main__':
     cidade.nome = 'Lapa'
 
     boCidade.update(cidade)
+
     print(cidade)
 
     cidades = boCidade.selectAll(Cidade)
-
+    print('Cidades:')
     print(cidades)
 
 
@@ -82,6 +84,7 @@ if __name__ == '__main__':
     # Selecionando todos os estados
     enderecos = boEndereco.selectAll(Endereco)
 
+    print('Endereços:')
     print(enderecos)
 
     endereco2 = Endereco(numero=321, cep='8140000', complemento='Apartamento', rua='Rua general Carneiro', cidade=cidade)
@@ -91,9 +94,23 @@ if __name__ == '__main__':
     # Selecionando todos os estados
     enderecos = boEndereco.selectAll(Endereco)
 
+    print('Endereços:')
     print(enderecos)
 
-    empresaCompradora = EmpresaCompradora(nome='XQDL CORPORATIONS', cnpj='12345678910', telefone='4002-8922', endereco=endereco)
+    administrador = Administrador(nomeUsuario='AndreVinni89', senha='1234', nome='Andre Vinicius Vieira', email='andrevinnicius89@gmail.com', telefone='(41) 99999-9999')
+    boAdministrador = BoEmpresaCompradora()
+    boAdministrador.create(administrador)
+
+
+
+    # Selecionando todos os estados
+    administradores = boAdministrador.selectAll(EmpresaCompradora)
+
+    print('Empresas compradoras:')
+    print(administradores)
+
+
+    empresaCompradora = EmpresaCompradora(nome='XQDL CORPORATIONS', cnpj='12345678910', telefone='4002-8922', endereco=endereco, administrador=administrador)
     boEmpresaCompradora = BoEmpresaCompradora()
     boEmpresaCompradora.create(empresaCompradora)
 
@@ -102,6 +119,7 @@ if __name__ == '__main__':
     # Selecionando todos os estados
     empresaCompradoras = boEmpresaCompradora.selectAll(EmpresaCompradora)
 
+    print('Empresas compradoras:')
     print(empresaCompradoras)
 
     # criando um Comprador
@@ -114,6 +132,7 @@ if __name__ == '__main__':
     # Selecionando todos os Compradores
     compradores = boComprador.selectAll(Comprador)
 
+    print('Compradores:')
     print(compradores)
 
 
@@ -126,6 +145,7 @@ if __name__ == '__main__':
     # Selecionando todos os estados
     itens = boItem.selectAll(Item)
 
+    print("Itens:")
     print(itens)
 
 
@@ -139,6 +159,7 @@ if __name__ == '__main__':
     # Selecionando todos os estados
     classes = boClasse.selectAll(Classe)
 
+    print("Classes:")
     print(classes)
 
     # criando um estado
@@ -151,6 +172,7 @@ if __name__ == '__main__':
     # Selecionando todos os estados
     fornecedores = boFornecedor.selectAll(Fornecedor)
 
+    print("Fornecedores:")
     print(fornecedores)
 
 
@@ -160,17 +182,19 @@ if __name__ == '__main__':
     BoClasseFornecedor.create(classeFornecedor)
 
     # criando um estado
-    ordemFornecimento = OrdemFornecimento(icms=3, ipi=2, frete='FOB', fornecedor=fornecedor, contratante=empresaCompradora, dataEntrega='18/09/2021', comprador=comprador )
+    ordemFornecimento = OrdemFornecimento(icms=3.0, ipi=2.0, frete='FOB', fornecedor=fornecedor, contratante=empresaCompradora, dataEntrega='18/09/2021', comprador=comprador )
     BordemFornecimento = BoOrdemFornecimento()
     BordemFornecimento.create(ordemFornecimento)
 
     # Selecionando todos os estados
     ordens_de_fornecimentos = BordemFornecimento.selectAll(OrdemFornecimento)
 
+
+    print("Ordens de Fornecimento:")
     print(ordens_de_fornecimentos)
 
 
     # criando um estado
-    itemOf = ItemOf(ItemId=item, OfId= ordemFornecimento, quantidade=12, valorUnitario= 19.90, recebido=0, saldo=12)
+    itemOf = ItemOf(ItemId=item, OfId= ordemFornecimento, quantidade=12, valorUnitario=19.90, recebido=0, saldo=12)
     BoItemOf = BoItemOf()
     BoItemOf.create(itemOf)
