@@ -7,3 +7,6 @@ class Cidade(model.BaseModel):
 
         nome = pw.CharField()
         estado = pw.ForeignKeyField(Estado)
+
+        def __str__(self):
+                return self.nome
