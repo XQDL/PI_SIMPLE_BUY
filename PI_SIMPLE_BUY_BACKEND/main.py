@@ -63,12 +63,15 @@ if __name__ == '__main__':
     boCidade = BoCidade()
     boCidade.create(cidade)
 
+    print(cidade)
+
     # Alterando o nome do cidade
     cidade.nome = 'Lapa'
 
+
     boCidade.update(cidade)
 
-    print(cidade)
+
 
     cidades = boCidade.selectAll(Cidade)
     print('Cidades:')
