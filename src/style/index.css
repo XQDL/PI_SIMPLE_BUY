@@ -1,12 +1,20 @@
 *{
     margin: 0;
 
-    
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+button{
+    cursor: pointer;
+}
+.box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 header{
     display: flex;
-    width: 99vw;
+    width: 100%;
     height: 10vh;
     background-color: rgb(14, 13, 13);
     align-items: center;
@@ -26,7 +34,7 @@ header{
 #logo{
     font-size: 2.5rem;
     color: white;
-    margin-left: .8rem;
+
     font-family: 'Style Script', cursive;
 }
 
@@ -46,7 +54,7 @@ header a:hover{
 }
 
 header nav{
-    width: 13vw;
+    width: 10vw;
     display: flex;
     justify-content: space-between;
 }
@@ -54,8 +62,8 @@ header nav{
 
 
 .container{
-    width: 99vw;
-    height: 120vh;
+    width: 100%;
+    height: 862px;
 
     display: flex;
     align-items: center;
@@ -63,12 +71,12 @@ header nav{
     flex-direction: column;
 
     background-color: rgb(19, 18, 18);
-    background: url('../img/bg4.jpg') no-repeat;    
+    background: url('../img/bg5.jpg') no-repeat;    
 
 }
 
 .container-2{
-    width: 99vw;
+    width: 10vw;
     height: 60vh;
 
     display: flex;
@@ -117,4 +125,94 @@ header nav{
 .bg-main .content{
     width: 80vw;
     margin: auto;
+    padding-bottom: 10vh;
+}
+
+button{
+    height: 8vh;
+    width: 15vw;
+    border: none;
+    background-color: rgb(2, 207, 2);
+    color: white;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    transition: .5s;
+
+
+}
+
+button:hover{
+
+    background-color: rgba(2, 207, 2, 0.644);
+
+}
+
+button a{
+    text-decoration: none;
+    color: white;
+}
+
+footer{
+    margin-top: 150px;
+    align-self: center;
+
+    background-color: black;
+    width: 100%;
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    font-size: 1.2rem;
+}
+
+footer a{
+    text-decoration: none;
+    color: white;
+}
+
+.rede{
+    display: flex;
+    justify-content: center;
+}
+
+.rede img{
+    color: white;
+    background-color: white;
+    height: 20px;
+    width: 20px;
+}
+
+.profile-link{
+    align-self: flex-start;
+  
+    display: flex;
+
+    margin-left: 15px;
+    margin-top: 15px;
+    text-decoration: none;
+    color: black;
+
+}
+
+.profile{
+    align-self: flex-start;
+  
+    display: flex;
+
+
+
+    padding: 5px;
+}
+
+.profile .img-name{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.profile img{
+    width: 3rem;
 }

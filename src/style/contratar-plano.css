@@ -1,0 +1,37 @@
+.content-login{
+
+    margin: auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 60vh;
+    border: 1px solid;
+    margin-top: 10vh;
+    width: 70%;
+}
+
+table{
+    text-align: center;
+    
+
+}
+
+
+
+td{
+    height: 30px;
+
+}
+
+
+table img{
+    width: 50px;
+}
+
+td input{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
