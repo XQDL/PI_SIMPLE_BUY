@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimpleBuy - Gerar cotação</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Lato&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Style+Script&display=swap" rel="stylesheet">
+
+    <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="../style/index.css">
+    <link rel="stylesheet" href="../style/gerar-cotacao.css">
+
+</head>
+<body>
+    <div class="box">
+
+  
+    <header>
+        <div class="container-header">
+            <h1 class="tittle-header"> <a id="logo" href="index.html"> SimpleBuy</a></h1>
+
+        </div>
+    </header>
+
+    <a href="inicio-administrador.html" class="profile-link">
+        <div class="profile">
+            <img src="../img/user-image.png" alt="">
+
+            <div class="img-name">
+                <h2>AndreVinni89</h2>
+                <span>Administrador</span>
+            </div>
+        </div>
+    </a>       
+
+
+
+            <div class="content-gerar-cotacao">
+
+
+                
+                <h1>Gerar Cotação</h1>
+                <div class="item-info">
+                    <div class="item">
+                        <h2>Cód</h2>
+                        <h2>Descrição</h2>
+                    </div>
+
+                    <div class="item">
+                        <input type="text" value="123" disabled>
+                        <input type="text" value="Caneta BIC" disabled>
+                    </div>
+
+
+                </div>
+
+
+
+                
+                <div class="container-form">
+                    <div class="container-item">
+                        <h3>Fornecedor</h3>
+                        <h3>Valor Unitário</h3>
+                        <h3>Quantidade</h3>
+                        <h3>Valor Total</h3>
+                        <h3>IPI</h3>
+                        <h3>ICMS</h3>
+                        <h3>Frete</h3>
+                        <h3>Selecionar OF</h3>
+                        <h3>Numero OF</h3>
+                        
+                    </div>
+
+                    <div class="container-item">
+                        <select name="frete" id="frete">
+                            <option value="">SELECIONAR</option>
+                            <option value="cif">Fornecedor A</option>
+                            <option value="fob">Forncedor B</option>
+                        </select>
+                        <input type="text" class="Valor-unitário">
+                        <input type="text" class="quantidade">
+                        <input type="text" class="valor-total">
+                        <input type="text" class="ipi">
+                        <input type="text" class="icms">
+                        <select name="frete" id="frete">
+                            <option value="">SELECIONAR</option>
+                            <option value="cif">CIF</option>
+                            <option value="fob">FOB</option>
+                        </select>
+                        <a href="selecionar-of.html" class="link-container"><button class="generic-button">Selecionar</button></a>
+                        <input type="text" class="numero-of" disabled value="12345">
+                    </div>
+                </div>
+
+
+                <button class="green-button">Gerar</button>
+
+            </div>
+
+
+
+
+
+    <footer>
+        <p>Endereço: Rua Major Getafe, N° 8989</p>
+        <p>Copyright (c) 2021 SimpleBuy - Todos os Direitos Reservados</p>
+        <div class="rede">
+            <img src="../img/icone-facebook.png" alt="">
+            <p><a href="https://facebook/SimpleBuy">/SimpleBuy</a></p>
+        </div>
+ 
+
+        <div class="rede">
+            <img src="../img/icone-linkedin.png" alt="">
+            <p><a href="https://linkedin/SimpleBuy">/SimpleBuy</a></p>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

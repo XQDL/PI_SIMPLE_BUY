@@ -1,4 +1,4 @@
-.content-generate-order{
+.content-enterprise-register{
     margin: auto;
     padding: 30px;
     display: flex;
@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: space-between;
     border-radius: 10px;
-    height: 40vh;
+    height: 60vh;
     border: 1px solid;
     margin-top: 10vh;
     width: 70%;
@@ -22,10 +22,10 @@ form{
 
 .container-form{
     
-    width: 90%;
+    width: 80%;
     margin: auto;
     display: grid;
-    grid-template-columns: 20% 35% 15% 20%;
+    grid-template-columns: 50% 50%;
    
     column-gap: 30px;
     row-gap: 20px;

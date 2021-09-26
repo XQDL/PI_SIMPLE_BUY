@@ -1,0 +1,85 @@
+.content-gerar-cotacao{
+    width: 80vw;
+    margin: auto;
+    padding-bottom: 5vh;
+    padding-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 60vh;
+    border: 1px solid black;
+    border-radius: 10px;
+
+    margin-top: 5vh;
+    
+
+}
+
+.generic-button{
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    transition: .4s;
+
+    width: auto;
+}
+
+.generic-button:hover{
+    color: white;
+    background-color: black;
+}
+
+
+.container-form{
+    width: 95%;
+}
+
+
+
+.container-item{
+    display: grid;
+    text-align: center;
+    
+    grid-template-columns: 11% 11% 11% 11% 11% 11% 11% 11% 11% ;
+    gap: 4px;
+
+}
+
+
+.container-item input{
+    height: 5vh;
+    border-radius: 8px;
+}
+
+.container-item select{
+    height: 6vh;
+    border-radius: 8px;
+}
+
+.container-item button{
+    height: 6vh;
+    border-radius: 8px;
+}
+
+
+.item-info{
+    align-self: flex-start;
+    margin-left: 30px;
+    width: 50%;
+}
+
+.item{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    column-gap: 2%;
+}
+
+.item input{
+    height: 5vh;
+    border-radius: 8px;
+}
+
+.link-container button{
+    width: 100%;
+}

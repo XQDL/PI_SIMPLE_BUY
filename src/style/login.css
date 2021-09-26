@@ -6,6 +6,9 @@
     align-items: center;
     justify-content: center;
     height: 60vh;
+
+    
+
 }
 
 .form-container{
@@ -18,7 +21,9 @@
     width: 30vw;
     justify-content: space-between;
     border-radius: 15px;
-
+    -webkit-box-shadow: 11px 9px 15px 1px rgba(0,0,0,0.36);
+    -moz-box-shadow: 11px 9px 15px 1px rgba(0,0,0,0.36);
+    box-shadow: 11px 9px 15px 1px rgba(0,0,0,0.36);
 }
 
 .form-container h1{
@@ -39,6 +44,8 @@
     text-align: center;
 }
 
+
+
 .login-button{
     align-self: center;
 }
@@ -47,3 +54,4 @@
     height: 25px;
     border-radius: 10px;
 }
+
