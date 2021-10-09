@@ -47,7 +47,3 @@ form{
     height: 30px;
     border-radius: 10px;
 }
-
-.container-form .input-container select option{
-    height: 200px;
-}

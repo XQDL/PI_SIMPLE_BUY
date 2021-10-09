@@ -1,0 +1,85 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Lato&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Style+Script&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="{% static 'style/inicio.css' %}">
+    <link rel="stylesheet" href="{% static 'style/login.css' %}">
+
+    <link rel="shortcut icon" href="{% static 'img/logo.png' %}" type="image/x-icon">
+    <title>SimpleBuy - Login</title>
+</head>
+<body>
+
+    <div class="box">
+
+  
+        <header >
+            <div class="container-header">
+                <h1 class="tittle-header"> <a id="logo" href="index"> SimpleBuy</a></h1>
+                <nav>
+                    <a href="./login">LOGIN</a>
+                </nav>
+    
+            </div>
+    
+        </header>
+
+
+
+            <div class="content-login">
+                <form action="/validate-login" class="form-container" method="post">
+                    {% csrf_token %}
+                    <h1 class="logo">SimpleBuy</h1>
+                    {% if err %}
+                        <h2 class="err-message" style="color:red; font-size:1rem;">USUÁRIO OU SENHA INCORRETOS</h2>
+                    {% endif %}
+
+                    <div class="input-container">
+                        <span>Usuário: </span>
+                        <input type="text" name="user" id="user">
+                    </div>
+
+                    <div class="input-container">
+                        <span>Senha: </span>
+                        <input type="password" name="password" id="password">
+                    </div>
+
+                    <button class="login-button green-button" type="submit">ENTRAR</button>
+                </form>
+            </div>
+
+
+
+
+        <footer>
+            <p>Endereço: Rua Major Getafe, N° 8989</p>
+            <p>Copyright (c) 2021 SimpleBuy - Todos os Direitos Reservados</p>
+            <div class="rede">
+                <img src="{% static 'img/icone-facebook.png' %}" alt="">
+                <p><a href="https://facebook/SimpleBuy">/SimpleBuy</a></p>
+            </div>
+     
+    
+            <div class="rede">
+                <img src="{% static 'img/icone-linkedin.png' %}" alt="">
+                <p><a href="https://linkedin/SimpleBuy">/SimpleBuy</a></p>
+            </div>
+        </footer>
+    </div>
+
+    
+</body>
+</html>

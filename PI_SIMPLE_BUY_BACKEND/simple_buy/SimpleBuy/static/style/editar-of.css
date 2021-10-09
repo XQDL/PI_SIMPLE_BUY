@@ -1,0 +1,184 @@
+.content-integrar-nota-fiscal{
+    width: 80vw;
+    margin: auto;
+    padding-bottom: 5vh;
+    padding-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 65vh;
+    border: 1px solid black;
+    border-radius: 10px;
+
+    margin-top: 3vh;
+}
+
+.generic-button{
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    transition: .4s;
+
+    width: auto;
+}
+
+.generic-button:hover{
+    color: white;
+    background-color: black;
+}
+
+
+.container-form{
+    margin-top: 3vh;
+    width: 95%;
+}
+
+
+
+.container-item{
+    display: grid;
+    text-align: center;
+    
+    grid-template-columns: 8% 20% 8% 9% 9% 9% 8% 9% 10% 10% ;
+    
+
+}
+
+
+.container-item input{
+    height: 5vh;
+    border-radius: 8px;
+}
+
+.container-item select{
+    height: 6vh;
+    border-radius: 8px;
+}
+
+.container-item button{
+    height: 6vh;
+    border-radius: 8px;
+}
+
+.fornecedor-info{
+    align-self: flex-start;
+    margin-left: 30px;
+    width: 50%;
+}
+
+.item{
+    display: grid;
+    grid-template-columns: 30% 30%;
+    column-gap: 2%;
+    text-align: center;
+}
+
+.fornecedor-info input{
+    height: 3vh;
+    border-radius: 8px;
+}
+
+.link-container button{
+    width: 100%;
+}
+
+.reject-button{
+    height: 4.5vh;
+    width: 90%;
+    border: none;
+
+    border-radius: 8px;
+    font-size: 1.2rem;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    transition: .4s;
+
+}
+
+.reject-button:hover{
+    background-color: rgb(255, 30, 30);
+    color: white;
+    border: none;
+
+}
+
+.generic-button{
+ 
+    height: 8vh;
+    width: 15vw;
+ 
+    border: none;
+    color: white;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    transition: .4s;
+
+    -webkit-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+}
+
+.generic-button:hover{
+    color: white;
+    background-color: black;
+}
+
+.generic-button-red{
+ 
+    height: 8vh;
+    width: 15vw;
+ 
+    border: none;
+    color: white;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    transition: .4s;
+
+    -webkit-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+}
+
+.generic-button-red:hover{
+    color: white;
+    background-color: rgb(255, 30, 30);
+}
+
+
+.generic-button-green{
+ 
+    height: 8vh;
+    width: 15vw;
+ 
+    border: none;
+    color: white;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    transition: .4s;
+
+    -webkit-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+}
+
+.generic-button-green:hover{
+    color: white;
+    background-color: rgb(2, 207, 2);
+}
+
+.buttons-container{
+    width: 93%;
+    display: flex;
+    justify-content: space-between;
+}

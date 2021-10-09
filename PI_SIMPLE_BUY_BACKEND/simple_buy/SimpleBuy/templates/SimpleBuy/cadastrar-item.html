@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -13,34 +15,36 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Style+Script&display=swap" rel="stylesheet">
 
-    <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/logo.png' %}" type="image/x-icon">
 
-    <link rel="stylesheet" href="../style/index.css">
-    <link rel="stylesheet" href="../style/cadastrar-item.css">
+    <link rel="stylesheet" href="{% static 'style/inicio.css' %}">
+    <link rel="stylesheet" href="{% static 'style/cadastrar-item.css' %}">
 
 </head>
 <body>
 
-    <!-- <a href="inicio-administrador" class="message-label">
-        <div class="message">
-            <h1>ITEM: {{item.descricao}}</h1>
-            <h1>CRIADO COM SUCESSO!</h2>
-        </div>
-    </a> -->
-
+    {% if item %}
+        <a href="inicio-administrador" class="message-label">
+            <div class="message">
+                <h1>ITEM: {{item.descricao}}</h1>
+                <h1>CRIADO COM SUCESSO!</h1>
+            </div>
+        </a>
+    {% endif %}
     <div class="box">
 
   
     <header>
         <div class="container-header">
-            <h1 class="tittle-header"> <a id="logo" href="index.html"> SimpleBuy</a></h1>
+            <h1 class="tittle-header"> <a id="logo" href="index"> SimpleBuy</a></h1>
 
         </div>
     </header>
-       
-            <a href="inicio-administrador.html" class="profile-link">
+
+
+            <a href="inicio-administrador" class="profile-link">
                 <div class="profile">
-                    <img src="../img/user-image.png" alt="">
+                    <img src="{% static 'img/user-image.png' %}" alt="">
     
                     <div class="img-name">
                         <h2>AndreVinni89</h2>
@@ -54,22 +58,22 @@
 
                 <h1>CADASTRAR ITEM</h1>
                 
-                <form action="POST">
-    
+                <form method="POST" action="/cadastrar-item">
+                    {% csrf_token %}
                     <div class="container-form">
                         <div class="input-container">
                             <span>CÓDIGO:</span>
-                            <input type="text" name="" id="">
+                            <input type="text" name="codigo" value={{id}} disabled>
                         </div>
         
                         <div class="input-container">
                             <span>Descrição:</span>
-                            <input type="text" name="" id="">
+                            <input type="text" name="descricao">
                         </div>
         
                         <div class="input-container">
                             <span>Unidade de medida:</span>
-                            <select>
+                            <select name="unidade_medida">
                                 <option value="UN">UN</option>
                                 <option value="KG">KG</option>
                                 <option value="PA">PA</option>
@@ -78,10 +82,22 @@
 
                             </select>
                         </div>
-        
+
                         <div class="input-container">
                             <span>Classe:</span>
-                            <input type="text" name="" id="">
+
+                            <select name="classe">
+
+                                {% for classe in classes %}
+                                    <option value={{classe.id}}>{{classe.nome}}</option>
+                                {% endfor %}
+
+
+                            </select>
+
+
+
+
                         </div>
         
     
@@ -96,13 +112,13 @@
         <p>Endereço: Rua Major Getafe, N° 8989</p>
         <p>Copyright (c) 2021 SimpleBuy - Todos os Direitos Reservados</p>
         <div class="rede">
-            <img src="../img/icone-facebook.png" alt="">
+            <img src="{% static 'img/icone-facebook.png' %}" alt="">
             <p><a href="https://facebook/SimpleBuy">/SimpleBuy</a></p>
         </div>
  
 
         <div class="rede">
-            <img src="../img/icone-linkedin.png" alt="">
+            <img src="{% static 'img/icone-linkedin.png' %}" alt="">
             <p><a href="https://linkedin/SimpleBuy">/SimpleBuy</a></p>
         </div>
     </footer>

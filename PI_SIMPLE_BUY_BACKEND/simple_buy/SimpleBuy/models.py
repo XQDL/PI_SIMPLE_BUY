@@ -9,8 +9,9 @@ class Administrador(models.Model):
     nomeUsuario = models.CharField(unique=True, max_length=200)
     senha = models.CharField(max_length=200)
     nome = models.CharField(max_length=200)
-    email = models.CharField(max_length=500)
+    email = models.CharField(unique=True, max_length=500)
     telefone = models.CharField(max_length=200)
+    plano = models.IntegerField();
 
     def __str__(self):
         return self.nomeUsuario
@@ -93,34 +94,47 @@ class Frete(Enum):
 class Item(models.Model):
     descricao = models.CharField(max_length=200)
     unidadeMedida = models.CharField(max_length=200)
-    valor = models.FloatField()
-    quantidade = models.FloatField()
+    classe = models.ForeignKey(Classe, on_delete=models.CASCADE)
     def __str__(self):
         return self.descricao
 
 
 class OrdemFornecimento(models.Model):
-        icms = models.FloatField()
-        ipi = models.FloatField()
         frete = models.CharField(max_length=200)
         fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
         contratante = models.ForeignKey(EmpresaCompradora, on_delete=models.CASCADE)
         dataEntrega = models.DateTimeField()
         comprador = models.ForeignKey(Comprador, on_delete=models.CASCADE)
-        itens = models.ManyToManyField(Item)
 
 
 class NotaFiscal(models.Model):
     numeroNota = models.IntegerField(unique=True)
     empresaEmitente = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
     empresaDestinada = models.ForeignKey(EmpresaCompradora, on_delete=models.CASCADE)
-    itens = models.ManyToManyField(Item)
     ofs = models.ManyToManyField(OrdemFornecimento)
-    icms = models.FloatField()
-    ipi = models.FloatField()
 
     def __str__(self):
         return self.numeroNota
+
+
+
+class itens_of(models.Model):
+    cod_item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    num_of = models.ForeignKey(OrdemFornecimento, on_delete=models.CASCADE)
+    valor = models.FloatField()
+    quantidade = models.FloatField()
+    ipi = models.FloatField()
+    icms = models.FloatField()
+
+
+class itens_nf(models.Model):
+    cod_item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    num_nf = models.ForeignKey(NotaFiscal, on_delete=models.CASCADE)
+    valor = models.FloatField()
+    quantidade = models.FloatField()
+    ipi = models.FloatField()
+    icms = models.FloatField()
+
 
 
 class UnidadeMedida(Enum):

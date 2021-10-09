@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -13,34 +14,26 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Style+Script&display=swap" rel="stylesheet">
 
-    <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/logo.png' %}" type="image/x-icon">
 
-    <link rel="stylesheet" href="../style/index.css">
-    <link rel="stylesheet" href="../style/cadastrar-item.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/inicio.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/gerar-pedido.css' %}">
 
 </head>
 <body>
-
-    <!-- <a href="inicio-administrador" class="message-label">
-        <div class="message">
-            <h1>ITEM: {{item.descricao}}</h1>
-            <h1>CRIADO COM SUCESSO!</h2>
-        </div>
-    </a> -->
-
     <div class="box">
 
   
     <header>
         <div class="container-header">
-            <h1 class="tittle-header"> <a id="logo" href="index.html"> SimpleBuy</a></h1>
+            <h1 class="tittle-header"> <a id="logo" href="index"> SimpleBuy</a></h1>
 
         </div>
     </header>
        
-            <a href="inicio-administrador.html" class="profile-link">
+            <a href="inicio-administrador" class="profile-link">
                 <div class="profile">
-                    <img src="../img/user-image.png" alt="">
+                    <img src="{% static 'img/user-image.png' %}" alt="">
     
                     <div class="img-name">
                         <h2>AndreVinni89</h2>
@@ -52,7 +45,7 @@
 
             <div class="content-generate-order">
 
-                <h1>CADASTRAR ITEM</h1>
+                <h1>GERAR PEDIDO</h1>
                 
                 <form action="POST">
     
@@ -68,27 +61,26 @@
                         </div>
         
                         <div class="input-container">
-                            <span>Unidade de medida:</span>
-                            <select>
-                                <option value="UN">UN</option>
-                                <option value="KG">KG</option>
-                                <option value="PA">PA</option>
-                                <option value="MT">MT</option>
-                                <option value="LT">LT</option>
-
-                            </select>
-                        </div>
-        
-                        <div class="input-container">
-                            <span>Classe:</span>
+                            <span>Quantidade:</span>
                             <input type="text" name="" id="">
                         </div>
         
+                        <div class="input-container">
+                            <span>Data Entrega:</span>
+                            <input type="text" name="" id="">
+                        </div>
+
+                        <div class="input-container">
+                            <span>Valor Estimado:</span>
+                            <input type="text" name="" id="">
+                        </div>
     
                     </div>
                    
-                    <button type="submit" class="green-button">CADASTRAR</button>
+                    <button type="submit" class="green-button">ENVIAR</button>
                 </form>
+    
+    
             </div>
 
 
@@ -96,13 +88,13 @@
         <p>Endereço: Rua Major Getafe, N° 8989</p>
         <p>Copyright (c) 2021 SimpleBuy - Todos os Direitos Reservados</p>
         <div class="rede">
-            <img src="../img/icone-facebook.png" alt="">
+            <img src="{% static 'img/icone-facebook.png' %}" alt="">
             <p><a href="https://facebook/SimpleBuy">/SimpleBuy</a></p>
         </div>
  
 
         <div class="rede">
-            <img src="../img/icone-linkedin.png" alt="">
+            <img src="{% static 'img/icone-linkedin.png' %}" alt="">
             <p><a href="https://linkedin/SimpleBuy">/SimpleBuy</a></p>
         </div>
     </footer>

@@ -1,0 +1,80 @@
+.content-administrador{
+ 
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    height: 60vh;
+  
+
+    width: 100%;
+}
+
+.profile-link{
+    align-self: flex-start;
+  
+    display: flex;
+
+    margin-left: 15px;
+    margin-top: 15px;
+    text-decoration: none;
+    color: black;
+
+}
+
+.profile{
+    align-self: flex-start;
+  
+    display: flex;
+
+
+
+    padding: 5px;
+}
+
+.profile .img-name{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.profile img{
+    width: 3rem;
+}
+
+
+.generic-button{
+ 
+    height: 8vh;
+    width: 15vw;
+ 
+    border: none;
+    color: white;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    transition: .4s;
+
+    -webkit-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+}
+
+.generic-button:hover{
+    color: white;
+    background-color: black;
+}
+
+
+
+.menu{
+    display: grid;
+    width: 80%;
+    margin: auto;
+    grid-template-columns: 20vw 20vw 20vw 20vw;
+    gap: 30px;
+}

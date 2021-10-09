@@ -1,3 +1,4 @@
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -14,10 +15,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Style+Script&display=swap" rel="stylesheet">
 
-    <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/logo.png' %}" type="image/x-icon">
 
-    <link rel="stylesheet" href="../style/index.css">
-    <link rel="stylesheet" href="../style/aprovacoes-pendentes.css">
+    <link rel="stylesheet" href="{% static 'style/inicio.css' %}">
+    <link rel="stylesheet" href="{% static 'style/aprovacoes-pendentes.css' %}">
 
 </head>
 <body>
@@ -34,9 +35,9 @@
 
 
         <div class="content-historico">
-            <a href="inicio-administrador.html" class="profile-link">
+            <a href="inicio-administrador" class="profile-link">
                 <div class="profile">
-                    <img src="../img/user-image.png" alt="">
+                    <img src="{% static 'img/user-image.png' %}" alt="">
     
                     <div class="img-name">
                         <h2>AndreVinni89</h2>
@@ -68,7 +69,7 @@
                     <td >KASY</td>
                     <td>R$6875,29</td>
                     <td>18/08/2021</td>
-                    <td><a href="info-of.html">Mais informações</a></td>
+                    <td><a href="info-of">Mais informações</a></td>
                     <td><button class="confirm-button">Aprovar</button></td>
                     <td class="last"><button class="reject-button">Reprovar</button></td>
                 </tr>
@@ -79,7 +80,7 @@
                     <td >KASY</td>
                     <td>R$6875,29</td>
                     <td>18/08/2021</td>
-                    <td><a href="info-of.html">Mais informações</a></td>
+                    <td><a href="info-of">Mais informações</a></td>
                     <td><button class="confirm-button">Aprovar</button></td>
                     <td class="last"><button class="reject-button">Reprovar</button></td>
                 </tr>
@@ -90,19 +91,7 @@
                     <td >KASY</td>
                     <td>R$6875,29</td>
                     <td>18/08/2021</td>
-                    <td><a href="info-of.html">Mais informações</a></td>
-                    <td><button class="confirm-button">Aprovar</button></td>
-                    <td class="last"><button class="reject-button">Reprovar</button></td>
-                </tr>
-                
-                <tr>
-                    <td>123</td>
-                    <td >FOB</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td><a href="info-of.html">Mais informações</a></td>
+                    <td><a href="info-of">Mais informações</a></td>
                     <td><button class="confirm-button">Aprovar</button></td>
                     <td class="last"><button class="reject-button">Reprovar</button></td>
                 </tr>
@@ -114,7 +103,7 @@
                     <td >KASY</td>
                     <td>R$6875,29</td>
                     <td>18/08/2021</td>
-                    <td><a href="info-of.html">Mais informações</a></td>
+                    <td><a href="info-of">Mais informações</a></td>
                     <td><button class="confirm-button">Aprovar</button></td>
                     <td class="last"><button class="reject-button">Reprovar</button></td>
                 </tr>
@@ -126,7 +115,7 @@
                     <td >KASY</td>
                     <td>R$6875,29</td>
                     <td>18/08/2021</td>
-                    <td><a href="info-of.html">Mais informações</a></td>
+                    <td><a href="info-of">Mais informações</a></td>
                     <td><button class="confirm-button">Aprovar</button></td>
                     <td class="last"><button class="reject-button">Reprovar</button></td>
                 </tr>
@@ -138,7 +127,7 @@
                     <td >KASY</td>
                     <td>R$6875,29</td>
                     <td>18/08/2021</td>
-                    <td><a href="info-of.html">Mais informações</a></td>
+                    <td><a href="info-of">Mais informações</a></td>
                     <td><button class="confirm-button">Aprovar</button></td>
                     <td class="last"><button class="reject-button">Reprovar</button></td>
                 </tr>
@@ -150,7 +139,7 @@
                     <td >KASY</td>
                     <td>R$6875,29</td>
                     <td>18/08/2021</td>
-                    <td><a href="info-of.html">Mais informações</a></td>
+                    <td><a href="info-of">Mais informações</a></td>
                     <td><button class="confirm-button">Aprovar</button></td>
                     <td class="last"><button class="reject-button">Reprovar</button></td>
                 </tr>
@@ -162,7 +151,7 @@
                     <td >KASY</td>
                     <td>R$6875,29</td>
                     <td>18/08/2021</td>
-                    <td><a href="info-of.html">Mais informações</a></td>
+                    <td><a href="info-of">Mais informações</a></td>
                     <td><button class="confirm-button">Aprovar</button></td>
                     <td class="last"><button class="reject-button">Reprovar</button></td>
                 </tr>
@@ -174,7 +163,7 @@
                     <td >KASY</td>
                     <td>R$6875,29</td>
                     <td>18/08/2021</td>
-                    <td><a href="info-of.html">Mais informações</a></td>
+                    <td><a href="info-of">Mais informações</a></td>
                     <td><button class="confirm-button">Aprovar</button></td>
                     <td class="last"><button class="reject-button">Reprovar</button></td>
                 </tr>
@@ -186,7 +175,19 @@
                     <td >KASY</td>
                     <td>R$6875,29</td>
                     <td>18/08/2021</td>
-                    <td><a href="info-of.html">Mais informações</a></td>
+                    <td><a href="info-of">Mais informações</a></td>
+                    <td><button class="confirm-button">Aprovar</button></td>
+                    <td class="last"><button class="reject-button">Reprovar</button></td>
+                </tr>
+                
+                <tr>
+                    <td>123</td>
+                    <td >FOB</td>
+                    <td >José Almeida</td>
+                    <td >KASY</td>
+                    <td>R$6875,29</td>
+                    <td>18/08/2021</td>
+                    <td><a href="info-of">Mais informações</a></td>
                     <td><button class="confirm-button">Aprovar</button></td>
                     <td class="last"><button class="reject-button">Reprovar</button></td>
                 </tr>
@@ -205,17 +206,16 @@
         <p>Endereço: Rua Major Getafe, N° 8989</p>
         <p>Copyright (c) 2021 SimpleBuy - Todos os Direitos Reservados</p>
         <div class="rede">
-            <img src="../img/icone-facebook.png" alt="">
+            <img src="{% static 'img/icone-facebook.png' %}" alt="">
             <p><a href="https://facebook/SimpleBuy">/SimpleBuy</a></p>
         </div>
  
 
         <div class="rede">
-            <img src="../img/icone-linkedin.png" alt="">
+            <img src="{% static 'img/icone-linkedin.png' %}" alt="">
             <p><a href="https://linkedin/SimpleBuy">/SimpleBuy</a></p>
         </div>
     </footer>
 </div>
 </body>
-
 </html>
