@@ -31,17 +31,16 @@
 
         </div>
     </header>
-            <a href="inicio-administrador" class="profile-link">
+            <a href="/inicio-administrador/{{user.id}}/" class="profile-link">
                 <div class="profile">
                     <img src="{% static 'img/user-image.png' %}" alt="">
-    
+
                     <div class="img-name">
-                        <h2>AndreVinni89</h2>
+                        <h2>{{user.nomeUsuario}}</h2>
                         <span>Administrador</span>
                     </div>
                 </div>
             </a>
-
            
             
             <div class="content-integrar-nota-fiscal">

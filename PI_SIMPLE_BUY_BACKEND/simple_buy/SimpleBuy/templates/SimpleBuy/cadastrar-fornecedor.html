@@ -23,73 +23,91 @@
     
 </head>
 <body>
+    {% if fornecedor %}
+        <a href="/inicio-comprador/{{user.id}}" class="message-label">
+            <div class="message">
+                <h1>FORNECEDOR: {{fornecedor.nome}}</h1>
+                <h1>CRIADO COM SUCESSO!</h1>
+            </div>
+        </a>
+    {% endif %}
     <div class="box">
 
   
     <header>
         <div class="container-header">
-            <h1 class="tittle-header"> <a id="logo" href="index"> SimpleBuy</a></h1>
-
+            <h1 class="tittle-header"> <a id="logo" href="/index"> SimpleBuy</a></h1>
         </div>
     </header>
+        <a href="/inicio-comprador/{{user.id}}/" class="profile-link">
+                <div class="profile">
+                    <img src="{% static 'img/user-image.png' %}" alt="">
+
+                    <div class="img-name">
+                        <h2>{{user.nomeUsuario}}</h2>
+                        <span>Comprador</span>
+                    </div>
+                </div>
+            </a>
     
         <div class="content-enterprise-register">
-            <h1>REGISTRAR FORNECEDOR</h1>
-            <form>
 
+            <h1>REGISTRAR FORNECEDOR</h1>
+            <form method="post" action="cadastrar-fornecedor">
+                {% csrf_token %}
                 <div class="container-form">
                     <div class="input-container">
                         <span>Nome da empresa:</span>
-                        <input type="text" name="" id="">
+                        <input type="text" name="name">
                     </div>
-    
+
                     <div class="input-container">
                         <span>Email:</span>
-                        <input type="text" name="" id="">
+                        <input type="text" name="email">
                     </div>
-    
+
                     <div class="input-container">
                         <span>Telefone:</span>
-                        <input type="text" name="" id="">
+                        <input type="text" name="phone_number">
                     </div>
-    
+
                     <div class="input-container">
                         <span>CNPJ:</span>
-                        <input type="text" name="" id="">
+                        <input type="text" name="cnpj">
                     </div>
-    
+
                     <div class="input-container">
                         <span>CEP:</span>
-                        <input type="text" name="" id="">
+                        <input type="text" name="cep">
                     </div>
-    
+
                     <div class="input-container">
                         <span>Estado: </span>
-                        <input type="text" name="" id="">
+                        <input type="text" name="estado">
                     </div>
-    
+
                     <div class="input-container">
                         <span>Cidade:</span>
-                        <input type="text" name="" id="">
+                        <input type="text" name="cidade">
                     </div>
-    
+
                     <div class="input-container">
                         <span>Rua: </span>
-                        <input type="text" name="" id="">
+                        <input type="text" name="rua">
                     </div>
-    
+
                     <div class="input-container">
                         <span>Numero:</span>
-                        <input type="text" name="" id="">
+                        <input type="text" name="numero">
                     </div>
-    
+
                     <div class="input-container">
                         <span>Complemento:</span>
-                        <input type="text" name="" id="">
+                        <input type="text" name="complemento">
                     </div>
                 </div>
                
-                <button type="submit" class="green-button"><a href="registrar-administrador">Avançar</a></button>
+                <button type="submit" class="green-button">Avançar</button>
             </form>
 
 

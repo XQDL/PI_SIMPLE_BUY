@@ -1,8 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+
 from .dao.GenericDao import GenericDao
 from .dao.DaoLogin import DaoLogin
+from .dao.DaoItem import DaoItem
+from .dao.DaoComprador import DaoComprador
 from .dao.DaoEmpresaCompradora import DaoEmpresaCompradora
 from .models import *
 
@@ -20,17 +23,21 @@ def validate_login(request):
 
         adm = dao.validate_login(Administrador, user, password)
         context = {
-            "user": adm
+            "user": adm,
+            "administrador": 1
         }
-        return render(request, 'SimpleBuy/inicio-administrador.html', context)
+        return render(request, 'SimpleBuy/login.html', context)
+
+
 
     except:
         try:
             comprador = dao.validate_login(Comprador, user, password)
             context = {
-                "user": comprador
+                "user": comprador,
+                "comprador": 1
             }
-            return render(request, 'SimpleBuy/inicio-comprador.html', context)
+            return render(request, 'SimpleBuy/login.html', context)
         except:
             context = {
                 "err": "LOGIN INVÁLIDO!"
@@ -47,11 +54,65 @@ def validate_login(request):
 def aprovacoes_pendentes(request):
     return render(request, 'SimpleBuy/aprovacoes-pendentes.html')
 
-def cadastrar_fornecedor(request):
-    return render(request, 'SimpleBuy/cadastrar-fornecedor.html')
+def cadastrar_fornecedor(request, id):
 
-def cadastrar_item(request):
+
+
     dao = GenericDao()
+    try:
+        estado = Estado(nome=request.POST.get('estado'))
+
+        dao.create(estado)
+
+        cidade = Cidade(nome=request.POST.get('estado'), estado=estado)
+
+        dao.create(cidade)
+
+        endereco = Endereco(rua=request.POST.get('rua'),
+                            numero=request.POST.get('numero'),
+                            cep=request.POST.get('cep'),
+                            complemento=request.POST.get('complemento'),
+                            cidade=cidade
+                            )
+
+        dao.create(endereco)
+
+        fornecedor = Fornecedor(
+            nome=request.POST.get('name'),
+            cnpj=request.POST.get('cnpj'),
+            endereco=endereco,
+            telefone=request.POST.get('phone_number'),
+
+        )
+
+        dao.create(fornecedor)
+
+        comprador = dao.get(Comprador, id)
+
+        context = {
+            "user": comprador,
+            "fornecedor": fornecedor
+        }
+
+        return render(request, 'SimpleBuy/cadastrar-fornecedor.html', context)
+
+    except:
+        comprador = dao.get(Comprador, id)
+
+        context = {
+            "user": comprador
+        }
+
+        return render(request, 'SimpleBuy/cadastrar-fornecedor.html', context)
+
+
+
+
+
+def cadastrar_item(request, id):
+    dao = GenericDao()
+    adm = dao.get(Administrador, id)
+
 
     try:
         class_id = request.POST.get('classe')
@@ -69,7 +130,8 @@ def cadastrar_item(request):
         )
         item = dao.create(item)
         context = {
-            "item": item
+            "item": item,
+            "user": adm
         }
         return render(request, 'SimpleBuy/cadastrar-item.html', context)
     except:
@@ -80,7 +142,8 @@ def cadastrar_item(request):
 
         context = {
             "id": id,
-            "classes": classes
+            "classes": classes,
+            "user": adm
 
         }
         return render(request, 'SimpleBuy/cadastrar-item.html', context)
@@ -89,8 +152,37 @@ def cadastrar_item(request):
 
 
 
-def compradores_cadastrados(request):
-    return render(request, 'SimpleBuy/compradores-cadastrados.html')
+def compradores_cadastrados(request, id):
+    dao = GenericDao()
+    daoComprador = DaoComprador()
+    daoEmpresa = DaoEmpresaCompradora()
+
+    adm = dao.get(Administrador, id)
+    empresa = daoEmpresa.get_empresa_by_adm(EmpresaCompradora, adm)
+
+
+    compradores = daoComprador.get_compradores_by_empresa(Comprador, empresa)
+
+
+    if adm.plano == 1:
+        max = 1
+    elif adm.plano == 2:
+        max = 3
+    elif adm.plano == 3:
+        max = 10
+
+    cont_compradores=len(compradores)
+
+    context = {
+        "user": adm,
+        "compradores": compradores,
+        "max": max,
+        "cont_compradores":cont_compradores
+    }
+
+
+
+    return render(request, 'SimpleBuy/compradores-cadastrados.html', context)
 
 def contratar_plano(request):
     return render(request, 'SimpleBuy/contratar-plano.html')
@@ -104,8 +196,22 @@ def gerar_cotacao(request):
     return render(request, 'SimpleBuy/gerar-cotacao.html')
 
 
-def gerar_pedido(request):
-    return render(request, 'SimpleBuy/gerar-pedido.html')
+def gerar_pedido(request, id, item_id=0):
+    dao = GenericDao()
+    adm = dao.get(Administrador, id)
+
+    if item_id != 0:
+        item = dao.get(Item, item_id)
+        context = {
+            "user": adm,
+            "item": item
+        }
+        return render(request, 'SimpleBuy/gerar-pedido.html', context)
+    else:
+        context = {
+            "user":adm
+        }
+        return render(request, 'SimpleBuy/gerar-pedido.html', context)
 
 
 def historico_compras(request):
@@ -125,14 +231,31 @@ def inicio_administrador(request, id):
     return render(request, 'SimpleBuy/inicio-administrador.html', context)
 
 
-def inicio_comprador(request):
-    return render(request, 'SimpleBuy/inicio-comprador.html')
+def inicio_comprador(request, id):
+    dao = GenericDao()
+    comprador = dao.get(Comprador, id)
+    context = {
+        "user": comprador
+    }
+    return render(request, 'SimpleBuy/inicio-comprador.html', context)
 
-def integrar_nota_fiscal(request):
-    return render(request, 'SimpleBuy/integrar-nota-fiscal.html')
+def integrar_nota_fiscal(request, id):
+    dao = GenericDao()
+    adm = dao.get(Administrador, id)
+    context = {
+        "user": adm
+    }
 
-def itens_pendentes_cotacao(request):
-    return render(request, 'SimpleBuy/itens-pendentes-cotacao.html')
+    return render(request, 'SimpleBuy/integrar-nota-fiscal.html', context)
+
+def itens_pendentes_cotacao(request, id):
+    dao = GenericDao()
+    comprador = dao.get(Comprador, id)
+    context = {
+        "user": comprador
+    }
+
+    return render(request, 'SimpleBuy/itens-pendentes-cotacao.html', context)
 
 def lista_fornecedores(request):
     return render(request, 'SimpleBuy/lista-fornecedores.html')
@@ -242,7 +365,52 @@ def registrar_empresa(request, adm_id):
         return render(request, 'SimpleBuy/registrar-empresa.html/')
 
 
+def selecionar_item(request, id):
+    dao = GenericDao()
+    daoItem = DaoItem()
+    comprador = dao.get(Comprador, id)
+    classes = dao.selectAll(Classe)
 
+    try:
+        codigo = request.POST.get('codigo')
+        descricao = request.POST.get('descricao')
+        classe_id = request.POST.get('classe')
+        unidade_medida = request.POST.get('unidade-medida')
+
+        classe = dao.get(Classe, classe_id)
+
+
+        print(codigo)
+        print(descricao)
+        print(classe)
+        print(unidade_medida)
+
+
+        itens = daoItem.filter(Item, id=codigo, desc=descricao, classe=classe, unidade_medida=unidade_medida)
+
+
+        print(itens)
+        print(len(itens))
+
+
+        context = {
+            "user": comprador,
+            "itens": itens,
+            "classes": classes
+        }
+        return render(request, 'SimpleBuy/selecionar-item.html', context)
+
+    except:
+        itens = dao.selectAll(Item)
+
+
+        context = {
+            "user": comprador,
+            "itens": itens,
+            "classes": classes
+        }
+
+        return render(request, 'SimpleBuy/selecionar-item.html', context)
 
 def selecionar_of(request):
     return render(request, 'SimpleBuy/selecionar-of.html')

@@ -35,12 +35,12 @@
 
 
         <div class="content-historico">
-            <a href="inicio-administrador" class="profile-link">
+            <a href="/inicio-administrador/{{user.id}}/" class="profile-link">
                 <div class="profile">
                     <img src="{% static 'img/user-image.png' %}" alt="">
-    
+
                     <div class="img-name">
-                        <h2>AndreVinni89</h2>
+                        <h2>{{user.nomeUsuario}}</h2>
                         <span>Administrador</span>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
             <h1>Gerenciar Compradores</h1>
 
             <div class="line">
-                <h2>Compradores: 3/5</h2>
+                <h2>Compradores: {{cont_compradores}}/{{max}}</h2>
 
                 <button class="novo-comprador">Cadastrar novo Comprador</button>
             </div>
@@ -68,30 +68,18 @@
                     <th>Remover</th>
 
                 </tr>
-                <tr>
-                    <td>Andre Vinicius</td>
-                    <td >andre.mildemberg@simplebuy.com.br</td>
-                    <td >ANDREVINNI89</td>
-                    <td >(41) 4002 8922</td>
-                    <td class="last"><button class="reject-button">Remover</button></td>
- 
-                </tr>
-                <tr>
-                    <td>Andre Vinicius</td>
-                    <td >andre.mildemberg@simplebuy.com.br</td>
-                    <td >ANDREVINNI89</td>
-                    <td >(41) 4002 8922</td>
-                    <td class="last"><button class="reject-button">Remover</button></td>
- 
-                </tr>
-                <tr>
-                    <td>Andre Vinicius</td>
-                    <td >andre.mildemberg@simplebuy.com.br</td>
-                    <td >ANDREVINNI89</td>
-                    <td >(41) 4002 8922</td>
-                    <td class="last"><button class="reject-button">Remover</button></td>
- 
-                </tr>
+                {% for comprador in compradores %}
+                    <tr>
+                        <td>{{comprador.nome}}</td>
+                        <td >{{comprador.email}}</td>
+                        <td >{{comprador.nomeUsuario}}</td>
+                        <td >{{comprador.telefone}}</td>
+                        <td class="last"><button class="reject-button" name={{comprador.id}}>Remover</button></td>
+                    </tr>
+                {% endfor %}
+
+
+
 
              
             </table>

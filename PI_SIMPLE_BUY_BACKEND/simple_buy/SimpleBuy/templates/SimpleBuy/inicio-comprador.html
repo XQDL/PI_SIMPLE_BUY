@@ -27,7 +27,7 @@
   
     <header>
         <div class="container-header">
-            <h1 class="tittle-header"><a id="logo" href="index"> SimpleBuy</a></h1>
+            <h1 class="tittle-header"><a id="logo" href="/index"> SimpleBuy</a></h1>
 
         </div>
     </header>
@@ -35,12 +35,12 @@
 
 
         <div class="content-administrador">
-            <a href="inicio-administrador" class="profile-link">
+        <a href="/inicio-comprador/{{user.id}}/" class="profile-link">
                 <div class="profile">
                     <img src="{% static 'img/user-image.png' %}" alt="">
-    
+
                     <div class="img-name">
-                        <h2>AndreVinni89</h2>
+                        <h2>{{user.nomeUsuario}}</h2>
                         <span>Comprador</span>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
 
             <div class="menu">
                 <a href="itens-pendentes-cotacao"><button class="generic-button">Itens pendentes de cotação</button></a>
-                <a href="gerar-pedido"><button class="generic-button">Gerar Pedido</button></a>
+                <a href="gerar-pedido/"><button class="generic-button">Gerar Pedido</button></a>
                 <a href="cadastrar-item"><button class="generic-button">Cadastrar item</button></a>
                 <a href="historico-compras"><button class="generic-button">Histórico de compras</button></a>
                 <a href="integrar-nota-fiscal"><button class="generic-button">Integrar nota fiscal</button></a>

@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimpleBuy - Comprador</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Lato&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Style+Script&display=swap" rel="stylesheet">
+
+    <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="../style/index.css">
+    <link rel="stylesheet" href="../style/selecionar-item.css">
+
+</head>
+<body>
+    <div class="box">
+
+  
+    <header>
+        <div class="container-header">
+            <h1 class="tittle-header"><a id="logo" href="index.html">SimpleBuy</a></h1>
+
+        </div>
+    </header>
+    
+
+
+        <div class="content-historico">
+            <a href="inicio-administrador.html" class="profile-link">
+                <div class="profile">
+                    <img src="../img/user-image.png" alt="">
+    
+                    <div class="img-name">
+                        <h2>AndreVinni89</h2>
+                        <span>Administrador</span>
+                    </div>
+                </div>
+            </a>
+
+            <h1>Selecionar Item</h1>
+
+            <form class="filter-container">
+       
+                <div class="container-form">
+
+                    <div class="input-container">
+                        <span>Codigo:</span>
+                        <input type="text" name="codigo">
+                    </div>
+    
+                    <div class="input-container">
+                        <span>Descrição: </span>
+                        <input type="text" name="descricao">
+                    </div>
+    
+                    <div class="input-container">
+                        <span>Classe:</span>
+                        <select name="classe">
+                            <option value="1">Expediente</option>
+                        </select>
+                    </div>
+    
+                    <div class="input-container">
+                        <span>Unidade de Medida:</span>
+                        <select name="unidade-medida">
+                            <option value="1">KG</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="green-button">Pesquisar</button>
+
+            </form>
+
+           
+            <table>
+                <tr>
+                    <th>Código</th>
+                    <th>Descrição</th>
+                    <th>Classe</th>
+                    <th>Unidade de Medida</th>
+                    <th>Selecionar</th>
+                    
+
+                </tr>
+                <tr>
+                    <td>1234</td>
+                    <td >Lápis N°2</td>
+                    <td >Material de expediente</td>
+
+                    <td>ANDREVINI89</td>
+                    <td><button class="generic-button">SELECIONAR</button></td>
+                </tr>
+
+
+             
+            </table>
+
+
+
+
+        </div>
+
+
+    <footer>
+        <p>Endereço: Rua Major Getafe, N° 8989</p>
+        <p>Copyright (c) 2021 SimpleBuy - Todos os Direitos Reservados</p>
+        <div class="rede">
+            <img src="../img/icone-facebook.png" alt="">
+            <p><a href="https://facebook/SimpleBuy">/SimpleBuy</a></p>
+        </div>
+ 
+
+        <div class="rede">
+            <img src="../img/icone-linkedin.png" alt="">
+            <p><a href="https://linkedin/SimpleBuy">/SimpleBuy</a></p>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

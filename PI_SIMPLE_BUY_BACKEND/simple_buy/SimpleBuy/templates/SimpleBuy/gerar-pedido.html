@@ -31,17 +31,16 @@
         </div>
     </header>
        
-            <a href="inicio-administrador" class="profile-link">
+        <a href="/inicio-administrador/{{user.id}}/" class="profile-link">
                 <div class="profile">
                     <img src="{% static 'img/user-image.png' %}" alt="">
-    
+
                     <div class="img-name">
-                        <h2>AndreVinni89</h2>
-                        <span>Administrador</span>
+                        <h2>{{user.nomeUsuario}}</h2>
+                        <span>Comprador</span>
                     </div>
                 </div>
             </a>
-
 
             <div class="content-generate-order">
 
@@ -51,18 +50,37 @@
     
                     <div class="container-form">
                         <div class="input-container">
-                            <span>CÓDIGO:</span>
-                            <input type="text" name="" id="">
+                            <span>Procurar Item:</span>
+                            <button type="button" class="generic-button"><a href="/inicio-comprador/{{user.id}}/gerar-pedido/selecionar-item" style="text-decoration:none; color: black;">Procurar</a></button>
                         </div>
+
+                        {% if item %}
+                            <div class="input-container">
+                                <span>CÓDIGO:</span>
+                                <input type="text" name="codigo" value={{item.id}} disabled>
+                            </div>
+
+                            <div class="input-container">
+                                <span>Descrição:</span>
+                                <input type="text" name="descricao" value="{{item.descricao}}" disabled>
+                            </div>
+                        {% else%}
+                            <div class="input-container">
+                                <span>CÓDIGO:</span>
+                                <input type="text" name="codigo" disabled>
+                            </div>
+                             <div class="input-container">
+                                <span>Descrição:</span>
+                                <input type="text" name="descricao" disabled>
+                            </div>
+
+                        {% endif %}
+
         
-                        <div class="input-container">
-                            <span>Descrição:</span>
-                            <input type="text" name="" id="">
-                        </div>
-        
+
                         <div class="input-container">
                             <span>Quantidade:</span>
-                            <input type="text" name="" id="">
+                            <input type="text" name=""  >
                         </div>
         
                         <div class="input-container">
@@ -74,6 +92,8 @@
                             <span>Valor Estimado:</span>
                             <input type="text" name="" id="">
                         </div>
+
+
     
                     </div>
                    

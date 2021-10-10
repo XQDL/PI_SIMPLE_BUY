@@ -24,7 +24,7 @@
 <body>
 
     {% if item %}
-        <a href="inicio-administrador" class="message-label">
+        <a href="/inicio-administrador/{{user.id}}/" class="message-label">
             <div class="message">
                 <h1>ITEM: {{item.descricao}}</h1>
                 <h1>CRIADO COM SUCESSO!</h1>
@@ -58,7 +58,7 @@
 
                 <h1>CADASTRAR ITEM</h1>
                 
-                <form method="POST" action="/cadastrar-item">
+                <form method="POST" action="cadastrar-item">
                     {% csrf_token %}
                     <div class="container-form">
                         <div class="input-container">
