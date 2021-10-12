@@ -27,7 +27,7 @@
   
     <header>
         <div class="container-header">
-            <h1 class="tittle-header"><a id="logo" href="index"> SimpleBuy</a></h1>
+            <h1 class="tittle-header"><a id="logo" href="/index"> SimpleBuy</a></h1>
 
         </div>
     </header>
@@ -35,7 +35,7 @@
 
 
         <div class="content-historico">
-            <a href="/inicio-comprador/{{user.id}}/" class="profile-link">
+            <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="profile-link">
                 <div class="profile">
                     <img src="{% static 'img/user-image.png' %}" alt="">
 
@@ -58,30 +58,23 @@
                     <th>Quantidade</th>
                     <th>Solicitante</th>
                     <th>Fornecedores</th>
-                    
-                    
                     <th>Cadastrar Cotação</th>
-                    
-
                 </tr>
-                <tr>
-                    <td>1234</td>
-                    <td >Lápis N°2</td>
-                    <td >Material de expediente</td>
-                    <td>5</td>
-                    <td>ANDREVINI89</td>
-                    <td><a href="lista-fornecedores"><button class="generic-button">LISTA</button></a></td>
-                    <td><a href="gerar-cotacao"><button class="generic-button">Cadastrar</button></a></td>
-                </tr>
-                <tr>
-                    <td>1234</td>
-                    <td >Lápis N°2</td>
-                    <td >Material de expediente</td>
-                    <td>5</td>
-                    <td>ANDREVINI89</td>
-                    <td><a href="lista-fornecedores"><button class="generic-button">LISTA</button></a></td>
-                    <td><a href="gerar-cotacao"><button class="generic-button">Cadastrar</button></a></td>
-                </tr>
+                {% for item_pendente in itens_pendentes %}
+                    <tr>
+                        <td>{{item_pendente.cod_item.id}}</td>
+                        <td >{{item_pendente.cod_item.descricao}}</td>
+                        <td >{{item_pendente.cod_item.classe.nome}}</td>
+                        <td >{{item_pendente.quantidade}}</td>
+                        {% if item_pendente.solicitante_adm %}
+                            <td >{{item_pendente.solicitante_adm}}</td>
+                        {% else %}
+                            <td >{{item_pendente.solicitante_comprador}}</td>
+                        {% endif %}
+                        <td><a href=lista-fornecedores/{{item_pendente.cod_item.classe.id}}><button class="generic-button">LISTA</button></a></td>
+                        <td><a href="gerar-cotacao/{{item_pendente.id}}/"><button class="generic-button">Cadastrar</button></a></td>
+                    </tr>
+                {% endfor %}
 
 
 

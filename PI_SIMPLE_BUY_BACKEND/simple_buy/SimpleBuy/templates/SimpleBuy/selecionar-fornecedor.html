@@ -15,10 +15,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Style+Script&display=swap" rel="stylesheet">
 
-    <link rel="shortcut icon" href="{% static 'img/logo.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/logo.css' %}" type="image/x-icon">
 
     <link rel="stylesheet" href="{% static 'style/inicio.css' %}">
-    <link rel="stylesheet" href="{% static 'style/inicio-comprador.css' %}">
+    <link rel="stylesheet" href="{% static 'style/selecionar-fornecedor.css' %}">
 
 </head>
 <body>
@@ -27,15 +27,15 @@
   
     <header>
         <div class="container-header">
-            <h1 class="tittle-header"><a id="logo" href="/index"> SimpleBuy</a></h1>
+            <h1 class="tittle-header"><a id="logo" href="index"> SimpleBuy</a></h1>
 
         </div>
     </header>
     
 
 
-        <div class="content-administrador">
-        <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="profile-link">
+        <div class="content-historico">
+            <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="profile-link">
                 <div class="profile">
                     <img src="{% static 'img/user-image.png' %}" alt="">
 
@@ -47,18 +47,31 @@
             </a>
 
 
-            <div class="menu">
-                <a href="itens-pendentes-cotacao"><button class="generic-button">Itens pendentes de cotação</button></a>
-                <a href="gerar-pedido/"><button class="generic-button">Gerar Pedido</button></a>
-                <a href="cadastrar-item"><button class="generic-button">Cadastrar item</button></a>
-                <a href="historico-compras"><button class="generic-button">Histórico de compras</button></a>
-                <a href="integrar-nota-fiscal"><button class="generic-button">Integrar nota fiscal</button></a>
-                <a href="ofs-pendentes"><button class="generic-button">Ordens de fornecimento pendentes</button></a>
-                <a href="cadastrar-fornecedor"><button class="generic-button">Cadastrar Fornecedor</button></a>
-                <a href="/index"><button class="generic-button">Sair</button></a>
-            </div>
-  
+        
+            <h1>Selecionar Fornecedor</h1>
 
+            <table>
+                <tr>
+                    <th>Nome</th>
+                    <th >Classe</th>
+                    <th >Telefone</th>
+                    <th >Email</th>
+                    <th>Cidade</th>
+                    <th>Estado</th>
+                    <th>Selecionar</th>
+                </tr>
+                {% for fornecedor in fornecedores %}
+                    <tr>
+                        <td>{{fornecedor.nome}}</td>
+                        <td >{{fornecedor.classe}}</td>
+                        <td >{{fornecedor.telefone}}</td>
+                        <td >{{fornecedor.email}}</td>
+                        <td>{{fornecedor.endereco.cidade}}</td>
+                        <td >{{fornecedor.endereco.cidade.estado}}</td>
+                        <td lass="last"><a href="/inicio-comprador/{{user.nomeUsuario}}/gerar-cotacao/{{item_pendente_cotacao.id}}/{{fornecedor.id}}"><button class="generic-button">Selecionar</button></a></td>
+                    </tr>
+                {% endfor %}
+            </table>
         </div>
 
 

@@ -21,17 +21,48 @@
 
 </head>
 <body>
+    {% if item_cotacao %}
+        {% if user.plano > 0 %}
+            <a href="/inicio-administrador/{{user.nomeUsuario}}/" class="message-label">
+                <div class="message">
+                    <h1>PEDIDO DO ITEM: {{item_cotacao.cod_item.descricao}}</h1>
+                    <h1>GERADO COM SUCESSO!</h1>
+                </div>
+            </a>
+        {% else %}
+            <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="message-label">
+                <div class="message">
+                    <h1>PEDIDO DO ITEM: {{item_cotacao.cod_item.descricao}}</h1>
+                    <h1>GERADO COM SUCESSO!</h1>
+                </div>
+            </a>
+
+        {% endif %}
+    {% endif %}
+
     <div class="box">
 
   
     <header>
         <div class="container-header">
-            <h1 class="tittle-header"> <a id="logo" href="index"> SimpleBuy</a></h1>
+            <h1 class="tittle-header"> <a id="logo" href="/index"> SimpleBuy</a></h1>
 
         </div>
     </header>
-       
-        <a href="/inicio-administrador/{{user.id}}/" class="profile-link">
+
+        {% if user.plano > 0 %}
+            <a href="/inicio-administrador/{{user.nomeUsuario}}/" class="profile-link">
+                <div class="profile">
+                    <img src="{% static 'img/user-image.png' %}" alt="">
+
+                    <div class="img-name">
+                        <h2>{{user.nomeUsuario}}</h2>
+                        <span>Administrador</span>
+                    </div>
+                </div>
+            </a>
+        {% else %}
+            <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="profile-link">
                 <div class="profile">
                     <img src="{% static 'img/user-image.png' %}" alt="">
 
@@ -41,56 +72,49 @@
                     </div>
                 </div>
             </a>
+        {% endif %}
 
             <div class="content-generate-order">
 
                 <h1>GERAR PEDIDO</h1>
                 
-                <form action="POST">
-    
+                <form method="POST" action="/inicio-comprador/{{user.nomeUsuario}}/gerar-pedido/{{item.id}}">
+                    {% csrf_token %}
                     <div class="container-form">
                         <div class="input-container">
                             <span>Procurar Item:</span>
-                            <button type="button" class="generic-button"><a href="/inicio-comprador/{{user.id}}/gerar-pedido/selecionar-item" style="text-decoration:none; color: black;">Procurar</a></button>
+                            <button type="button" class="generic-button"><a href="/inicio-comprador/{{user.nomeUsuario}}/gerar-pedido/selecionar-item" style="text-decoration:none; color: green;">Selecionar</a></button>
                         </div>
 
-                        {% if item %}
-                            <div class="input-container">
-                                <span>CÓDIGO:</span>
-                                <input type="text" name="codigo" value={{item.id}} disabled>
-                            </div>
 
-                            <div class="input-container">
-                                <span>Descrição:</span>
-                                <input type="text" name="descricao" value="{{item.descricao}}" disabled>
-                            </div>
-                        {% else%}
-                            <div class="input-container">
-                                <span>CÓDIGO:</span>
-                                <input type="text" name="codigo" disabled>
-                            </div>
-                             <div class="input-container">
-                                <span>Descrição:</span>
-                                <input type="text" name="descricao" disabled>
-                            </div>
+                        <div class="input-container">
+                            <span>CÓDIGO:</span>
+                            <input type="text" name="codigo" value="{{item.id}}" disabled >
+                        </div>
 
-                        {% endif %}
+                        <div class="input-container">
+                            <span>Descrição:</span>
+                            <input type="text" name="descricao" value="{{item.descricao}}" disabled>
+                        </div>
+
+                        <input type="hidden" name="codigo" value="{{item.id}}">
+
 
         
 
                         <div class="input-container">
                             <span>Quantidade:</span>
-                            <input type="text" name=""  >
+                            <input type="text" name="quantidade"  >
                         </div>
         
                         <div class="input-container">
                             <span>Data Entrega:</span>
-                            <input type="text" name="" id="">
+                            <input type="datetime-local" name="data-entrega">
                         </div>
 
                         <div class="input-container">
                             <span>Valor Estimado:</span>
-                            <input type="text" name="" id="">
+                            <input type="text" name="" disabled>
                         </div>
 
 

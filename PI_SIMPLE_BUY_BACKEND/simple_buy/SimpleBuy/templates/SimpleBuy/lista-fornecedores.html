@@ -35,13 +35,13 @@
 
 
         <div class="content-historico">
-            <a href="inicio-administrador" class="profile-link">
+            <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="profile-link">
                 <div class="profile">
                     <img src="{% static 'img/user-image.png' %}" alt="">
-    
+
                     <div class="img-name">
-                        <h2>AndreVinni89</h2>
-                        <span>Administrador</span>
+                        <h2>{{user.nomeUsuario}}</h2>
+                        <span>Comprador</span>
                     </div>
                 </div>
             </a>
@@ -59,123 +59,17 @@
                     <th>Cidade</th>
                     <th>Estado</th>
                 </tr>
-                <tr>
-                    <td>Casas Bahia</td>
-                    <td >Materiais de expediente</td>
-                    <td >(41) 4002 - 8922</td>
-                    <td >Vendas01@casasbahia.com.br</td>
-                    <td>Curitiba</td>
-                    <td class="last">Parana</td>
-                </tr>
-              
-                <tr>
-                    <td>Casas Bahia</td>
-                    <td >Materiais de expediente</td>
-                    <td >(41) 4002 - 8922</td>
-                    <td >Vendas01@casasbahia.com.br</td>
-                    <td>Curitiba</td>
-                    <td class="last">Parana</td>
-                </tr>
-              
-                <tr>
-                    <td>Casas Bahia</td>
-                    <td >Materiais de expediente</td>
-                    <td >(41) 4002 - 8922</td>
-                    <td >Vendas01@casasbahia.com.br</td>
-                    <td>Curitiba</td>
-                    <td class="last">Parana</td>
-                </tr>
-              
-                <tr>
-                    <td>Casas Bahia</td>
-                    <td >Materiais de expediente</td>
-                    <td >(41) 4002 - 8922</td>
-                    <td >Vendas01@casasbahia.com.br</td>
-                    <td>Curitiba</td>
-                    <td class="last">Parana</td>
-                </tr>
-              
-                <tr>
-                    <td>Casas Bahia</td>
-                    <td >Materiais de expediente</td>
-                    <td >(41) 4002 - 8922</td>
-                    <td >Vendas01@casasbahia.com.br</td>
-                    <td>Curitiba</td>
-                    <td class="last">Parana</td>
-                </tr>
-              
-                <tr>
-                    <td>Casas Bahia</td>
-                    <td >Materiais de expediente</td>
-                    <td >(41) 4002 - 8922</td>
-                    <td >Vendas01@casasbahia.com.br</td>
-                    <td>Curitiba</td>
-                    <td class="last">Parana</td>
-                </tr>
-              
-                <tr>
-                    <td>Casas Bahia</td>
-                    <td >Materiais de expediente</td>
-                    <td >(41) 4002 - 8922</td>
-                    <td >Vendas01@casasbahia.com.br</td>
-                    <td>Curitiba</td>
-                    <td class="last">Parana</td>
-                </tr>
-              
-                <tr>
-                    <td>Casas Bahia</td>
-                    <td >Materiais de expediente</td>
-                    <td >(41) 4002 - 8922</td>
-                    <td >Vendas01@casasbahia.com.br</td>
-                    <td>Curitiba</td>
-                    <td class="last">Parana</td>
-                </tr>
-              
-                <tr>
-                    <td>Casas Bahia</td>
-                    <td >Materiais de expediente</td>
-                    <td >(41) 4002 - 8922</td>
-                    <td >Vendas01@casasbahia.com.br</td>
-                    <td>Curitiba</td>
-                    <td class="last">Parana</td>
-                </tr>
-              
-                <tr>
-                    <td>Casas Bahia</td>
-                    <td >Materiais de expediente</td>
-                    <td >(41) 4002 - 8922</td>
-                    <td >Vendas01@casasbahia.com.br</td>
-                    <td>Curitiba</td>
-                    <td class="last">Parana</td>
-                </tr>
-              
-                <tr>
-                    <td>Casas Bahia</td>
-                    <td >Materiais de expediente</td>
-                    <td >(41) 4002 - 8922</td>
-                    <td >Vendas01@casasbahia.com.br</td>
-                    <td>Curitiba</td>
-                    <td class="last">Parana</td>
-                </tr>
-              
-
-                <tr>
-                    <td>Casas Bahia</td>
-                    <td >Materiais de expediente</td>
-                    <td >(41) 4002 - 8922</td>
-                    <td >Vendas01@casasbahia.com.br</td>
-                    <td>Curitiba</td>
-                    <td class="last">Parana</td>
-                </tr>
-              
-                
-
-
+                {% for fornecedor in fornecedores %}
+                    <tr>
+                        <td>{{fornecedor.nome}}</td>
+                        <td >{{fornecedor.classe}}</td>
+                        <td >{{fornecedor.telefone}}</td>
+                        <td >{{fornecedor.email}}</td>
+                        <td>{{fornecedor.endereco.cidade}}</td>
+                        <td class="last">{{fornecedor.endereco.cidade.estado}}</td>
+                    </tr>
+                {% endfor %}
             </table>
-
-
-
-
         </div>
 
 

@@ -35,20 +35,19 @@
 
 
         <div class="content-historico">
-            <a href="inicio-administrador" class="profile-link">
+            <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="profile-link">
                 <div class="profile">
                     <img src="{% static 'img/user-image.png' %}" alt="">
-    
                     <div class="img-name">
-                        <h2>AndreVinni89</h2>
-                        <span>Administrador</span>
+                        <h2>{{user.nomeUsuario}}</h2>
+                        <span>Comprador</span>
                     </div>
                 </div>
             </a>
 
 
         
-            <h1>Histórico</h1>
+            <h1>Ordens de Fornecimento Pendentes</h1>
 
             <table>
                 <tr>
@@ -57,38 +56,22 @@
                     <th >Comprador</th>
                     <th >Fornecedor</th>
                     <th>Valor Total</th>
-                    <th>Data Entrega</th>
+
                     <th>Editar</th>
                     <th>Enviar para aprovação</th>
                 </tr>
-                <tr>
-                    <td>123</td>
-                    <td >FOB</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td><a href="editar-of">Editar</a></td>
-                    <td class="last"><button class="confirm-button">Enviar</button></td>
-                </tr>                <tr>
-                    <td>123</td>
-                    <td >FOB</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td><a href="editar-of">Editar</a></td>
-                    <td class="last"><button class="confirm-button">Enviar</button></td>
-                </tr>                <tr>
-                    <td>123</td>
-                    <td >FOB</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td><a href="editar-of">Editar</a></td>
-                    <td class="last"><button class="confirm-button">Enviar</button></td>
-                </tr>
+
+                    {% for of in ofs %}
+                        <tr>
+                            <td>{{of.id}}</td>
+                            <td >{{of.frete}}</td>
+                            <td >{{of.comprador}}</td>
+                            <td >{{of.fornecedor}}</td>
+                            <td>R$ ---,--</td>
+                            <td><a href="editar-of">Editar</a></td>
+                            <td class="last"><button class="confirm-button">Enviar</button></td>
+                        </tr>
+                    {% endfor %}
             </table>
 
 

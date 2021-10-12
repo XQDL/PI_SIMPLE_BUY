@@ -41,3 +41,10 @@ form{
     height: 25px;
     border-radius: 10px;
 }
+
+
+.container-form .input-container select{
+    width: 102%;
+    height: 30px;
+    border-radius: 10px;
+}

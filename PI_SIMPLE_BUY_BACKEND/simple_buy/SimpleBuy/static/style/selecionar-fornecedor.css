@@ -1,0 +1,119 @@
+.content-historico{
+
+    width: 100%;
+    margin: auto;
+    padding-bottom: 5vh;
+    padding-top: 1vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 75vh;
+ 
+    border-radius: 10px;
+
+}
+
+.content-historico h1{
+    font-size: 2.5rem;
+}
+
+table{
+    width: 90%;
+  
+    border: 1px solid black;
+    border-radius: 8px;
+
+    -webkit-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+}
+
+th{
+    font-size: 1.3rem;
+}
+
+tr{
+    height: 5vh;
+    border-bottom: 1px solid black;
+}
+
+td{
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    text-align: center;
+    
+}
+
+td.last{
+    border-right: 0px solid black;
+}
+
+.confirm-button{
+    height: 4.5vh;
+    width: 90%;
+    border: none;
+
+    border-radius: 8px;
+    font-size: 1.2rem;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    transition: .4s;
+
+}
+
+.confirm-button:hover{
+    background-color: rgb(2, 207, 2);
+    color: white;
+    border: none;
+
+}
+
+.reject-button{
+    height: 4.5vh;
+    width: 90%;
+    border: none;
+
+    border-radius: 8px;
+    font-size: 1.2rem;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    transition: .4s;
+
+}
+
+.reject-button:hover{
+    background-color: rgb(255, 30, 30);
+    color: white;
+    border: none;
+
+}
+
+
+
+.generic-button{
+    height: 4.5vh;
+    width: 90%;
+    border: none;
+
+    border-radius: 8px;
+    font-size: 1.2rem;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    transition: .4s;
+
+}
+
+.generic-button:hover{
+    background-color: black;
+    color: white;
+    border: none;
+
+}
+
+.generic-button a:hover{
+    color: white;
+}

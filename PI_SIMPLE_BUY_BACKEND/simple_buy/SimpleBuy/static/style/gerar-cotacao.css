@@ -1,5 +1,5 @@
 .content-gerar-cotacao{
-    width: 80vw;
+    width: 90vw;
     margin: auto;
     padding-bottom: 5vh;
     padding-top: 5vh;
@@ -41,7 +41,7 @@
     display: grid;
     text-align: center;
     
-    grid-template-columns: 11% 11% 11% 11% 11% 11% 11% 11% 11% ;
+    grid-template-columns: 7% 10% 10% 10% 10% 10% 10% 18% 10% ;
     gap: 4px;
 
 }
@@ -66,12 +66,12 @@
 .item-info{
     align-self: flex-start;
     margin-left: 30px;
-    width: 50%;
+    width: 90%;
 }
 
 .item{
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 20% 30% 20% 30%;
     column-gap: 2%;
 }
 

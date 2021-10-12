@@ -24,7 +24,7 @@
 <body>
 
     {% if administrador %}
-        <a href="inicio-administrador/{{user.id}}" class="message-label" onload="redirect">
+        <a href="inicio-administrador/{{user.nomeUsuario}}" class="message-label" onload="redirect">
             <div class="message">
                 <h1>SUCESSO!</h1>
             </div>
@@ -32,7 +32,7 @@
     {% endif %}
 
     {% if comprador %}
-        <a href="inicio-comprador/{{user.id}}" class="message-label">
+        <a href="inicio-comprador/{{user.nomeUsuario}}" class="message-label">
             <div class="message">
                 <h1>SUCESSO!</h1>
             </div>

@@ -24,7 +24,7 @@
 </head>
 <body>
     {% if fornecedor %}
-        <a href="/inicio-comprador/{{user.id}}" class="message-label">
+        <a href="/inicio-comprador/{{user.nomeUsuario}}" class="message-label">
             <div class="message">
                 <h1>FORNECEDOR: {{fornecedor.nome}}</h1>
                 <h1>CRIADO COM SUCESSO!</h1>
@@ -39,7 +39,7 @@
             <h1 class="tittle-header"> <a id="logo" href="/index"> SimpleBuy</a></h1>
         </div>
     </header>
-        <a href="/inicio-comprador/{{user.id}}/" class="profile-link">
+        <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="profile-link">
                 <div class="profile">
                     <img src="{% static 'img/user-image.png' %}" alt="">
 
@@ -102,8 +102,16 @@
                     </div>
 
                     <div class="input-container">
-                        <span>Complemento:</span>
-                        <input type="text" name="complemento">
+                        <span>Classe:</span>
+
+                        <select name="classe">
+
+                            {% for classe in classes %}
+                                <option value={{classe.id}}>{{classe.nome}}</option>
+                            {% endfor %}
+                        </select>
+
+
                     </div>
                 </div>
                

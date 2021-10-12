@@ -22,6 +22,18 @@
 
 </head>
 <body>
+
+        {% if itens_of %}
+            <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="message-label">
+                <div class="message">
+                    <h1>ITEM: {{itens_of.cod_item.descricao}}</h1>
+                    <h1>ADICIONADO A OF {{of.id}}</h1>
+                </div>
+            </a>
+        {% endif %}
+
+
+
     <div class="box">
 
   
@@ -32,21 +44,34 @@
         </div>
     </header>
 
-    <a href="inicio-administrador.html" class="profile-link">
-        <div class="profile">
-            <img src="{% static 'img/user-image.png' %}" alt="">
+        {% if user.plano > 0 %}
+            <a href="/inicio-administrador/{{user.nomeUsuario}}/" class="profile-link">
+                <div class="profile">
+                    <img src="{% static 'img/user-image.png' %}" alt="">
+                    <div class="img-name">
+                        <h2>{{user.nomeUsuario}}</h2>
+                        <span>Administrador</span>
+                    </div>
+                </div>
+            </a>
+        {% else %}
+            <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="profile-link">
+                <div class="profile">
+                    <img src="{% static 'img/user-image.png' %}" alt="">
 
-            <div class="img-name">
-                <h2>AndreVinni89</h2>
-                <span>Administrador</span>
-            </div>
-        </div>
-    </a>       
+                    <div class="img-name">
+                        <h2>{{user.nomeUsuario}}</h2>
+                        <span>Comprador</span>
+                    </div>
+                </div>
+            </a>
+        {% endif %}
 
 
 
-            <div class="content-gerar-cotacao">
 
+            <form class="content-gerar-cotacao"  method="post" action="/inicio-comprador/{{user.nomeUsuario}}/gerar-cotacao/{{item_pendente_cotacao.id}}/{{fornecedor.id}}/{{of.id}}">
+                {% csrf_token %}
 
                 
                 <h1>Gerar Cotação</h1>
@@ -54,11 +79,20 @@
                     <div class="item">
                         <h2>Cód</h2>
                         <h2>Descrição</h2>
+                        <h2>Quantidade</h2>
+                        <h2>Fornecedor</h2>
                     </div>
 
                     <div class="item">
-                        <input type="text" value="123" disabled>
-                        <input type="text" value="Caneta BIC" disabled>
+                        <input type="text" value="{{item.id}}" disabled>
+                        <input type="text" value="{{item.descricao}}" disabled>
+                        <input type="text" value="{{quantidade}}" disabled>
+                        <input type="text" value="{{fornecedor.nome}}" disabled>
+
+                        <input type="hidden" value="{{item.id}}" name="item-id">
+                        <input type="hidden" value="{{item.descricao}}" name="descricao">
+                        <input type="hidden" value="{{quantidade}}" name="quantidade">
+                        <input type="hidden" value="{{fornecedor.id}}" name="fornecedor">
                     </div>
 
 
@@ -69,12 +103,15 @@
                 
                 <div class="container-form">
                     <div class="container-item">
+
+
                         <h3>Fornecedor</h3>
                         <h3>Valor Unitário</h3>
-                        <h3>Quantidade</h3>
-                        <h3>Valor Total</h3>
+
+                        <h3>Valor Total(S/IPT)</h3>
                         <h3>IPI</h3>
                         <h3>ICMS</h3>
+                        <h3>Valor Total(C/IPT)</h3>
                         <h3>Frete</h3>
                         <h3>Selecionar OF</h3>
                         <h3>Numero OF</h3>
@@ -82,30 +119,36 @@
                     </div>
 
                     <div class="container-item">
-                        <select name="frete" id="frete">
-                            <option value="">SELECIONAR</option>
-                            <option value="cif">Fornecedor A</option>
-                            <option value="fob">Forncedor B</option>
-                        </select>
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <select name="frete" id="frete">
+                        <a href="selecionar-fornecedor"><button type="button" class="generic-button">Selecionar</button></a>
+
+                        <input type="text" name="unitario">
+
+                        <input type="text" name="vlr_total_s_ipt" disabled>
+                        <input type="text" name="ipi">
+                        <input type="text" name="icms">
+                        <input type="text" name="vlr_total_c_ipt" disabled>
+                        <select name="frete">
                             <option value="">SELECIONAR</option>
                             <option value="cif">CIF</option>
                             <option value="fob">FOB</option>
                         </select>
-                        <a href="selecionar-of.html" class="link-container"><button class="generic-button">Selecionar</button></a>
-                        <input type="text" class="numero-of" disabled value="12345">
+                                {% if ofs_disponiveis %}
+                                    <a href="/inicio-comprador/{{user.nomeUsuario}}/gerar-cotacao/{{item_pendente_cotacao.id}}/{{fornecedor.id}}/selecionar-of/" class="link-container"><button type="button" class="generic-button">Selecionar</button></a>
+                                {% elif not fornecedor%}
+                                    <input type="text" value="SELECIONE O FORNECEDOR ANTES" disabled>
+                                {% else %}
+                                    <input type="text" value="SEM OFs, UMA NOVA SERÁ CRIADA!" disabled>
+                                {% endif %}
+
+                        <input type="text" class="numero-of" disabled value="{{of.id}}">
+
                     </div>
                 </div>
 
 
-                <button class="green-button">Gerar</button>
+                <button type="submit" class="green-button">Gerar</button>
 
-            </div>
+            </form>
 
 
 

@@ -34,7 +34,7 @@
 
 
         <div class="content-historico">
-            <a href="/inicio-comprador/{{user.id}}/" class="profile-link">
+            <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="profile-link">
                 <div class="profile">
                     <img src="{% static 'img/user-image.png' %}" alt="">
 
@@ -71,7 +71,7 @@
                         </select>
                     </div>
     
-                    <div class="input-container">
+                    <div class="input-container" >
                         <span>Unidade de Medida:</span>
                             <select name="unidade-medida">
                                 <option value=""></option>
@@ -87,30 +87,32 @@
 
             </form>
 
-           
-            <table>
-                <tr>
-                    <th>Código</th>
-                    <th>Descrição</th>
-                    <th>Classe</th>
-                    <th>Unidade de Medida</th>
-                    <th>Selecionar</th>
-                    
+           <div class="scroll-container">
 
-                </tr>
 
-                {% for item in itens %}
+                <table >
                     <tr>
-                        <td>{{item.id}}</td>
-                        <td >{{item.descricao}}</td>
-                        <td >{{item.classe.nome}}</td>
-                        <td >{{item.unidadeMedida}}</td>
-                        <td><a href={{item.id}}><button class="generic-button" name={{item.id}}>SELECIONAR</button></a></td>
+                        <th>Código</th>
+                        <th>Descrição</th>
+                        <th>Classe</th>
+                        <th>Unidade de Medida</th>
+                        <th>Selecionar</th>
+
+
                     </tr>
-                {% endfor %}
-            </table>
 
+                    {% for item in itens %}
+                        <tr>
+                            <td>{{item.id}}</td>
+                            <td >{{item.descricao}}</td>
+                            <td >{{item.classe.nome}}</td>
+                            <td >{{item.unidadeMedida}}</td>
+                            <td><a href={{item.id}}><button class="generic-button" name={{item.id}}>SELECIONAR</button></a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
 
+        </div>
 
 
         </div>

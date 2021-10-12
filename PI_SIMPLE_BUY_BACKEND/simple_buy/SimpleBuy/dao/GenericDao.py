@@ -16,8 +16,8 @@ class GenericDao:
              raise
         return model
 
-    def delete(self, Model, id):
-        return Model.exclude(id=id)
+    def delete(self, model):
+        return model.delete()
 
     def selectAll(self, Model):
         list = []
@@ -29,6 +29,14 @@ class GenericDao:
     def get(self, Model, id):
         try:
             model = Model.objects.get(id=id)
+        except:
+            raise
+        return model
+
+
+    def get_by_username(self, Model, username):
+        try:
+            model = Model.objects.get(nomeUsuario=username)
         except:
             raise
         return model
