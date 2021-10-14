@@ -31,16 +31,29 @@
 
         </div>
     </header>
-            <a href="inicio-administrador" class="profile-link">
+
+        {% if user.plano > 0 %}
+            <a href="/inicio-administrador/{{user.nomeUsuario}}/" class="profile-link">
                 <div class="profile">
                     <img src="{% static 'img/user-image.png' %}" alt="">
-    
                     <div class="img-name">
-                        <h2>AndreVinni89</h2>
+                        <h2>{{user.nomeUsuario}}</h2>
                         <span>Administrador</span>
                     </div>
                 </div>
             </a>
+        {% else %}
+            <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="profile-link">
+                <div class="profile">
+                    <img src="{% static 'img/user-image.png' %}" alt="">
+
+                    <div class="img-name">
+                        <h2>{{user.nomeUsuario}}</h2>
+                        <span>Comprador</span>
+                    </div>
+                </div>
+            </a>
+        {% endif %}
 
            
             
@@ -48,13 +61,15 @@
                 <h1>Informação de OF</h1>
                 <div class="fornecedor-info">
                     <div class="item">
-                        <h2>Fornecedor</h2>
                         <h2>Numero OF</h2>
+                        <h2>Fornecedor
+                        <h2>Comprador</h2>
                     </div>
     
                     <div class="item">
-                        <h3>Casas Bahia</h3>
-                        <h3>12345</h3>
+                        <h3>{{of.id}}</h3>
+                        <h3>{{of.fornecedor}}</h3>
+                        <h3>{{of.comprador}}</h3>
                     </div>
                 </div>
     
@@ -65,110 +80,28 @@
                         <h3>Valor Unitário</h3>
                         <h3>Quantidade</h3>
                         <h3>Recebido</h3>
-                        <h3>Valor Total</h3>
                         <h3>IPI</h3>
                         <h3>ICMS</h3>
+                        <h3>Valor Total (C/IPT)</h3>
+
                         <h3>Frete</h3>
                         <h3>Data de entrega</h3>
                     </div>
 
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="recebido">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <input type="text" class="icms" value="CIF" disabled>
-                        <input type="text" class="numero-of" value="18/09/2021" disabled>
- 
-                    </div>
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="recebido">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <input type="text" class="icms" value="CIF" disabled>
-                        <input type="text" class="numero-of" value="18/09/2021" disabled>
- 
-                    </div>
-
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="recebido">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <input type="text" class="icms" value="CIF" disabled>
-                        <input type="text" class="numero-of" value="18/09/2021" disabled>
- 
-                    </div>
-
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="recebido">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <input type="text" class="icms" value="CIF" disabled>
-                        <input type="text" class="numero-of" value="18/09/2021" disabled>
- 
-                    </div>
-
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="recebido">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <input type="text" class="icms" value="CIF" disabled>
-                        <input type="text" class="numero-of" value="18/09/2021" disabled>
- 
-                    </div>
-
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="recebido">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <input type="text" class="icms" value="CIF" disabled>
-                        <input type="text" class="numero-of" value="18/09/2021" disabled>
- 
-                    </div>
-
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="recebido">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <input type="text" class="icms" value="CIF" disabled>
-                        <input type="text" class="numero-of" value="18/09/2021" disabled>
- 
-                    </div>
-
+                    {% for item in itens_of %}
+                        <div class="container-item">
+                            <input type="text" class="input-codigo" value="{{item.cod_item.id}}" disabled>
+                            <input type="text" class="Descrição" value="{{item.cod_item.descricao}}" disabled>
+                            <input type="text" class="Valor-unitário" value="{{item.valor_unitario}}" disabled>
+                            <input type="text" class="quantidade" value="{{item.quantidade}}" disabled>
+                            <input type="text" class="recebido" value="WIP" disabled>
+                            <input type="text" class="ipi" value="{{item.ipi}}" disabled>
+                            <input type="text" class="icms" value="{{item.icms}}" disabled>
+                            <input type="text" class="valor-total" value="{{item.valor}}" disabled>
+                            <input type="text" class="icms" value="{{item.frete}}" disabled>
+                            <input type="text-local" class="numero-of" value="{{item.dataEntrega}}" disabled>
+                        </div>
+                    {% endfor %}
 
                   
    

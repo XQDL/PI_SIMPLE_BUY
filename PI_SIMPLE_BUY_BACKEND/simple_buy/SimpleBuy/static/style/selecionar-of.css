@@ -73,3 +73,16 @@ td.last{
 
 }
 
+.generic-button{
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    transition: .4s;
+
+    width: auto;
+}
+
+.generic-button:hover{
+    color: white;
+    background-color: black;
+}

@@ -22,6 +22,16 @@
 
 </head>
 <body>
+
+    {% if of_enviada %}
+        <a href="/inicio-comprador/{{user.nomeUsuario}}/ofs-pendentes" class="message-label">
+            <div class="message">
+                <h1>OF: {{of_enviada.id}}</h1>
+                <h1>ENVIADA PARA APROVAÇÃO!</h1>
+            </div>
+        </a>
+    {% endif %}
+
     <div class="box">
 
   
@@ -52,11 +62,10 @@
             <table>
                 <tr>
                     <th>Numero</th>
-                    <th >Frete</th>
+                    <th>Situação</th>
                     <th >Comprador</th>
                     <th >Fornecedor</th>
                     <th>Valor Total</th>
-
                     <th>Editar</th>
                     <th>Enviar para aprovação</th>
                 </tr>
@@ -64,19 +73,15 @@
                     {% for of in ofs %}
                         <tr>
                             <td>{{of.id}}</td>
-                            <td >{{of.frete}}</td>
+                            <td>{{of.situacao}}</td>
                             <td >{{of.comprador}}</td>
                             <td >{{of.fornecedor}}</td>
                             <td>R$ ---,--</td>
                             <td><a href="editar-of">Editar</a></td>
-                            <td class="last"><button class="confirm-button">Enviar</button></td>
+                            <td class="last"><a href="ofs-pendentes/{{of.id}}"><button class="confirm-button">Enviar</button></a></td>
                         </tr>
                     {% endfor %}
             </table>
-
-
-
-
         </div>
 
 

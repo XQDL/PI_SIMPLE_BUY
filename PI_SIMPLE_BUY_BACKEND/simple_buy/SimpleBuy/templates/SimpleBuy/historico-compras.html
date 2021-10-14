@@ -31,20 +31,31 @@
 
         </div>
     </header>
-    
-
-
-        <div class="content-historico">
-            <a href="inicio-administrador.html" class="profile-link">
+            {% if user.plano > 0 %}
+            <a href="/inicio-administrador/{{user.nomeUsuario}}/" class="profile-link">
                 <div class="profile">
                     <img src="{% static 'img/user-image.png' %}" alt="">
-    
                     <div class="img-name">
-                        <h2>AndreVinni89</h2>
+                        <h2>{{user.nomeUsuario}}</h2>
                         <span>Administrador</span>
                     </div>
                 </div>
             </a>
+        {% else %}
+            <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="profile-link">
+                <div class="profile">
+                    <img src="{% static 'img/user-image.png' %}" alt="">
+
+                    <div class="img-name">
+                        <h2>{{user.nomeUsuario}}</h2>
+                        <span>Comprador</span>
+                    </div>
+                </div>
+            </a>
+        {% endif %}
+
+
+        <div class="content-historico">
 
 
         
@@ -53,77 +64,23 @@
             <table>
                 <tr>
                     <th>Numero</th>
-                    <th >Frete</th>
+                    <th>Situação</th>
                     <th >Comprador</th>
                     <th >Fornecedor</th>
                     <th>Valor Total</th>
-                    <th>Data Entrega</th>
                     <th>Mais informações</th>
                 </tr>
 
-                <tr>
-                    <td>123</td>
-                    <td >CIF</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td class="last"><a href="info-of"><button class="generic-button"> Mais informações</button></a></td>
-                </tr>
-                <tr>
-                    <td>123</td>
-                    <td >CIF</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td class="last"><a href="info-of"><button class="generic-button"> Mais informações</button></a></td>
-                </tr>
-                <tr>
-                    <td>123</td>
-                    <td >CIF</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td class="last"><a href="info-of"><button class="generic-button"> Mais informações</button></a></td>
-                </tr>
-                <tr>
-                    <td>123</td>
-                    <td >CIF</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td class="last"><a href="info-of"><button class="generic-button"> Mais informações</button></a></td>
-                </tr>
-                <tr>
-                    <td>123</td>
-                    <td >CIF</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td class="last"><a href="info-of"><button class="generic-button"> Mais informações</button></a></td>
-                </tr>
-                <tr>
-                    <td>123</td>
-                    <td >CIF</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td class="last"><a href="info-of"><button class="generic-button"> Mais informações</button></a></td>
-                </tr>
-                <tr>
-                    <td>123</td>
-                    <td >CIF</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td class="last"><a href="info-of"><button class="generic-button"> Mais informações</button></a></td>
-                </tr>
+                {% for of in ofs %}
+                    <tr>
+                        <td>{{of.id}}</td>
+                        <td>{{of.situacao}}</td>
+                        <td >{{of.comprador}}</td>
+                        <td >{{of.fornecedor}}</td>
+                        <td>R$ ---,--</td>
+                        <td class="last"><a href="info-of/{{of.id}}"><button class="generic-button">Mais informações</button></a></td>
+                    </tr>
+                {% endfor %}
 
                 
 

@@ -4,10 +4,13 @@ from django.shortcuts import render
 from .dao.GenericDao import GenericDao
 from .dao.DaoLogin import DaoLogin
 from .dao.DaoItem import DaoItem
+from .dao.DaoItemOf import DaoItemOf
 from .dao.DaoOrdemFornecimento import DaoOrdemFornecimento
 from .dao.DaoFornecedor import DaoFornecedor
 from .dao.DaoItemCotacao import DaoItemCotacao
 from .dao.DaoComprador import DaoComprador
+
+from .enum.SituacaoOf import SituacaoOf
 
 from .dao.DaoEmpresaCompradora import DaoEmpresaCompradora
 from .models import *
@@ -20,6 +23,10 @@ def index(request):
 def validate_login(request):
     user = request.POST.get('user')
     password = request.POST.get('password')
+
+
+
+
 
     dao = DaoLogin()
 
@@ -49,8 +56,37 @@ def validate_login(request):
             return render(request, 'SimpleBuy/login.html', context)
 
 
-def aprovacoes_pendentes(request):
-    return render(request, 'SimpleBuy/aprovacoes-pendentes.html')
+def aprovacoes_pendentes(request, nomeUsuario, res='', of_id=0):
+    dao = GenericDao()
+    daoOf = DaoOrdemFornecimento()
+
+    administrador = dao.get_by_username(Administrador, nomeUsuario)
+
+    ofs = daoOf.get_by_situacao(SituacaoOf.AGUARDANDO_APROVACAO.value)
+
+    of_aprovada = None
+    of_reprovada = None
+
+    if of_id != 0:
+        if res == 'aprovar':
+            of_aprovada = dao.get(OrdemFornecimento, of_id)
+            of_aprovada.situacao = SituacaoOf.ABERTA.value
+            of_aprovada = dao.update(of_aprovada)
+        if res == 'reprovar':
+            of_reprovada = dao.get(OrdemFornecimento, of_id)
+            of_reprovada.situacao = SituacaoOf.REPROVADA.value
+            of_reprovada = dao.update(of_reprovada)
+
+
+    context = {
+        "user": administrador,
+        "ofs": ofs,
+        "of_aprovada": of_aprovada,
+        "of_reprovada": of_reprovada
+    }
+
+
+    return render(request, 'SimpleBuy/aprovacoes-pendentes.html', context)
 
 
 def cadastrar_fornecedor(request, nomeUsuario):
@@ -222,6 +258,7 @@ def gerar_cotacao(request, nomeUsuario, item_id, fornecedor_id=0, of_id=0):
         itens_of = Itens_of(
             cod_item=item_pendente_cotacao.cod_item,
             num_of=ordemFornecimento,
+            valor_unitario=valor_unitario,
             valor=valor,
             quantidade=quantidade,
             ipi=ipi,
@@ -346,12 +383,54 @@ def gerar_pedido(request, nomeUsuario, item_id=0):
             return render(request, 'SimpleBuy/gerar-pedido.html', context)
 
 
-def historico_compras(request):
-    return render(request, 'SimpleBuy/historico-compras.html')
+def historico_compras(request, nomeUsuario):
+    dao = GenericDao()
+    dao_itens_of = DaoItemOf()
+
+    try:
+        comprador = dao.get_by_username(Comprador, nomeUsuario)
+        user = comprador
+    except:
+        comprador = False
+        administrador = dao.get_by_username(Administrador, nomeUsuario)
+        user = administrador
+
+    ofs = dao.selectAll(OrdemFornecimento)
 
 
-def info_of(request):
-    return render(request, 'SimpleBuy/info-of.html')
+    context = {
+        "user": user,
+        "ofs": ofs
+    }
+
+
+
+    return render(request, 'SimpleBuy/historico-compras.html', context)
+
+
+def info_of(request, nomeUsuario, of_id):
+    dao = GenericDao()
+    daoItensOf = DaoItemOf()
+    try:
+        comprador = dao.get_by_username(Comprador, nomeUsuario)
+        user = comprador
+    except:
+        comprador = False
+        administrador = dao.get_by_username(Administrador, nomeUsuario)
+        user = administrador
+
+
+    of = dao.get(OrdemFornecimento, of_id)
+    itens_of = daoItensOf.get_itens_by_of(of)
+
+    context = {
+        "user": user,
+        "of": of,
+        "itens_of": itens_of
+    }
+
+
+    return render(request, 'SimpleBuy/info-of.html', context)
 
 
 def inicio_administrador(request, nomeUsuario):
@@ -431,16 +510,24 @@ def login(request):
     return render(request, 'SimpleBuy/login.html')
 
 
-def ofs_pendentes(request, nomeUsuario):
+def ofs_pendentes(request, nomeUsuario, of_id=0):
     dao = GenericDao()
+    daoOf = DaoOrdemFornecimento()
+    ofs = daoOf.get_by_situacao(SituacaoOf.COMPRADOR_NEGOCIANDO.value)
     comprador = dao.get_by_username(Comprador, nomeUsuario)
-    ofs = dao.selectAll(OrdemFornecimento)
 
+    of_enviada = None
+
+    if of_id != 0:
+        of_enviada = dao.get(OrdemFornecimento, of_id)
+        of_enviada.situacao = SituacaoOf.AGUARDANDO_APROVACAO.value
+        of_enviada = dao.update(of_enviada)
 
 
     context = {
         "user": comprador,
-        "ofs": ofs
+        "ofs": ofs,
+        "of_enviada": of_enviada
     }
 
     return render(request, 'SimpleBuy/ofs-pendentes.html', context)

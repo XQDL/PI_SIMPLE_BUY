@@ -1,5 +1,6 @@
 from django.db import models
 from enum import Enum
+from .enum.SituacaoOf import SituacaoOf
 
 # Create your models here.
 
@@ -106,7 +107,7 @@ class OrdemFornecimento(models.Model):
         fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
         contratante = models.ForeignKey(EmpresaCompradora, on_delete=models.CASCADE)
         comprador = models.ForeignKey(Comprador, on_delete=models.CASCADE)
-
+        situacao = models.CharField(max_length=200, default=SituacaoOf.COMPRADOR_NEGOCIANDO.value)
 
 class NotaFiscal(models.Model):
     numeroNota = models.IntegerField(unique=True)
@@ -122,6 +123,7 @@ class NotaFiscal(models.Model):
 class Itens_of(models.Model):
     cod_item = models.ForeignKey(Item, on_delete=models.CASCADE)
     num_of = models.ForeignKey(OrdemFornecimento, on_delete=models.CASCADE)
+    valor_unitario = models.FloatField(default=0)
     valor = models.FloatField()
     quantidade = models.FloatField()
     ipi = models.FloatField()

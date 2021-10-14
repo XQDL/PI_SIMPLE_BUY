@@ -22,6 +22,24 @@
 
 </head>
 <body>
+    {% if of_aprovada %}
+        <a href="/inicio-administrador/{{user.nomeUsuario}}/aprovacoes-pendentes" class="message-label">
+            <div class="message" style="background-color: green;">
+                <h1>OF: {{of_aprovada.id}}</h1>
+                <h1>APROVADA!</h1>
+            </div>
+        </a>
+    {% elif of_reprovada %}
+        <a href="/inicio-administrador/{{user.nomeUsuario}}/aprovacoes-pendentes" class="message-label">
+            <div class="message" style="background-color: red;">
+                <h1>OF: {{of_reprovada.id}}</h1>
+                <h1>REPROVADA!</h1>
+            </div>
+        </a>
+
+    {% endif %}
+
+
     <div class="box">
 
   
@@ -31,20 +49,18 @@
 
         </div>
     </header>
-    
-
-
-        <div class="content-historico">
-            <a href="inicio-administrador" class="profile-link">
+            <a href="/inicio-administrador/{{user.nomeUsuario}}/" class="profile-link">
                 <div class="profile">
                     <img src="{% static 'img/user-image.png' %}" alt="">
-    
                     <div class="img-name">
-                        <h2>AndreVinni89</h2>
+                        <h2>{{user.nomeUsuario}}</h2>
                         <span>Administrador</span>
                     </div>
                 </div>
             </a>
+
+
+        <div class="content-historico">
 
 
         
@@ -53,145 +69,28 @@
             <table>
                 <tr>
                     <th>Numero</th>
-                    <th >Frete</th>
+                    <th>Situação</th>
                     <th >Comprador</th>
                     <th >Fornecedor</th>
                     <th>Valor Total</th>
-                    <th>Data Entrega</th>
                     <th>Mais informações</th>
                     <th>Aprovar</th>
                     <th>Reprovar</th>
                 </tr>
-                <tr>
-                    <td>123</td>
-                    <td >FOB</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td><a href="info-of">Mais informações</a></td>
-                    <td><button class="confirm-button">Aprovar</button></td>
-                    <td class="last"><button class="reject-button">Reprovar</button></td>
-                </tr>
-                <tr>
-                    <td>123</td>
-                    <td >FOB</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td><a href="info-of">Mais informações</a></td>
-                    <td><button class="confirm-button">Aprovar</button></td>
-                    <td class="last"><button class="reject-button">Reprovar</button></td>
-                </tr>
-                <tr>
-                    <td>123</td>
-                    <td >FOB</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td><a href="info-of">Mais informações</a></td>
-                    <td><button class="confirm-button">Aprovar</button></td>
-                    <td class="last"><button class="reject-button">Reprovar</button></td>
-                </tr>
+                                   {% for of in ofs %}
+                        <tr>
+                            <td>{{of.id}}</td>
+                            <td>{{of.situacao}}</td>
+                            <td>{{of.comprador}}</td>
+                            <td>{{of.fornecedor}}</td>
+                            <td>Valor Total</td>
+                            <td><a href="info-of/{{of.id}}">Mais informações</a></td>
+                            <td><a href="aprovacoes-pendentes/aprovar/{{of.id}}"><button class="confirm-button">Aprovar</button></a></td>
+                            <td class="last"><a href="aprovacoes-pendentes/reprovar/{{of.id}}"><button class="reject-button">Reprovar</button></a></td>
+                        </tr>
+                    {% endfor %}
                 
-                <tr>
-                    <td>123</td>
-                    <td >FOB</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td><a href="info-of">Mais informações</a></td>
-                    <td><button class="confirm-button">Aprovar</button></td>
-                    <td class="last"><button class="reject-button">Reprovar</button></td>
-                </tr>
-                
-                <tr>
-                    <td>123</td>
-                    <td >FOB</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td><a href="info-of">Mais informações</a></td>
-                    <td><button class="confirm-button">Aprovar</button></td>
-                    <td class="last"><button class="reject-button">Reprovar</button></td>
-                </tr>
-                
-                <tr>
-                    <td>123</td>
-                    <td >FOB</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td><a href="info-of">Mais informações</a></td>
-                    <td><button class="confirm-button">Aprovar</button></td>
-                    <td class="last"><button class="reject-button">Reprovar</button></td>
-                </tr>
-                
-                <tr>
-                    <td>123</td>
-                    <td >FOB</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td><a href="info-of">Mais informações</a></td>
-                    <td><button class="confirm-button">Aprovar</button></td>
-                    <td class="last"><button class="reject-button">Reprovar</button></td>
-                </tr>
-                
-                <tr>
-                    <td>123</td>
-                    <td >FOB</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td><a href="info-of">Mais informações</a></td>
-                    <td><button class="confirm-button">Aprovar</button></td>
-                    <td class="last"><button class="reject-button">Reprovar</button></td>
-                </tr>
-                
-                <tr>
-                    <td>123</td>
-                    <td >FOB</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td><a href="info-of">Mais informações</a></td>
-                    <td><button class="confirm-button">Aprovar</button></td>
-                    <td class="last"><button class="reject-button">Reprovar</button></td>
-                </tr>
-                
-                <tr>
-                    <td>123</td>
-                    <td >FOB</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td><a href="info-of">Mais informações</a></td>
-                    <td><button class="confirm-button">Aprovar</button></td>
-                    <td class="last"><button class="reject-button">Reprovar</button></td>
-                </tr>
-                
-                <tr>
-                    <td>123</td>
-                    <td >FOB</td>
-                    <td >José Almeida</td>
-                    <td >KASY</td>
-                    <td>R$6875,29</td>
-                    <td>18/08/2021</td>
-                    <td><a href="info-of">Mais informações</a></td>
-                    <td><button class="confirm-button">Aprovar</button></td>
-                    <td class="last"><button class="reject-button">Reprovar</button></td>
-                </tr>
-                
+
 
 
             </table>

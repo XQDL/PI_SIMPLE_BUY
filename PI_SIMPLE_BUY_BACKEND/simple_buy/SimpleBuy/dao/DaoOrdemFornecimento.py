@@ -8,3 +8,10 @@ class DaoOrdemFornecimento(GenericDao):
         except:
             raise
         return model
+
+    def get_by_situacao(self, situacao):
+        try:
+            model = OrdemFornecimento.objects.all().filter(situacao=situacao)
+        except:
+            raise
+        return model
