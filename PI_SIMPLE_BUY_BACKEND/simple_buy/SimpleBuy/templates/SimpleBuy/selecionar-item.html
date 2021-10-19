@@ -26,14 +26,25 @@
   
     <header>
         <div class="container-header">
-            <h1 class="tittle-header"><a id="logo" href="index.html">SimpleBuy</a></h1>
-
+            <h1 class="tittle-header"><a id="logo" href="/index">SimpleBuy</a></h1>
         </div>
     </header>
     
 
 
         <div class="content-historico">
+        {% if user.plano > 0 %}
+            <a href="/inicio-administrador/{{user.nomeUsuario}}/" class="profile-link">
+                <div class="profile">
+                    <img src="{% static 'img/user-image.png' %}" alt="">
+
+                    <div class="img-name">
+                        <h2>{{user.nomeUsuario}}</h2>
+                        <span>Administrador</span>
+                    </div>
+                </div>
+            </a>
+        {% else %}
             <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="profile-link">
                 <div class="profile">
                     <img src="{% static 'img/user-image.png' %}" alt="">
@@ -44,7 +55,7 @@
                     </div>
                 </div>
             </a>
-
+        {% endif %}
             <h1>Selecionar Item</h1>
 
             <form class="filter-container" method="post" action="selecionar-item">

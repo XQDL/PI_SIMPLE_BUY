@@ -23,79 +23,97 @@
     
 </head>
 <body>
-    <div class="box">
+    {% if err %}
+        <a href="" class="message-label">
+            <div class="message" style="background-color: red;">
+                <h1>ERRO:</h1>
+                <h1>{{err}}</h1>
+            </div>
+        </a>
+    {% endif %}
+    {% if empresa_compradora %}
+        <a href="/index" class="message-label">
+            <div class="message" style="background-color: green;">
+                <h1>EMPRESA: {{empresa_compradora.nome}}</h1>
+                <h1>CRIADA COM SUCESSO</h1>
+            </div>
+        </a>
+    {% endif %}
 
-  
+    <div class="box">
     <header>
         <div class="container-header">
-            <h1 class="tittle-header"> <a id="logo" href="./index">SimpleBuy</a></h1>
+            <h1 class="tittle-header"> <a id="logo" href="/index">SimpleBuy</a></h1>
             <nav>
-                <a href="./login">LOGIN</a>
+                <a href="/login">LOGIN</a>
             </nav>
         </div>
     </header>
     
         <div class="content-enterprise-register">
             <h1>REGISTRE SUA EMPRESA</h1>
+            <h3 id="err-message" class="err-message"></h3>
 
-
-            
-            <form action="/registrar-empresa/{{administrador.id}}/" method="post">
+            <form action="" method="post">
                 {% csrf_token %}
-
                 <div class="container-form">
                     <div class="input-container">
                         <span>Nome da empresa:</span>
-                        <input type="text" name="name">
+                        <input type="text" name="name" id="name">
                     </div>
 
                     <div class="input-container">
                         <span>Email:</span>
-                        <input type="text" name="email">
+                        <input type="text" name="email" id="email">
                     </div>
 
                     <div class="input-container">
                         <span>Telefone:</span>
-                        <input type="text" name="phone_number">
+                        <input type="text" name="phone_number" id="phone_number">
                     </div>
 
                     <div class="input-container">
                         <span>CNPJ:</span>
-                        <input type="text" name="cnpj">
+                        <input type="text" name="cnpj" id="cnpj">
                     </div>
 
                     <div class="input-container">
                         <span>CEP:</span>
-                        <input type="text" name="cep">
+                        <input type="text" name="cep" id="cep">
                     </div>
 
                     <div class="input-container">
                         <span>Estado: </span>
-                        <input type="text" name="estado">
+                        <select name="estado" id="estado">
+                            {% for estado in estados %}
+                                <option value={{estado.id}}>{{estado.nome}}</option>
+                            {% endfor %}
+
+                        </select>
                     </div>
 
                     <div class="input-container">
                         <span>Cidade:</span>
-                        <input type="text" name="cidade">
+                        <input type="text" name="cidade" id="cidade">
                     </div>
 
                     <div class="input-container">
                         <span>Rua: </span>
-                        <input type="text" name="rua">
+                        <input type="text" name="rua" id="rua">
                     </div>
 
                     <div class="input-container">
                         <span>Numero:</span>
-                        <input type="text" name="numero">
+                        <input type="text" name="numero" id="numero">
                     </div>
 
                     <div class="input-container">
                         <span>Complemento:</span>
-                        <input type="text" name="complemento">
+                        <input type="text" name="complemento" id="complemento">
                     </div>
                 </div>
 
-                <button type="submit" class="green-button">Avançar</button>
+                <button type="submit" class="green-button" id="bt-submmit">Concluir registro</button>
             </form>
 
 
@@ -119,4 +137,7 @@
     </footer>
 </div>
 </body>
+
+<script src="{% static 'script/registrar_empresa.js' %}"></script>
+
 </html>

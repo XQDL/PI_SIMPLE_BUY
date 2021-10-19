@@ -1,5 +1,5 @@
 .content-integrar-nota-fiscal{
-    width: 80vw;
+    width: 90vw;
     margin: auto;
     padding-bottom: 5vh;
     padding-top: 5vh;
@@ -20,6 +20,7 @@
     color: black;
     transition: .4s;
 
+
     width: auto;
 }
 
@@ -35,15 +36,17 @@
 
 
 
+
+
+
+
+
 .container-item{
     display: grid;
     text-align: center;
-    
-    grid-template-columns: 8% 15% 8% 9% 8% 8% 8% 9% 10% 10% 7% ;
-    
 
+    grid-template-columns: 9% 13% 10% 10% 10% 9% 9% 9% 10% 9% ;
 }
-
 
 .container-item input{
     height: 5vh;
@@ -63,12 +66,12 @@
 .fornecedor-info{
     align-self: flex-start;
     margin-left: 30px;
-    width: 50%;
+    width: 80%;
 }
 
 .item{
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 30% 40% 30%;
     column-gap: 2%;
 }
 
@@ -79,4 +82,42 @@
 
 .link-container button{
     width: 100%;
+}
+
+.content-adicionar-item{
+    width: 90vw;
+    margin: auto;
+    padding-bottom: 5vh;
+    padding-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 30vh;
+    border: 1px solid black;
+    border-radius: 10px;
+
+    margin-top: 2vh;
+}
+
+
+.container-item-add{
+    display: grid;
+    text-align: center;
+    grid-template-columns: 12% 8% 12% 10% 8% 9% 7% 7% 10% 10% 8%;
+}
+
+.container-item-add input{
+    height: 5vh;
+    border-radius: 8px;
+}
+
+.container-item-add select{
+    height: 6vh;
+    border-radius: 8px;
+}
+
+.container-item-add button{
+    height: 6vh;
+    border-radius: 8px;
 }

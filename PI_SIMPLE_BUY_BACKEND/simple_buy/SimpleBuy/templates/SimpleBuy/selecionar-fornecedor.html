@@ -68,7 +68,13 @@
                         <td >{{fornecedor.email}}</td>
                         <td>{{fornecedor.endereco.cidade}}</td>
                         <td >{{fornecedor.endereco.cidade.estado}}</td>
-                        <td lass="last"><a href="/inicio-comprador/{{user.nomeUsuario}}/gerar-cotacao/{{item_pendente_cotacao.id}}/{{fornecedor.id}}"><button class="generic-button">Selecionar</button></a></td>
+
+                                {% if user.plano > 0 %}
+                                    <td lass="last"><a href="{{fornecedor.id}}"><button class="generic-button">Selecionar</button></a></td>
+                                {% else %}
+                                    <td lass="last"><a href="/inicio-comprador/{{user.nomeUsuario}}/gerar-cotacao/{{item_pendente_cotacao.id}}/{{fornecedor.id}}"><button class="generic-button">Selecionar</button></a></td>
+                                {% endif %}
+
                     </tr>
                 {% endfor %}
             </table>

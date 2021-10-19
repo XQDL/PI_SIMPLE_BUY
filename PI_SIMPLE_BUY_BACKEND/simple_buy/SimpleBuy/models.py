@@ -12,7 +12,7 @@ class Administrador(models.Model):
     nome = models.CharField(max_length=200)
     email = models.CharField(unique=True, max_length=500)
     telefone = models.CharField(max_length=200)
-    plano = models.IntegerField();
+    plano = models.IntegerField()
 
     def __str__(self):
         return self.nomeUsuario
@@ -51,8 +51,8 @@ class Classe(models.Model):
 
 
 class Fornecedor(models.Model):
-    nome = models.CharField(max_length=200)
-    cnpj = models.CharField(max_length=200)
+    nome = models.CharField(max_length=200, unique=True)
+    cnpj = models.CharField(max_length=200, unique=True)
     email = models.CharField(max_length=500, null=True)
     endereco = models.OneToOneField(Endereco, on_delete=models.CASCADE)
     telefone = models.CharField(max_length=200)
@@ -66,8 +66,8 @@ class Fornecedor(models.Model):
 
 
 class EmpresaCompradora(models.Model):
-    nome = models.CharField(max_length=200)
-    cnpj = models.CharField(max_length=200)
+    nome = models.CharField(max_length=200, unique=True)
+    cnpj = models.CharField(max_length=200, unique=True)
     endereco = models.OneToOneField(Endereco, on_delete=models.CASCADE)
     telefone = models.CharField(max_length=200)
     administrador = models.ForeignKey(Administrador, on_delete=models.CASCADE)
@@ -96,7 +96,7 @@ class Frete(Enum):
     FOB = 2
 
 class Item(models.Model):
-    descricao = models.CharField(max_length=200)
+    descricao = models.CharField(unique=True, max_length=200)
     unidadeMedida = models.CharField(max_length=200)
     classe = models.ForeignKey(Classe, on_delete=models.CASCADE)
     def __str__(self):
@@ -110,7 +110,7 @@ class OrdemFornecimento(models.Model):
         situacao = models.CharField(max_length=200, default=SituacaoOf.COMPRADOR_NEGOCIANDO.value)
 
 class NotaFiscal(models.Model):
-    numeroNota = models.IntegerField(unique=True)
+    numeroNota = models.IntegerField()
     empresaEmitente = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
     empresaDestinada = models.ForeignKey(EmpresaCompradora, on_delete=models.CASCADE)
     ofs = models.ManyToManyField(OrdemFornecimento)
@@ -126,18 +126,22 @@ class Itens_of(models.Model):
     valor_unitario = models.FloatField(default=0)
     valor = models.FloatField()
     quantidade = models.FloatField()
+    recebido = models.FloatField(default=0)
     ipi = models.FloatField()
     icms = models.FloatField()
     dataEntrega = models.DateTimeField(null=True)
     frete = models.CharField(max_length=200, null=True)
 
-class itens_nf(models.Model):
+class Itens_nf(models.Model):
     cod_item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    num_of = models.ForeignKey(OrdemFornecimento, null=True, on_delete=models.CASCADE)
     num_nf = models.ForeignKey(NotaFiscal, on_delete=models.CASCADE)
+    valor_unitario = models.FloatField(default=0)
     valor = models.FloatField()
     quantidade = models.FloatField()
     ipi = models.FloatField()
     icms = models.FloatField()
+    frete = models.CharField(max_length=200, null=True)
 
 
 class Item_pendente_cotacao(models.Model):

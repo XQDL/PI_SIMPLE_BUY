@@ -23,57 +23,74 @@
     
 </head>
 <body>
+    {% if err %}
+        <a href="" class="message-label">
+            <div class="message" style="background-color: red;">
+                <h1>ERRO:</h1>
+                <h1>{{err}}</h1>
+            </div>
+        </a>
+    {% endif %}
+
+    {% if administrador %}
+        <a href="/registrar-empresa/{{administrador.id}}/" class="message-label">
+            <div class="message" style="background-color: green;">
+                <h1>ADMINISTRADOR: {{administrador.nomeUsuario}}</h1>
+                <h1>CRIADO COM SUCESSO</h1>
+            </div>
+        </a>
+    {% endif %}
     <div class="box">
 
-  
     <header>
         <div class="container-header">
-            <h1 class="tittle-header"> <a id="logo" href="../index"> SimpleBuy</a></h1>
+            <h1 class="tittle-header"> <a id="logo" href="/index">SimpleBuy</a></h1>
             <nav>
-                <a href="../login">LOGIN</a>
+                <a href="/login">LOGIN</a>
             </nav>
         </div>
     </header>
     
         <div class="content-enterprise-register">
             <h1>REGISTRE PERFIL DE ADMINISTRADOR</h1>
-            <form action="/registrar-administrador/{{plan}}/" method="post">
+            <h3 id="err-message" class="err-message"></h3>
+            <form action="" method="post">
                 {% csrf_token %}
                 <div class="container-form">
                     <div class="input-container">
                         <span>Nome completo:</span>
-                        <input type="text" name="complete_name">
+                        <input type="text" name="complete_name" id="complete_name">
                     </div>
     
                     <div class="input-container">
                         <span>Nome usuário:</span>
-                        <input type="text" name="user_name">
+                        <input type="text" name="user_name" id="user_name">
                     </div>
     
                     <div class="input-container">
                         <span>Email:</span>
-                        <input type="text" name="email">
+                        <input type="text" name="email" id="email">
                     </div>
     
                     <div class="input-container">
                         <span>Senha:</span>
-                        <input type="text" name="password">
+                        <input type="text" name="password" id="password">
                     </div>
     
                     <div class="input-container">
                         <span>Telefone:</span>
-                        <input type="text" name="phone_number" >
+                        <input type="text" name="phone_number" id="phone_number">
                     </div>
 
                     <div class="input-container">
                         <span>Confirmar senha:</span>
-                        <input type="text" name="confirm_password">
+                        <input type="text" name="confirm_password" id="confirm_password">
                     </div>
     
 
                 </div>
                
-                <button type="submit" class="green-button">CONCLUIR REGISTRO</button>
+                <button type="submit" class="green-button" id="bt-submmit">AVANÇAR</button>
             </form>
 
 
@@ -97,4 +114,6 @@
     </footer>
 </div>
 </body>
+<script src="{% static 'script/register_adm.js' %}"></script>
+
 </html>

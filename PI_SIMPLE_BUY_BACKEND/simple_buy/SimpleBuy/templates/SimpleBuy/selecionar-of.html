@@ -69,7 +69,12 @@
                             <td >{{of.fornecedor}}</td>
                             <td>R$ ---,--</td>
                             <td><a href="info-of">Mais informações</a></td>
-                            <td lass="last"><a href="/inicio-comprador/{{user.nomeUsuario}}/gerar-cotacao/{{item_pendente_cotacao.id}}/{{fornecedor.id}}/{{of.id}}"><button class="generic-button">Selecionar</button></a></td>
+                             {% if item_pendente_cotacao %}
+                                <td lass="last"><a href="/inicio-comprador/{{user.nomeUsuario}}/gerar-cotacao/{{item_pendente_cotacao.id}}/{{fornecedor.id}}/{{of.id}}"><button class="generic-button">Selecionar</button></a></td>
+                            {% else %}
+                                <td lass="last"><a href="{{of.id}}/"><button class="generic-button">Selecionar</button></a></td>
+                            {% endif %}
+
                         </tr>
                     {% endfor %}
 

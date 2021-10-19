@@ -22,6 +22,92 @@
 
 </head>
 <body>
+
+        {% if nf_created %}
+            {% if user.plano > 0 %}
+            <a href="/inicio-administrador/{{user.nomeUsuario}}/integrar-nota-fiscal/{{fornecedor.id}}/{{nf_created.id}}/" class="message-label">
+                <div class="message">
+                    <h1>NF: {{nf_created.numeroNota}}</h1>
+                    <h1>SALVA COM SUCESSO!</h1>
+                    <h1>PROSSIGA COM A INSERÇÃO DOS ITENS</h1>
+                </div>
+            </a>
+            {% else %}
+                <a href="/inicio-comprador/{{user.nomeUsuario}}/integrar-nota-fiscal/{{fornecedor.id}}/{{nf_created.id}}/" class="message-label">
+                    <div class="message">
+                        <h1>NF: {{nf_created.numeroNota}}</h1>
+                        <h1>SALVA COM SUCESSO!</h1>
+                        <h1>PROSSIGA COM A INSERÇÃO DOS ITENS</h1>
+                    </div>
+                </a>
+            {% endif %}
+        {% endif %}
+
+        {% if item_nf_created %}
+            {% if user.plano > 0 %}
+                <a href="/inicio-administrador/{{user.nomeUsuario}}/integrar-nota-fiscal/{{fornecedor.id}}/{{nf.id}}/" class="message-label">
+                    <div class="message">
+                        <h1>ITEM: {{item_nf_created.cod_item.descricao}}</h1>
+                        <h1>ADICIONADO A NF: {{item_nf_created.num_nf.num_nf}}!</h1>
+                        <h1>COM SUCESSO!!!</h1>
+
+                    </div>
+                </a>
+            {% else %}
+                <a href="/inicio-comprador/{{user.nomeUsuario}}/integrar-nota-fiscal/{{fornecedor.id}}/{{nf.id}}/" class="message-label">
+                    <div class="message">
+                        <h1>ITEM: {{item_nf_created.cod_item.descricao}}</h1>
+                        <h1>ADICIONADO A NF: {{nf.num_nf}}!</h1>
+                        <h1>COM SUCESSO!!!</h1>
+
+                    </div>
+                </a>
+            {% endif %}
+        {% endif %}
+
+        {% if integrar %}
+            {% if user.plano > 0 %}
+                <a href="/inicio-administrador/{{user.nomeUsuario}}/" class="message-label">
+                    <div class="message" style="background: green;">
+                        <h1>NOTA FISCAL: nf.id}</h1>
+                        <h1>INTEGRADA COM SUCESSO!!</h1>
+                    </div>
+                </a>
+            {% else %}
+                <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="message-label">
+                    <div class="message" style="background: green;">
+                        <h1>NOTA FISCAL: nf.id}</h1>
+                        <h1>INTEGRADA COM SUCESSO!!</h1>
+                    </div>
+                </a>
+            {% endif %}
+        {% endif %}
+
+
+
+        {% if item_exclude %}
+            {% if user.plano > 0 %}
+                <a href="/inicio-administrador/{{user.nomeUsuario}}/integrar-nota-fiscal/{{fornecedor.id}}/{{nf.id}}/" class="message-label">
+                    <div class="message" style="background-color: red;">
+                        <h1>ITEM: {{item_exclude.cod_item.descricao}}</h1>
+                        <h1>REMOVIDO DA NF: {{item_nf_created.num_nf.num_nf}}!</h1>
+                        <h1>COM SUCESSO!!!</h1>
+                    </div>
+                </a>
+            {% else %}
+                <a href="/inicio-comprador/{{user.nomeUsuario}}/integrar-nota-fiscal/{{fornecedor.id}}/{{nf.id}}/" class="message-label">
+                    <div class="message" style="background-color: red;">
+                        <h1>ITEM: {{item_exclude.cod_item.descricao}}</h1>
+                        <h1>REMOVIDO DA NF: {{nf.num_nf}}!</h1>
+                        <h1>COM SUCESSO!!!</h1>
+                    </div>
+                </a>
+            {% endif %}
+        {% endif %}
+
+
+
+
     <div class="box">
 
   
@@ -41,23 +127,49 @@
                     </div>
                 </div>
             </a>
-           
-            
-            <div class="content-integrar-nota-fiscal">
+
+
+
+
+            {% if nf %}
+                <form class="content-integrar-nota-fiscal "method="post" action="/inicio-administrador/{{user.nomeUsuario}}/integrar-nota-fiscal/{{fornecedor.id}}/{{nf.id}}/">
+            {% else %}
+                <form class="content-integrar-nota-fiscal "method="post" action="/inicio-administrador/{{user.nomeUsuario}}/integrar-nota-fiscal/{{fornecedor.id}}/0/">
+            {% endif %}
+
+                {% csrf_token %}
                 <h1>Integrar Nota Fiscal</h1>
                 <div class="fornecedor-info">
                     <div class="item">
+                        {% if not fornecedor %}
+                            <h2>Selecionar Fornecedor</h2>
+                        {% endif %}
                         <h2>Fornecedor</h2>
                         <h2>Numero NF</h2>
                     </div>
     
-                    <div class="item">
-                        <input type="text" value="">
-                        <input type="text" value="">
+                    <div class="item" >
+                        {% if not fornecedor %}
+                            <a href="selecionar-fornecedor"><button type="button" class="generic-button button" >Selecionar</button></a>
+                        {% endif %}
+
+
+                        <input type="text" value="{{fornecedor.nome}}" disabled>
+                        {% if nf %}
+                            <input type="text" value="{{nf.numeroNota}}" name="nf" disabled>
+                        {% else %}
+                            <input type="text" value="{{nf.numeroNota}}" name="nf">
+                        {% endif %}
                     </div>
                 </div>
-    
-                <div class="container-form">
+
+                    <div class="container-form">
+                {% if not nf %}
+                    <h2 style="color: blue;">1) Primeiramente selecione o fornecedor.</h2>
+                    <h2 style="color: blue;">2) Informe o numero da nota e clique em salvar.</h2>
+                    <h2 style="color: blue;">3) Role a pagine e comece a adicionar os itens da nota.</h2>
+                {% endif %}
+                 {% if itens_nf %}
                     <div class="container-item">
                         <h3>Código</h3>
                         <h3>Descrição</h3>
@@ -67,135 +179,95 @@
                         <h3>IPI</h3>
                         <h3>ICMS</h3>
                         <h3>Frete</h3>
-                        <h3>Selecionar OF</h3>
                         <h3>Numero OF</h3>
                     </div>
+                {% elif nf%}
+                    <h2 style="color: blue;">Role a pagine e comece a adicionar os itens da nota.</h2>
+                    <h2 style="color: red;">OBS: LEMBRANDO QUE OS DADOS DA NOTA DEVEM SER IGUAIS AOS DO PEDIDO!</h2>
 
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <select name="frete" id="frete">
-                            <option value="">SELECIONAR</option>
-                            <option value="cif">CIF</option>
-                            <option value="fob">FOB</option>
-                        </select>
-                        <a href="selecionar-of" class="link-container"><button class="generic-button">Selecionar</button></a>
-                        <input type="text" class="numero-of">
-                        <button class="generic-button">Excluir</button>
-                    </div>
-
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <select name="frete" id="frete">
-                            <option value="">SELECIONAR</option>
-                            <option value="cif">CIF</option>
-                            <option value="fob">FOB</option>
-                        </select>
-                        <a href="selecionar-of" class="link-container"><button class="generic-button">Selecionar</button></a>
-                        <input type="text" class="numero-of">
-                        <button class="generic-button">Excluir</button>
-                    </div>
-
-                    
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <select name="frete" id="frete">
-                            <option value="">SELECIONAR</option>
-                            <option value="cif">CIF</option>
-                            <option value="fob">FOB</option>
-                        </select>
-                        <a href="selecionar-of" class="link-container"><button class="generic-button">Selecionar</button></a>
-                        <input type="text" class="numero-of">
-                        <button class="generic-button">Excluir</button>
-                    </div>
-
-                    
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <select name="frete" id="frete">
-                            <option value="">SELECIONAR</option>
-                            <option value="cif">CIF</option>
-                            <option value="fob">FOB</option>
-                        </select>
-                        <a href="selecionar-of" class="link-container"><button class="generic-button">Selecionar</button></a>
-                        <input type="text" class="numero-of">
-                        <button class="generic-button">Excluir</button>
-                    </div>
-
-                    
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <select name="frete" id="frete">
-                            <option value="">SELECIONAR</option>
-                            <option value="cif">CIF</option>
-                            <option value="fob">FOB</option>
-                        </select>
-                        <a href="selecionar-of" class="link-container"><button class="generic-button">Selecionar</button></a>
-                        <input type="text" class="numero-of">
-                        <button class="generic-button">Excluir</button>
-                    </div>
-
-                    
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <select name="frete" id="frete">
-                            <option value="">SELECIONAR</option>
-                            <option value="cif">CIF</option>
-                            <option value="fob">FOB</option>
-                        </select>
-                        <a href="selecionar-of" class="link-container"><button class="generic-button">Selecionar</button></a>
-                        <input type="text" class="numero-of">
-                        <button class="generic-button">Excluir</button>
-                    </div>
+                {% endif %}
 
 
-
-
-                   
-
+                    {% for item in itens_nf %}
+                        <div class="container-item">
+                            <input type="text" class="input-codigo" value="{{item.cod_item.id}}" disabled>
+                            <input type="text" class="Descrição" value="{{item.cod_item.descricao}}" disabled>
+                            <input type="text" class="Valor-unitário" value="{{item.valor_unitario}}" disabled>
+                            <input type="text" class="quantidade" value="{{item.quantidade}}" disabled>
+                            <input type="text" class="valor-total" value="{{item.valor}}" disabled>
+                            <input type="text" class="ipi"  value="{{item.ipi}}" disabled>
+                            <input type="text" class="icms"  value="{{item.icms}}" disabled>
+                            <input type="text" class="icms"  value="{{item.frete}}" disabled>
+                            <input type="text" class="numero-of" value="{{item.num_of.id}}" disabled>
+                            <a href="/inicio-administrador/{{user.nomeUsuario}}/integrar-nota-fiscal/{{fornecedor.id}}/{{nf.id}}/excluir/{{item.id}}"><button type="button" class="generic-button">Excluir</button></a>
+                        </div>
+                    {% endfor %}
                 </div>
 
+                <button class="green-button" type="submit">Salvar</button>
+                <a href="/inicio-administrador/{{user.nomeUsuario}}/integrar-nota-fiscal/{{fornecedor.id}}/{{nf.id}}/integrar"><button type="button" class="generic-button button" type="submit">INTEGRAR NF</button></a>
+            </form>
+            {% if nf %}
+                <form class="content-adicionar-item" method="post" action="">
+                    {% csrf_token %}
+                    <h1>Adicionar item</h1>
+                        <div class="container-form">
+                            <div class="container-item-add" >
+                                {% if not item %}
+                                    <h3>Selecionar Item</h3>
+                                {% else %}
+                                    <h3>Limpar</h3>
+                                {% endif %}
+                                <h3>Código</h3>
+                                <h3>Descrição</h3>
+                                <h3>Valor Unitário</h3>
+                                <h3>Quantidade</h3>
+                                <h3>Valor Total</h3>
+                                <h3>IPI</h3>
+                                <h3>ICMS</h3>
+                                <h3>Frete</h3>
+                                {% if not of %}
+                                    <h3>Selecionar OF</h3>
+                                {% endif %}
+                                <h3>Numero OF</h3>
+                            </div>
 
-                <button class="green-button">Integrar</button>
+                            <div class="container-item-add">
+                                {% if not item %}
+                                    <a href="selecionar-item"><button type="button" class="generic-button">SELECIONAR</button></a>
+                                {% else %}
+                                    <a href="/inicio-administrador/z/integrar-nota-fiscal/{{fornecedor.id}}/{{nf.id}}/"><button type="button" class="generic-button">LIMPAR DADOS</button></a>
+                                {% endif %}
+                                <input type="text" name="id" value="{{item.id}}" disabled>
+                                <input type="text" name="descrição" value="{{item.descricao}}" disabled>
+                                <input type="text" name="valor_unitario">
+                                <input type="text" name="quantidade">
+                                <input type="text" name="valor-total">
+                                <input type="text" name="ipi">
+                                <input type="text" name="icms">
+                                <select name="frete">
+                                    <option value="">SELECIONAR</option>
+                                    <option value="cif">CIF</option>
+                                    <option value="fob">FOB</option>
+                                </select>
+                                    {% if ofs_disponiveis %}
+                                        <a href="selecionar-of" class="link-container"><button type="button" class="generic-button">Selecionar</button></a>
+                                    {% elif not item%}
+                                        <input type="text" value="SELECIONE O ITEM ANTES" disabled>
+                                    {% else %}
+                                        <input type="text" value="SEM OFs VÁLIDAS" disabled>
+                                    {% endif %}
 
-            </div>
+                                <input type="text" class="numero-of" disabled value="{{of.id}}">
 
+                            </div>
 
+                    </div>
+
+                    <button type="submit" class="green-button">Adicionar</button>
+
+                </form>
+            {% endif %}
 
 
 

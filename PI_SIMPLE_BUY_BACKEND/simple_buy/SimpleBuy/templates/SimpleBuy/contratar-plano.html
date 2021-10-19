@@ -26,9 +26,9 @@
   
     <header>
         <div class="container-header">
-            <h1 class="tittle-header"> <a id="logo" href="./index"> SimpleBuy</a></h1>
+            <h1 class="tittle-header"> <a id="logo" href="/index"> SimpleBuy</a></h1>
             <nav>
-                <a href="./login">LOGIN</a>
+                <a href="/login">LOGIN</a>
             </nav>
 
         </div>
@@ -66,7 +66,7 @@
                     <td>PODE CADASTRAR COMPRADORES ILIMITADOS</td>
                     <td class="border"></td>
                     <td class="border"></td>
-                    <td class="border"><img src="{% static 'img/v.jpg' %}g" alt=""></td>
+                    <td class="border"><img src="{% static 'img/v.jpg' %}" alt=""></td>
                 </tr>
                 <tr>
                     <td>PREÇO:</td>
@@ -82,7 +82,8 @@
                 </tr>
                     
             </table>
-            <button class="green-button"><a href="registrar-administrador/1" id="link">CONTRATAR</a></button>
+            <h3 id="err-message" class="err-message"></h3>
+            <a href="" id="link"><button class="green-button">CONTRATAR</button></a>
         </div>
 
 

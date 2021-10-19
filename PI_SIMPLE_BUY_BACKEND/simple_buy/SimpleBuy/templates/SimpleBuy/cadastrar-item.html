@@ -40,6 +40,16 @@
             </a>
         {% endif %}
     {% endif %}
+
+    {% if err %}
+        <a href="" class="message-label">
+            <div class="message" style="background-color: red;">
+                <h1>ERRO:</h1>
+                <h1>{{err}}</h1>
+            </div>
+        </a>
+    {% endif %}
+
     <div class="box">
 
   

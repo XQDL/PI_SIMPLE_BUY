@@ -4,11 +4,14 @@ from django.shortcuts import render
 from .dao.GenericDao import GenericDao
 from .dao.DaoLogin import DaoLogin
 from .dao.DaoItem import DaoItem
+from .dao.DaoItensNf import DaoItemNf
 from .dao.DaoItemOf import DaoItemOf
 from .dao.DaoOrdemFornecimento import DaoOrdemFornecimento
 from .dao.DaoFornecedor import DaoFornecedor
 from .dao.DaoItemCotacao import DaoItemCotacao
 from .dao.DaoComprador import DaoComprador
+
+from django.db import IntegrityError
 
 from .enum.SituacaoOf import SituacaoOf
 
@@ -23,10 +26,6 @@ def index(request):
 def validate_login(request):
     user = request.POST.get('user')
     password = request.POST.get('password')
-
-
-
-
 
     dao = DaoLogin()
 
@@ -147,51 +146,71 @@ def cadastrar_fornecedor(request, nomeUsuario):
 def cadastrar_item(request, nomeUsuario):
     dao = GenericDao()
     try:
-        user = dao.get_by_username(Comprador, nomeUsuario)
+        comprador = dao.get_by_username(Comprador, nomeUsuario)
+        user = comprador
     except:
-        user = dao.get_by_username(Administrador, nomeUsuario)
+        comprador = False
+        administrador = dao.get_by_username(Administrador, nomeUsuario)
+        user = administrador
+
+    err = None
+    item = None
 
     try:
-        class_id = request.POST.get('classe')
+        if request.POST.get('descricao'):
+            class_id = request.POST.get('classe')
+            if class_id is None:
+                classe = dao.get(Classe, 1)
+            else:
+                classe = dao.get(Classe, class_id)
 
-        if class_id is None:
-            classe = dao.get(Classe, 1)
+            item = Item(
+                descricao=request.POST.get('descricao'),
+                unidadeMedida=request.POST.get('unidade_medida'),
+                classe=classe
+            )
+            item = dao.create(item)
+    except Exception as e:
+        if 'UNIQUE constraint' in str(e.args):
+            err = 'ITEM JÁ CADASTRADA!'
         else:
-            classe = dao.get(Classe, class_id)
+            err = e
 
-        item = Item(
-            descricao=request.POST.get('descricao'),
-            unidadeMedida=request.POST.get('unidade_medida'),
-            classe=classe
-        )
-        item = dao.create(item)
-        context = {
-            "item": item,
-            "user": user
-        }
-        return render(request, 'SimpleBuy/cadastrar-item.html', context)
-    except:
-        itens = dao.selectAll(Item)
-        classes = dao.selectAll(Classe)
 
+    itens = dao.selectAll(Item)
+    classes = dao.selectAll(Classe)
+
+    if len(itens) != 0:
         id = itens[-1].id + 1
+    else:
+        id = 1
 
-        context = {
-            "id": id,
-            "classes": classes,
-            "user": user
+    context = {
+        "id": id,
+        "classes": classes,
+        "item": item,
+        "user": user,
+        "err": err
+    }
+    return render(request, 'SimpleBuy/cadastrar-item.html', context)
 
-        }
-        return render(request, 'SimpleBuy/cadastrar-item.html', context)
 
-
-def compradores_cadastrados(request, nomeUsuario):
+def compradores_cadastrados(request, nomeUsuario, comprador_id=0):
     dao = GenericDao()
     daoComprador = DaoComprador()
     daoEmpresa = DaoEmpresaCompradora()
+    comprador_remove = None
 
     adm = dao.get_by_username(Administrador, nomeUsuario)
     empresa = daoEmpresa.get_empresa_by_adm(EmpresaCompradora, adm)
+
+
+
+    if comprador_id != 0:
+        comprador_remove = dao.get(Comprador, comprador_id)
+        comprador_remove = dao.delete(comprador_remove)
+
+
 
     compradores = daoComprador.get_compradores_by_empresa(Comprador, empresa)
 
@@ -208,7 +227,8 @@ def compradores_cadastrados(request, nomeUsuario):
         "user": adm,
         "compradores": compradores,
         "max": max,
-        "cont_compradores": cont_compradores
+        "cont_compradores": cont_compradores,
+        "comprador_remove": comprador_remove
     }
 
     return render(request, 'SimpleBuy/compradores-cadastrados.html', context)
@@ -451,11 +471,122 @@ def inicio_comprador(request, nomeUsuario):
     return render(request, 'SimpleBuy/inicio-comprador.html', context)
 
 
-def integrar_nota_fiscal(request, nomeUsuario):
+def integrar_nota_fiscal(request, nomeUsuario, fornecedor_id=0, item_id=0, of_id=0, num_nf=0, item_exclude=0, integrar=0):
     dao = GenericDao()
-    adm = dao.get_by_username(Administrador, nomeUsuario)
+    daoOrdemFornecimento = DaoOrdemFornecimento()
+    daoItemOf = DaoItemOf()
+    daoEmpresa = DaoEmpresaCompradora()
+    daoItensNf = DaoItemNf()
+    administrador = None
+
+    try:
+        comprador = dao.get_by_username(Comprador, nomeUsuario)
+        user = comprador
+    except:
+        comprador = False
+        administrador = dao.get_by_username(Administrador, nomeUsuario)
+        user = administrador
+
+    item = None
+    fornecedor = None
+    ofs_disponiveis = None
+    of = None
+    empresa = None
+    nf_created = None
+    nf = None
+    itens_nf = None
+    item_nf_created = None
+    item_excluir = None
+
+    if fornecedor_id != 0:
+        fornecedor = dao.get(Fornecedor, fornecedor_id)
+
+    if item_id != 0:
+        item = dao.get(Item, item_id)
+
+    if fornecedor and item:
+        ofs_disponiveis = daoOrdemFornecimento.get_by_fornecedor_situacao_and_item(fornecedor, SituacaoOf.ABERTA.value, item)
+
+    if of_id != 0:
+        of = dao.get(OrdemFornecimento, of_id)
+        ofs_disponiveis = None
+
+
+
+    if administrador:
+        empresa = daoEmpresa.get_empresa_by_adm(EmpresaCompradora, administrador)
+    else:
+        empresa = comprador.empresa
+
+
+    if request.POST.get('nf') and num_nf==0:
+        nf = NotaFiscal(
+            numeroNota=request.POST.get('nf'),
+            empresaEmitente=fornecedor,
+            empresaDestinada=empresa
+        )
+        nf = dao.create(nf)
+        nf_created = nf
+    elif num_nf != 0:
+        nf = dao.get(NotaFiscal, num_nf)
+        itens_nf = daoItensNf.get_itens_by_nf(nf)
+
+
+    if request.POST.get('valor_unitario'):
+        try:
+            ipi = float(request.POST.get('ipi'))
+            icms = float(request.POST.get('icms'))
+            quantidade = float(request.POST.get('quantidade'))
+            valor_unitario = float(request.POST.get('valor_unitario'))
+            frete = request.POST.get('frete')
+            valor_total = request.POST.get('valor-total')
+
+            item_nf = Itens_nf(
+                cod_item=item,
+                num_nf=nf,
+                num_of=of,
+                valor_unitario=valor_unitario,
+                valor=valor_total,
+                quantidade=quantidade,
+                ipi=ipi,
+                icms=icms,
+                frete=frete
+            )
+            item_nf_created = dao.create(item_nf)
+
+            print(item_nf_created)
+        except:
+            print('error')
+
+
+    if item_exclude != 0:
+        item_excluir = dao.get(Itens_nf, item_exclude)
+        item_excluir = dao.delete(item_excluir)
+
+    if integrar!=0:
+
+        for item_nf in itens_nf:
+            itens_of = daoItemOf.get_itens_by_of(item_nf.num_of.id)
+            for item_of in itens_of:
+                if item_of.cod_item.id == item_nf.cod_item.id:
+                    item_of.recebido = item_nf.quantidade
+                    item_of = dao.update(item_of)
+
+
+
     context = {
-        "user": adm
+        "user": user,
+        "item": item,
+        "fornecedor": fornecedor,
+        "ofs_disponiveis": ofs_disponiveis,
+        "of": of,
+        "nf": nf,
+        "nf_created": nf_created,
+        "itens_nf": itens_nf,
+        "item_nf_created": item_nf_created,
+        "item_exclude": item_excluir,
+        "integrar": integrar
+
     }
 
     return render(request, 'SimpleBuy/integrar-nota-fiscal.html', context)
@@ -534,6 +665,9 @@ def ofs_pendentes(request, nomeUsuario, of_id=0):
 
 
 def registrar_administrador(request, plan):
+    dao = GenericDao()
+    err = None
+
     try:
         administrador = Administrador(
             nomeUsuario=request.POST.get('user_name'),
@@ -544,17 +678,22 @@ def registrar_administrador(request, plan):
             plano=plan
         )
 
-        dao = GenericDao()
+
         administrador = dao.create(administrador)
 
         context = {
             'plan': plan,
             'administrador': administrador
         }
-        return render(request, 'SimpleBuy/registrar-empresa.html', context=context)
-    except:
+        return render(request, 'SimpleBuy/registrar-administrador.html', context=context)
+
+    except IntegrityError as e:
+        if 'UNIQUE constraint' in str(e.args):
+            err = 'INFORMAÇÕES JÁ UTILIZADAS EM UM PERFIL EXISTENTE'
+
         context = {
-            'plan': plan
+            'plan': plan,
+            'err': err
         }
         return render(request, 'SimpleBuy/registrar-administrador.html', context=context)
 
@@ -595,43 +734,62 @@ def registrar_comprador(request, nomeUsuario):
 
 def registrar_empresa(request, adm_id):
     dao = GenericDao()
+
+
+    err = None
+    estado = None
+    empresa_compradora = None
     try:
-        estado = Estado(nome=request.POST.get('estado'))
+        if request.POST.get('rua'):
+            estado = dao.get(Estado, request.POST.get('estado'))
 
-        dao.create(estado)
+            cidade = Cidade(nome=request.POST.get('cidade'), estado=estado)
 
-        cidade = Cidade(nome=request.POST.get('estado'), estado=estado)
+            dao.create(cidade)
 
-        dao.create(cidade)
+            endereco = Endereco(rua=request.POST.get('rua'),
+                                numero=request.POST.get('numero'),
+                                cep=request.POST.get('cep'),
+                                complemento=request.POST.get('complemento'),
+                                cidade=cidade
+                                )
 
-        endereco = Endereco(rua=request.POST.get('rua'),
-                            numero=request.POST.get('numero'),
-                            cep=request.POST.get('cep'),
-                            complemento=request.POST.get('complemento'),
-                            cidade=cidade
-                            )
+            dao.create(endereco)
 
-        dao.create(endereco)
+            empresa_compradora = EmpresaCompradora(
+                nome=request.POST.get('name'),
+                cnpj=request.POST.get('cnpj'),
+                endereco=endereco,
+                telefone=request.POST.get('phone_number'),
+                administrador=dao.get(Administrador, adm_id)
+            )
 
-        empresa_compradora = EmpresaCompradora(
-            nome=request.POST.get('name'),
-            cnpj=request.POST.get('cnpj'),
-            endereco=endereco,
-            telefone=request.POST.get('phone_number'),
-            administrador=dao.get(Administrador, adm_id)
-        )
-
-        dao.create(empresa_compradora)
-
-        return render(request, 'SimpleBuy/index.html')
-
-    except:
-        return render(request, 'SimpleBuy/registrar-empresa.html/')
+            empresa_compradora = dao.create(empresa_compradora)
 
 
-def selecionar_item(request, nomeUsuario):
+    except Exception as e:
+        if 'UNIQUE constraint' in str(e.args):
+            err = 'EMPRESA JÁ CADASTRADA!'
+        else:
+            err = e
+
+    estados = dao.selectAll(Estado)
+
+    context = {
+        'err': err,
+         "estados": estados,
+        'empresa_compradora': empresa_compradora
+
+    }
+    return render(request, 'SimpleBuy/registrar-empresa.html', context=context)
+
+
+
+def selecionar_item(request, nomeUsuario, fornecedor_id=0, num_nf=0):
     dao = GenericDao()
     daoItem = DaoItem()
+
+
 
     try:
         comprador = dao.get_by_username(Comprador, nomeUsuario)
@@ -675,26 +833,47 @@ def selecionar_item(request, nomeUsuario):
         return render(request, 'SimpleBuy/selecionar-item.html', context)
 
 
-def selecionar_of(request, nomeUsuario, item_id, fornecedor_id):
+def selecionar_of(request, nomeUsuario, item_id=0, fornecedor_id=0, item_filter_id=0, num_nf=0):
     dao = GenericDao()
     daoOrdemFornecimento = DaoOrdemFornecimento()
 
-    comprador = dao.get_by_username(Comprador, nomeUsuario)
-    item_pendente_cotacao = dao.get(Item_pendente_cotacao, item_id)
-    fornecedor = dao.get(Fornecedor, fornecedor_id)
+    try:
+        comprador = dao.get_by_username(Comprador, nomeUsuario)
+        user = comprador
+    except:
+        comprador = False
+        administrador = dao.get_by_username(Administrador, nomeUsuario)
+        user = administrador
 
 
-    ofs = daoOrdemFornecimento.get_by_fornecedor(fornecedor)
 
 
 
+    if item_id !=0:
+        item_pendente_cotacao = dao.get(Item_pendente_cotacao, item_id)
+        fornecedor = dao.get(Fornecedor, fornecedor_id)
+        ofs = daoOrdemFornecimento.get_by_fornecedor(fornecedor)
 
-    context = {
-        "user": comprador,
-        "item_pendente_cotacao": item_pendente_cotacao,
-        "ofs": ofs,
-        "fornecedor": fornecedor
-    }
+
+        context = {
+            "user": user,
+            "item_pendente_cotacao": item_pendente_cotacao,
+            "ofs": ofs,
+            "fornecedor": fornecedor
+        }
+
+    else:
+        fornecedor = dao.get(Fornecedor, fornecedor_id)
+        item = dao.get(Item, item_filter_id)
+        ofs = daoOrdemFornecimento.get_by_fornecedor_situacao_and_item(fornecedor, SituacaoOf.ABERTA.value, item)
+
+        context = {
+            "user": user,
+            "ofs": ofs,
+            "fornecedor": fornecedor
+        }
+
+
 
     return render(request, 'SimpleBuy/selecionar-of.html', context)
 
@@ -706,19 +885,29 @@ def selecionar_of(request, nomeUsuario, item_id, fornecedor_id):
 
 
 
-def selecionar_fornecedor(request, nomeUsuario, item_id):
+def selecionar_fornecedor(request, nomeUsuario, item_id=0):
     dao = GenericDao()
     daoFornecedor = DaoFornecedor()
+    item_pendente_cotacao = None
+
+    try:
+        comprador = dao.get_by_username(Comprador, nomeUsuario)
+        user = comprador
+    except:
+        comprador = False
+        administrador = dao.get_by_username(Administrador, nomeUsuario)
+        user = administrador
 
 
-    item_pendente_cotacao = dao.get(Item_pendente_cotacao, item_id)
 
-    comprador = dao.get_by_username(Comprador, nomeUsuario)
-
-    fornecedores = daoFornecedor.get_fornecedor_by_classe(item_pendente_cotacao.cod_item.classe)
+    if item_id != 0:
+        item_pendente_cotacao = dao.get(Item_pendente_cotacao, item_id)
+        fornecedores = daoFornecedor.get_fornecedor_by_classe(item_pendente_cotacao.cod_item.classe)
+    else:
+        fornecedores = dao.selectAll(Fornecedor)
 
     context = {
-        "user": comprador,
+        "user": user,
         "item_pendente_cotacao": item_pendente_cotacao,
         "fornecedores": fornecedores
     }

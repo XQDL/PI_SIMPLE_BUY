@@ -22,6 +22,15 @@
 
 </head>
 <body>
+    {% if comprador_remove %}
+        <a href="/inicio-administrador/{{user.nomeUsuario}}/compradores-cadastrados" class="message-label">
+            <div class="message" style="background-color: RED;">
+                <h1>Comprador: {{comprador_remove.nome}}</h1>
+                <h1>REMOVIDO COM SUCESSO!</h1>
+            </div>
+        </a>
+    {% endif %}
+
     <div class="box">
 
   
@@ -74,7 +83,7 @@
                         <td >{{comprador.email}}</td>
                         <td >{{comprador.nomeUsuario}}</td>
                         <td >{{comprador.telefone}}</td>
-                        <td class="last"><button class="reject-button" name={{comprador.id}}>Remover</button></td>
+                        <td class="last"><a href="compradores-cadastrados/remove/{{comprador.id}}"><button class="reject-button" name={{comprador.id}}>Remover</button></a></td>
                     </tr>
                 {% endfor %}
 
