@@ -35,6 +35,17 @@
 
 
         <div class="content-historico">
+            {% if user.plano > 0 %}
+            <a href="/inicio-administrador/{{user.nomeUsuario}}/" class="profile-link">
+                <div class="profile">
+                    <img src="{% static 'img/user-image.png' %}" alt="">
+                    <div class="img-name">
+                        <h2>{{user.nomeUsuario}}</h2>
+                        <span>Administrador</span>
+                    </div>
+                </div>
+            </a>
+        {% else %}
             <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="profile-link">
                 <div class="profile">
                     <img src="{% static 'img/user-image.png' %}" alt="">
@@ -45,6 +56,7 @@
                     </div>
                 </div>
             </a>
+        {% endif %}
 
 
         
@@ -77,18 +89,8 @@
 
                         </tr>
                     {% endfor %}
-
-
-
-
             </table>
-
-
-
-
-        </div>
-
-
+       </div>
     <footer>
         <p>Endereço: Rua Major Getafe, N° 8989</p>
         <p>Copyright (c) 2021 SimpleBuy - Todos os Direitos Reservados</p>

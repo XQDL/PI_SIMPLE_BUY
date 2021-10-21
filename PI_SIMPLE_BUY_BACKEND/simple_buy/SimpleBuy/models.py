@@ -108,6 +108,7 @@ class OrdemFornecimento(models.Model):
         contratante = models.ForeignKey(EmpresaCompradora, on_delete=models.CASCADE)
         comprador = models.ForeignKey(Comprador, on_delete=models.CASCADE)
         situacao = models.CharField(max_length=200, default=SituacaoOf.COMPRADOR_NEGOCIANDO.value)
+        valor_total = models.FloatField(default=0)
 
 class NotaFiscal(models.Model):
     numeroNota = models.IntegerField()

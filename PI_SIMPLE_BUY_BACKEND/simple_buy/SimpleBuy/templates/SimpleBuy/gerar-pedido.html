@@ -99,12 +99,9 @@
 
                         <input type="hidden" name="codigo" value="{{item.id}}">
 
-
-        
-
                         <div class="input-container">
                             <span>Quantidade:</span>
-                            <input type="text" name="quantidade"  >
+                            <input type="number" name="quantidade" id="qtd" >
                         </div>
         
                         <div class="input-container">
@@ -114,7 +111,8 @@
 
                         <div class="input-container">
                             <span>Valor Estimado:</span>
-                            <input type="text" name="" disabled>
+                            <input type="text" name="" value="R${{valor_un}}" id="vlr_estimado" disabled>
+                            <input type="hidden" value="{{valor_un}}" id="vlr_un">
                         </div>
 
 
@@ -144,4 +142,7 @@
     </footer>
 </div>
 </body>
+
+<script src="{% static 'script/gerar_pedido.js' %}"></script>
+
 </html>

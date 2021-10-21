@@ -8,3 +8,12 @@ class DaoItemOf(GenericDao):
         except:
             raise
         return ofs
+
+    def get_valor_aproximado(self, item):
+        try:
+            itens = Itens_of.objects.all().filter(cod_item=item).order_by('dataEntrega')
+
+        except:
+            raise
+        return itens[0].valor_unitario
+

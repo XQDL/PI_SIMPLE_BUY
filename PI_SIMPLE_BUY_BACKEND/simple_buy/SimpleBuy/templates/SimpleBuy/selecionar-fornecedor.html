@@ -35,6 +35,17 @@
 
 
         <div class="content-historico">
+            {% if user.plano > 0 %}
+            <a href="/inicio-administrador/{{user.nomeUsuario}}/" class="profile-link">
+                <div class="profile">
+                    <img src="{% static 'img/user-image.png' %}" alt="">
+                    <div class="img-name">
+                        <h2>{{user.nomeUsuario}}</h2>
+                        <span>Administrador</span>
+                    </div>
+                </div>
+            </a>
+        {% else %}
             <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="profile-link">
                 <div class="profile">
                     <img src="{% static 'img/user-image.png' %}" alt="">
@@ -45,7 +56,7 @@
                     </div>
                 </div>
             </a>
-
+        {% endif %}
 
         
             <h1>Selecionar Fornecedor</h1>
@@ -72,7 +83,7 @@
                                 {% if user.plano > 0 %}
                                     <td lass="last"><a href="{{fornecedor.id}}"><button class="generic-button">Selecionar</button></a></td>
                                 {% else %}
-                                    <td lass="last"><a href="/inicio-comprador/{{user.nomeUsuario}}/gerar-cotacao/{{item_pendente_cotacao.id}}/{{fornecedor.id}}"><button class="generic-button">Selecionar</button></a></td>
+                                    <td lass="last"><a href="{{fornecedor.id}}"><button class="generic-button">Selecionar</button></a></td>
                                 {% endif %}
 
                     </tr>

@@ -245,6 +245,7 @@ def editar_of(request):
 def gerar_cotacao(request, nomeUsuario, item_id, fornecedor_id=0, of_id=0):
     dao = GenericDao()
     daoOrdemFornecimento = DaoOrdemFornecimento()
+    daoItensOf = DaoItemOf()
 
     comprador = dao.get_by_username(Comprador, nomeUsuario)
     item_pendente_cotacao = dao.get(Item_pendente_cotacao, item_id)
@@ -289,7 +290,16 @@ def gerar_cotacao(request, nomeUsuario, item_id, fornecedor_id=0, of_id=0):
 
         dao.create(itens_of)
 
+        # Atualizando o valor total da OF
+        itens_of_temp = daoItensOf.get_itens_by_of(ordemFornecimento)
 
+        vlr_tot = 0
+        for i in itens_of_temp:
+            vlr_tot += i.valor
+
+        ordemFornecimento.valor_total = vlr_tot
+
+        dao.update(ordemFornecimento)
 
         context = {
             "user": comprador,
@@ -350,6 +360,7 @@ def gerar_cotacao(request, nomeUsuario, item_id, fornecedor_id=0, of_id=0):
 
 def gerar_pedido(request, nomeUsuario, item_id=0):
     dao = GenericDao()
+    daoItemOf = DaoItemOf()
     try:
         comprador = dao.get_by_username(Comprador, nomeUsuario)
         user = comprador
@@ -391,10 +402,21 @@ def gerar_pedido(request, nomeUsuario, item_id=0):
     except:
         if item_id != 0:
             item = dao.get(Item, item_id)
+
+
+            try:
+                valor_un = daoItemOf.get_valor_aproximado(item)
+            except:
+                valor_un = "INDEFINIDO"
+
+
+
             context = {
                 "user": user,
-                "item": item
+                "item": item,
+                "valor_un": valor_un
             }
+
             return render(request, 'SimpleBuy/gerar-pedido.html', context)
         else:
             context = {
