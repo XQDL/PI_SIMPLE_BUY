@@ -3,9 +3,11 @@ from ..models import OrdemFornecimento
 from ..models import Itens_of
 
 class DaoOrdemFornecimento(GenericDao):
-    def get_by_fornecedor(self, fornecedor):
+    def get_by_fornecedor(self, fornecedor, situacao = 0):
         try:
             model = OrdemFornecimento.objects.all().filter(fornecedor=fornecedor)
+            if situacao != 0:
+                model = model.filter(situacao = situacao)
         except:
             raise
         return model

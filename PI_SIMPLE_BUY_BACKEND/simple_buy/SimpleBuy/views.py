@@ -323,7 +323,7 @@ def gerar_cotacao(request, nomeUsuario, item_id, fornecedor_id=0, of_id=0):
         if fornecedor_id != 0:
             fornecedor = dao.get(Fornecedor, fornecedor_id)
 
-            ofs = daoOrdemFornecimento.get_by_fornecedor(fornecedor)
+            ofs = daoOrdemFornecimento.get_by_fornecedor(fornecedor, SituacaoOf.COMPRADOR_NEGOCIANDO.value)
 
             cont_ofs = len(ofs)
 
@@ -874,7 +874,7 @@ def selecionar_of(request, nomeUsuario, item_id=0, fornecedor_id=0, item_filter_
     if item_id !=0:
         item_pendente_cotacao = dao.get(Item_pendente_cotacao, item_id)
         fornecedor = dao.get(Fornecedor, fornecedor_id)
-        ofs = daoOrdemFornecimento.get_by_fornecedor(fornecedor)
+        ofs = daoOrdemFornecimento.get_by_fornecedor(fornecedor, SituacaoOf.COMPRADOR_NEGOCIANDO.value)
 
 
         context = {
