@@ -132,6 +132,9 @@ class Itens_of(models.Model):
     icms = models.FloatField()
     dataEntrega = models.DateTimeField(null=True)
     frete = models.CharField(max_length=200, null=True)
+    solicitante_adm = models.ForeignKey(Administrador, on_delete=models.CASCADE, null=True)
+    solicitante_comprador = models.ForeignKey(Comprador, on_delete=models.CASCADE, null=True)
+
 
 class Itens_nf(models.Model):
     cod_item = models.ForeignKey(Item, on_delete=models.CASCADE)

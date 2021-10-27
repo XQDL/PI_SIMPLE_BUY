@@ -75,6 +75,7 @@
 
                 
                 <h1>Gerar Cotação</h1>
+                <h3 id="err-message" class="err-message"></h3>
                 <div class="item-info">
                     <div class="item">
                         <h2>Cód</h2>
@@ -91,8 +92,8 @@
 
                         <input type="hidden" value="{{item.id}}" name="item-id">
                         <input type="hidden" value="{{item.descricao}}" name="descricao">
-                        <input type="hidden" value="{{quantidade}}" name="quantidade">
-                        <input type="hidden" value="{{fornecedor.id}}" name="fornecedor">
+                        <input type="hidden" value="{{quantidade}}" name="quantidade" id="qtd">
+                        <input type="hidden" value="{{fornecedor.id}}" name="fornecedor" id="fornecedor">
                     </div>
 
 
@@ -104,8 +105,11 @@
                 <div class="container-form">
                     <div class="container-item">
 
-
-                        <h3>Fornecedor</h3>
+                        {% if not fornecedor %}
+                            <h3>Fornecedor</h3>
+                        {% endif %}
+                        <h3>Selecionar OF</h3>
+                        <h3>Numero OF</h3>
                         <h3>Valor Unitário</h3>
 
                         <h3>Valor Total(S/IPT)</h3>
@@ -113,25 +117,14 @@
                         <h3>ICMS</h3>
                         <h3>Valor Total(C/IPT)</h3>
                         <h3>Frete</h3>
-                        <h3>Selecionar OF</h3>
-                        <h3>Numero OF</h3>
+
                         
                     </div>
 
                     <div class="container-item">
-                        <a href="selecionar-fornecedor"><button type="button" class="generic-button">Selecionar</button></a>
-
-                        <input type="text" name="unitario">
-
-                        <input type="text" name="vlr_total_s_ipt" disabled>
-                        <input type="text" name="ipi">
-                        <input type="text" name="icms">
-                        <input type="text" name="vlr_total_c_ipt" disabled>
-                        <select name="frete">
-                            <option value="">SELECIONAR</option>
-                            <option value="cif">CIF</option>
-                            <option value="fob">FOB</option>
-                        </select>
+                        {% if not fornecedor %}
+                            <a href="selecionar-fornecedor"><button type="button" class="generic-button">Selecionar</button></a>
+                        {% endif %}
                                 {% if ofs_disponiveis %}
                                     <a href="/inicio-comprador/{{user.nomeUsuario}}/gerar-cotacao/{{item_pendente_cotacao.id}}/{{fornecedor.id}}/selecionar-of/" class="link-container"><button type="button" class="generic-button">Selecionar</button></a>
                                 {% elif not fornecedor%}
@@ -139,14 +132,23 @@
                                 {% else %}
                                     <input type="text" value="SEM OFs, UMA NOVA SERÁ CRIADA!" disabled>
                                 {% endif %}
-
                         <input type="text" class="numero-of" disabled value="{{of.id}}">
 
+                        <input type="number" name="unitario" placeholder="R$" id="unitario">
+
+                        <input type="text" name="vlr_total_s_ipt" disabled placeholder="R$" id="vlr_total_s_ipt">
+                        <input type="number" name="ipi" placeholder="%" id="ipi">
+                        <input type="number" name="icms" placeholder="%" id="icms">
+                        <input type="text" name="vlr_total_c_ipt" disabled placeholder="R$" id="vlr_total_c_ipt">
+                        <select name="frete">
+                            <option value="cif">CIF</option>
+                            <option value="fob">FOB</option>
+                        </select>
                     </div>
                 </div>
 
 
-                <button type="submit" class="green-button">Gerar</button>
+                <button type="submit" class="green-button" id="bt-submmit">Gerar</button>
 
             </form>
 
@@ -170,4 +172,7 @@
     </footer>
 </div>
 </body>
+
+<script src="{% static 'script/gerar_cotacao.js' %}"></script>
+
 </html>

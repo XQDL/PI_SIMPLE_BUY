@@ -79,8 +79,12 @@
                             <td>{{of.id}}</td>
                             <td >{{of.comprador}}</td>
                             <td >{{of.fornecedor}}</td>
-                            <td>R$ ---,--</td>
-                            <td><a href="info-of">Mais informações</a></td>
+                            <td>R${{of.valor_total}}</td>
+                            {% if user.plan %}
+                                <td><a href="/inicio-administrador/{{user.nomeUsuario}}/info-of/{{of.id}}">Mais informações</a></td>
+                            {% else %}
+                                <td><a href="/inicio-comprador/{{user.nomeUsuario}}/info-of/{{of.id}}">Mais informações</a></td>
+                            {% endif %}
                              {% if item_pendente_cotacao %}
                                 <td lass="last"><a href="/inicio-comprador/{{user.nomeUsuario}}/gerar-cotacao/{{item_pendente_cotacao.id}}/{{fornecedor.id}}/{{of.id}}"><button class="generic-button">Selecionar</button></a></td>
                             {% else %}

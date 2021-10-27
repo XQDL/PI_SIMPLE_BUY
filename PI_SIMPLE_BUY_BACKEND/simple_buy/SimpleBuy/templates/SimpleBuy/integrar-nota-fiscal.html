@@ -22,6 +22,15 @@
 
 </head>
 <body>
+        {% if err %}
+            <a href="/inicio-administrador/{{user.nomeUsuario}}/integrar-nota-fiscal/{{fornecedor.id}}/{{nf.id}}/" class="message-label">
+                <div class="message" style="background-color: red;">
+                    <h1>ERRO:</h1>
+                    <h1>{{err}}</h1>
+                </div>
+            </a>
+        {% endif %}
+
 
         {% if nf_created %}
             {% if user.plano > 0 %}
@@ -69,14 +78,14 @@
             {% if user.plano > 0 %}
                 <a href="/inicio-administrador/{{user.nomeUsuario}}/" class="message-label">
                     <div class="message" style="background: green;">
-                        <h1>NOTA FISCAL: nf.id}</h1>
+                        <h1>NOTA FISCAL: {{nf.id}}</h1>
                         <h1>INTEGRADA COM SUCESSO!!</h1>
                     </div>
                 </a>
             {% else %}
                 <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="message-label">
                     <div class="message" style="background: green;">
-                        <h1>NOTA FISCAL: nf.id}</h1>
+                        <h1>NOTA FISCAL: {{nf.id}}</h1>
                         <h1>INTEGRADA COM SUCESSO!!</h1>
                     </div>
                 </a>
@@ -198,8 +207,6 @@
                     <h2 style="color: red;">OBS: LEMBRANDO QUE OS DADOS DA NOTA DEVEM SER IGUAIS AOS DO PEDIDO!</h2>
 
                 {% endif %}
-
-
                     {% for item in itens_nf %}
                         <div class="container-item">
                             <input type="text" class="input-codigo" value="{{item.cod_item.id}}" disabled>
@@ -217,7 +224,7 @@
                 </div>
 
                 <button class="green-button" type="submit">Salvar</button>
-                <a href="/inicio-administrador/{{user.nomeUsuario}}/integrar-nota-fiscal/{{fornecedor.id}}/{{nf.id}}/integrar"><button type="button" class="generic-button button" type="submit">INTEGRAR NF</button></a>
+                <a href="/inicio-administrador/{{user.nomeUsuario}}/integrar-nota-fiscal/{{fornecedor.id}}/{{nf.id}}/integrar/integrar"><button type="button" class="generic-button button" type="submit">INTEGRAR NF</button></a>
             </form>
             {% if nf %}
                 <form class="content-adicionar-item" method="post" action="">
@@ -245,6 +252,7 @@
                             </div>
 
                             <div class="container-item-add">
+
                                 {% if not item %}
                                     <a href="selecionar-item"><button type="button" class="generic-button">SELECIONAR</button></a>
                                 {% else %}
@@ -254,11 +262,10 @@
                                 <input type="text" name="descrição" value="{{item.descricao}}" disabled>
                                 <input type="text" name="valor_unitario">
                                 <input type="text" name="quantidade">
-                                <input type="text" name="valor-total">
+                                <input type="text" name="valor-total" disabled>
                                 <input type="text" name="ipi">
                                 <input type="text" name="icms">
                                 <select name="frete">
-                                    <option value="">SELECIONAR</option>
                                     <option value="cif">CIF</option>
                                     <option value="fob">FOB</option>
                                 </select>
@@ -266,23 +273,15 @@
                                         <a href="selecionar-of" class="link-container"><button type="button" class="generic-button">Selecionar</button></a>
                                     {% elif not item%}
                                         <input type="text" value="SELECIONE O ITEM ANTES" disabled>
-                                    {% else %}
+                                    {% elif not of%}
                                         <input type="text" value="SEM OFs VÁLIDAS" disabled>
                                     {% endif %}
-
                                 <input type="text" class="numero-of" disabled value="{{of.id}}">
-
                             </div>
-
                     </div>
-
                     <button type="submit" class="green-button">Adicionar</button>
-
                 </form>
             {% endif %}
-
-
-
     <footer>
         <p>Endereço: Rua Major Getafe, N° 8989</p>
         <p>Copyright (c) 2021 SimpleBuy - Todos os Direitos Reservados</p>
@@ -290,8 +289,6 @@
             <img src="{% static 'img/icone-facebook.png' %}" alt="">
             <p><a href="https://facebook/SimpleBuy">/SimpleBuy</a></p>
         </div>
- 
-
         <div class="rede">
             <img src="{% static 'img/icone-linkedin.png' %}" alt="">
             <p><a href="https://linkedin/SimpleBuy">/SimpleBuy</a></p>

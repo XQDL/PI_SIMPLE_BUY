@@ -25,7 +25,7 @@
     {% if comprador_remove %}
         <a href="/inicio-administrador/{{user.nomeUsuario}}/compradores-cadastrados" class="message-label">
             <div class="message" style="background-color: RED;">
-                <h1>Comprador: {{comprador_remove.nome}}</h1>
+                <h1>Comprador</h1>
                 <h1>REMOVIDO COM SUCESSO!</h1>
             </div>
         </a>
@@ -60,13 +60,8 @@
             <div class="line">
                 <h2>Compradores: {{cont_compradores}}/{{max}}</h2>
 
-                <button class="novo-comprador">Cadastrar novo Comprador</button>
+                <button class="novo-comprador"><a style="color: black; text-decoration: none;" href="/inicio-administrador/{{user.nomeUsuario}}/registrar-comprador">Cadastrar novo Comprador</a></button>
             </div>
-
-           
-
-
-
 
             <table>
                 <tr>
@@ -75,7 +70,6 @@
                     <th >Nome De Usuario</th>
                     <th >Telefone</th>
                     <th>Remover</th>
-
                 </tr>
                 {% for comprador in compradores %}
                     <tr>
@@ -86,16 +80,7 @@
                         <td class="last"><a href="compradores-cadastrados/remove/{{comprador.id}}"><button class="reject-button" name={{comprador.id}}>Remover</button></a></td>
                     </tr>
                 {% endfor %}
-
-
-
-
-             
             </table>
-
-
-
-
         </div>
 
 

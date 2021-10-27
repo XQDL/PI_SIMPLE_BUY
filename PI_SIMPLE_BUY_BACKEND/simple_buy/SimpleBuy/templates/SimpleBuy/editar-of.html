@@ -22,26 +22,53 @@
 
 </head>
 <body>
+    {% if item_exclude and not of_exclude %}
+        <a href="/inicio-comprador/{{user.nomeUsuario}}/editar-of/{{of.id}}" class="message-label">
+            <div class="message" style="background-color: RED;">
+                <h1>ITEM</h1>
+                <h1>REMOVIDO COM SUCESSO!</h1>
+            </div>
+        </a>
+    {% endif %}
+    {% if of_exclude %}
+        <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="message-label">
+            <div class="message" style="background-color: RED;">
+                <h1>OF</h1>
+                <h1>EXCLUIDA COM SUCESSO!</h1>
+            </div>
+        </a>
+    {% endif %}
+
+        {% if of_enviada %}
+        <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="message-label">
+            <div class="message" style="background-color: GREEN;">
+                <h1>OF</h1>
+                <h1>ENVIADA PARA APROVAÇÃO COM SUCESSO!</h1>
+            </div>
+        </a>
+    {% endif %}
+
+
+
     <div class="box">
 
   
     <header>
         <div class="container-header">
-            <h1 class="tittle-header"> <a id="logo" href="index"> SimpleBuy</a></h1>
+            <h1 class="tittle-header"> <a id="logo" href="/index"> SimpleBuy</a></h1>
 
         </div>
     </header>
-            <a href="inicio-administrador" class="profile-link">
+            <a href="/inicio-comprador/{{user.nomeUsuario}}/" class="profile-link">
                 <div class="profile">
-                    <img src=".{% static 'img/user-image.png' %}" alt="">
-    
+                    <img src="{% static 'img/user-image.png' %}" alt="">
+
                     <div class="img-name">
-                        <h2>AndreVinni89</h2>
+                        <h2>{{user.nomeUsuario}}</h2>
                         <span>Administrador</span>
                     </div>
                 </div>
             </a>
-
            
             
             <div class="content-integrar-nota-fiscal">
@@ -53,8 +80,8 @@
                     </div>
     
                     <div class="item">
-                        <h3>Casas Bahia</h3>
-                        <h3>12345</h3>
+                        <h3>{{of.fornecedor.nome}}</h3>
+                        <h3>{{of.id}}</h3>
                     </div>
                 </div>
     
@@ -72,84 +99,30 @@
                         <h3>Data de entrega</h3>
                     </div>
 
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <input type="text" class="frete" value="CIF">
-                        <input type="text" class="data-entrega" value="18/09/2021">
-                        <button class="reject-button">Excluir</button>
-                    </div>
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <input type="text" class="frete" value="CIF">
-                        <input type="text" class="data-entrega" value="18/09/2021">
-                        <button class="reject-button">Excluir</button>
-                    </div>
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <input type="text" class="frete" value="CIF">
-                        <input type="text" class="data-entrega" value="18/09/2021">
-                        <button class="reject-button">Excluir</button>
-                    </div>
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <input type="text" class="frete" value="CIF">
-                        <input type="text" class="data-entrega" value="18/09/2021">
-                        <button class="reject-button">Excluir</button>
-                    </div>
-                    <div class="container-item">
-                        <input type="text" class="input-codigo">
-                        <input type="text" class="Descrição">
-                        <input type="text" class="Valor-unitário">
-                        <input type="text" class="quantidade">
-                        <input type="text" class="valor-total">
-                        <input type="text" class="ipi">
-                        <input type="text" class="icms">
-                        <input type="text" class="frete" value="CIF">
-                        <input type="text" class="data-entrega" value="18/09/2021">
-                        <button class="reject-button">Excluir</button>
-                    </div>
+
+                    {% for item in itens_of %}
+                        <div class="container-item">
+                            <input type="text" class="input-codigo" value="{{item.cod_item.id}}" disabled>
+                            <input type="text" class="Descrição" value="{{item.cod_item.descricao}}" disabled>
+                            <input type="text" class="Valor-unitário" value="R${{item.valor_unitario}}" disabled>
+                            <input type="text" class="quantidade" value="{{item.quantidade}}" disabled>
+                            <input type="text" class="valor-total" value="R${{item.valor}}" disabled>
+                            <input type="text" class="ipi" value="{{item.ipi}}%" disabled>
+                            <input type="text" class="icms" value="{{item.icms}}%" disabled>
+                            <input type="text" class="frete"  value="{{item.frete}}" disabled>
+                            <input type="text" class="data-entrega" value="{{item.dataEntrega}}"disabled>
+                            <a href="exclude/{{item.id}}"><button class="reject-button">Excluir</button></a>
+                        </div>
+                    {% endfor %}
                 </div>
 
 
 
                 <div class="buttons-container">
-                    <button class="generic-button-green">Enviar para aprovação</button>
-                    <button class="generic-button">Salvar Alterações</button>
-                    <button class="generic-button-red">Excluir OF</button>
-
-
-
+                    <a href="enviar_aprovacao/{{of.id}}"><button class="generic-button-green">Enviar para aprovação</button></a>
+                    <a href="exclude_of/{{of.id}}"><button class="generic-button-red">Excluir OF</button></a>
                 </div>
-
             </div>
-
-
-
-
 
     <footer>
         <p>Endereço: Rua Major Getafe, N° 8989</p>

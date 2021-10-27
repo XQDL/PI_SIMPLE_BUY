@@ -13,7 +13,11 @@ urlpatterns = [
     path('inicio-administrador/<str:nomeUsuario>/compradores-cadastrados', views.compradores_cadastrados, name='compradores_cadastrados'),
     path('inicio-administrador/<str:nomeUsuario>/compradores-cadastrados/remove/<int:comprador_id>', views.compradores_cadastrados, name='compradores_cadastrados'),
     path('contratar-plano', views.contratar_plano, name='contratar_plano'),
-    path('editar-of', views.editar_of, name='editar_of'),
+    path('inicio-comprador/<str:nomeUsuario>/editar-of/<int:of_id>/', views.editar_of, name='editar_of'),
+    path('inicio-comprador/<str:nomeUsuario>/editar-of/<int:of_id>/exclude/<int:item_id>', views.editar_of, name='editar_of'),
+    path('inicio-comprador/<str:nomeUsuario>/editar-of/<int:of_id>/exclude_of/<int:of_exclude_id>', views.editar_of, name='editar_of'),
+    path('inicio-comprador/<str:nomeUsuario>/editar-of/<int:of_id>/enviar_aprovacao/<int:of_enviar_aprovacao_id>', views.editar_of, name='editar_of'),
+
     path('inicio-comprador/<str:nomeUsuario>/gerar-cotacao/<int:item_id>/', views.gerar_cotacao, name='gerar_cotacao'),
     path('inicio-comprador/<str:nomeUsuario>/gerar-cotacao/<int:item_id>/<int:fornecedor_id>/', views.gerar_cotacao, name='gerar_cotacao'),
     path('inicio-comprador/<str:nomeUsuario>/gerar-cotacao/<int:item_id>/<int:fornecedor_id>/<int:of_id>', views.gerar_cotacao, name='gerar_cotacao'),
@@ -28,6 +32,15 @@ urlpatterns = [
     path('inicio-administrador', views.inicio_administrador, name='inicio_administrador'),
     path('inicio-administrador/<str:nomeUsuario>/', views.inicio_administrador, name='inicio_administrador'),
     path('inicio-comprador/<str:nomeUsuario>/', views.inicio_comprador, name='inicio_comprador'),
+
+    path('inicio-comprador/<str:nomeUsuario>/gerar-pedido/selecionar-item', views.selecionar_item,name='selecionar-item'),
+    path('inicio-comprador/<str:nomeUsuario>/integrar-nota-fiscal/<int:fornecedor_id>/<int:num_nf>/selecionar-item',views.selecionar_item, name='selecionar-item'),
+    path('inicio-administrador/<str:nomeUsuario>/gerar-pedido/selecionar-item', views.selecionar_item,name='selecionar-item'),
+    path('inicio-administrador/<str:nomeUsuario>/integrar-nota-fiscal/<int:fornecedor_id>/<int:num_nf>/selecionar-item',views.selecionar_item, name='selecionar-item'),
+    path('inicio-comprador/<str:nomeUsuario>/gerar-cotacao/<int:item_id>/selecionar-fornecedor',views.selecionar_fornecedor, name='selecionar-item'),
+    path('inicio-comprador/<str:nomeUsuario>/integrar-nota-fiscal/selecionar-fornecedor', views.selecionar_fornecedor,name='selecionar-item'),
+    path('inicio-administrador/<str:nomeUsuario>/integrar-nota-fiscal/selecionar-fornecedor',views.selecionar_fornecedor, name='selecionar-item'),
+
     path('inicio-administrador/<str:nomeUsuario>/integrar-nota-fiscal/', views.integrar_nota_fiscal, name='integrar_nota_fiscal'),
     path('inicio-comprador/<str:nomeUsuario>/integrar-nota-fiscal/', views.integrar_nota_fiscal, name='integrar_nota_fiscal'),
     path('inicio-administrador/<str:nomeUsuario>/integrar-nota-fiscal/<int:fornecedor_id>/', views.integrar_nota_fiscal, name='integrar_nota_fiscal'),
@@ -43,8 +56,8 @@ urlpatterns = [
     path('inicio-administrador/<str:nomeUsuario>/integrar-nota-fiscal/<int:fornecedor_id>/<int:num_nf>/excluir/<int:item_exclude>', views.integrar_nota_fiscal, name='integrar_nota_fiscal'),
     path('inicio-comprador/<str:nomeUsuario>/integrar-nota-fiscal/<int:fornecedor_id>/<int:num_nf>/excluir/<int:item_exclude>', views.integrar_nota_fiscal, name='integrar_nota_fiscal'),
 
-    path('inicio-administrador/<str:nomeUsuario>/integrar-nota-fiscal/<int:fornecedor_id>/<int:num_nf>/<str:integrar>', views.integrar_nota_fiscal, name='integrar_nota_fiscal'),
-    path('inicio-comprador/<str:nomeUsuario>/integrar-nota-fiscal/<int:fornecedor_id>/<int:num_nf>/<str:integrar>', views.integrar_nota_fiscal, name='integrar_nota_fiscal'),
+    path('inicio-administrador/<str:nomeUsuario>/integrar-nota-fiscal/<int:fornecedor_id>/<int:num_nf>/integrar/<str:integrar>', views.integrar_nota_fiscal, name='integrar_nota_fiscal'),
+    path('inicio-comprador/<str:nomeUsuario>/integrar-nota-fiscal/<int:fornecedor_id>/<int:num_nf>/integrar/<str:integrar>', views.integrar_nota_fiscal, name='integrar_nota_fiscal'),
 
     path('inicio-comprador/<str:nomeUsuario>/itens-pendentes-cotacao', views.itens_pendentes_cotacao, name='itens_pendentes_cotacao'),
     path('inicio-comprador/<str:nomeUsuario>/lista-fornecedores/<int:classe>', views.lista_fornecedores, name='lista_fornecedores'),
@@ -56,13 +69,7 @@ urlpatterns = [
     path('registrar-empresa', views.registrar_empresa, name='registrar_empresa'),
     path('registrar-empresa/<int:adm_id>/', views.registrar_empresa, name='registrar_empresa'),
     path('validate-login', views.validate_login, name='validate-login'),
-    path('inicio-comprador/<str:nomeUsuario>/gerar-pedido/selecionar-item', views.selecionar_item, name='selecionar-item'),
-    path('inicio-comprador/<str:nomeUsuario>/integrar-nota-fiscal/<int:fornecedor_id>/<int:num_nf>/selecionar-item', views.selecionar_item, name='selecionar-item'),
-    path('inicio-administrador/<str:nomeUsuario>/gerar-pedido/selecionar-item', views.selecionar_item, name='selecionar-item'),
-    path('inicio-administrador/<str:nomeUsuario>/integrar-nota-fiscal/<int:fornecedor_id>/<int:num_nf>/selecionar-item', views.selecionar_item, name='selecionar-item'),
-    path('inicio-comprador/<str:nomeUsuario>/gerar-cotacao/<int:item_id>/selecionar-fornecedor', views.selecionar_fornecedor, name='selecionar-item'),
-    path('inicio-comprador/<str:nomeUsuario>/integrar-nota-fiscal/selecionar-fornecedor',views.selecionar_fornecedor, name='selecionar-item'),
-    path('inicio-administrador/<str:nomeUsuario>/integrar-nota-fiscal/selecionar-fornecedor',views.selecionar_fornecedor, name='selecionar-item'),
+
     path('inicio-comprador/<str:nomeUsuario>/gerar-cotacao/<int:item_id>/<int:fornecedor_id>/selecionar-of/', views.selecionar_of, name='selecionar_of'),
     path('inicio-administrador/<str:nomeUsuario>/integrar-nota-fiscal/<int:fornecedor_id>/<int:num_nf>/<int:item_filter_id>/selecionar-of', views.selecionar_of, name='selecionar_of'),
     path('inicio-comprador/<str:nomeUsuario>/integrar-nota-fiscal/<int:fornecedor_id>/<int:num_nf>/<int:item_filter_id>/selecionar-of', views.selecionar_of, name='selecionar_of')

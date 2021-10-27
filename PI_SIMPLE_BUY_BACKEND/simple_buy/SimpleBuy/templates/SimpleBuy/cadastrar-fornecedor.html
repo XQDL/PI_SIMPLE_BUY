@@ -23,6 +23,15 @@
     
 </head>
 <body>
+    {% if err %}
+        <a href="" class="message-label">
+            <div class="message" style="background-color: red;">
+                <h1>ERRO:</h1>
+                <h1>{{err}}</h1>
+            </div>
+        </a>
+    {% endif %}
+
     {% if fornecedor %}
         <a href="/inicio-comprador/{{user.nomeUsuario}}" class="message-label">
             <div class="message">
@@ -51,61 +60,64 @@
             </a>
     
         <div class="content-enterprise-register">
-
             <h1>REGISTRAR FORNECEDOR</h1>
+            <h3 id="err-message" class="err-message"></h3>
             <form method="post" action="cadastrar-fornecedor">
                 {% csrf_token %}
                 <div class="container-form">
                     <div class="input-container">
                         <span>Nome da empresa:</span>
-                        <input type="text" name="name">
+                        <input type="text" name="name" id="name">
                     </div>
 
                     <div class="input-container">
                         <span>Email:</span>
-                        <input type="text" name="email">
+                        <input type="text" name="email" id="email">
                     </div>
 
                     <div class="input-container">
                         <span>Telefone:</span>
-                        <input type="text" name="phone_number">
+                        <input type="text" name="phone_number" id="phone_number">
                     </div>
 
                     <div class="input-container">
                         <span>CNPJ:</span>
-                        <input type="text" name="cnpj">
+                        <input type="text" name="cnpj" id="cnpj">
                     </div>
 
                     <div class="input-container">
                         <span>CEP:</span>
-                        <input type="text" name="cep">
+                        <input type="text" name="cep" id="cep">
                     </div>
 
                     <div class="input-container">
                         <span>Estado: </span>
-                        <input type="text" name="estado">
+                        <select name="estado" id="estado">
+                            {% for estado in estados %}
+                                <option value={{estado.id}}>{{estado.nome}}</option>
+                            {% endfor %}
+                        </select>
                     </div>
 
                     <div class="input-container">
                         <span>Cidade:</span>
-                        <input type="text" name="cidade">
+                        <input type="text" name="cidade" id="cidade">
                     </div>
 
                     <div class="input-container">
                         <span>Rua: </span>
-                        <input type="text" name="rua">
+                        <input type="text" name="rua" id="rua">
                     </div>
 
                     <div class="input-container">
                         <span>Numero:</span>
-                        <input type="text" name="numero">
+                        <input type="text" name="numero" id="numero">
                     </div>
 
                     <div class="input-container">
                         <span>Classe:</span>
 
-                        <select name="classe">
-
+                        <select name="classe" id="classe">
                             {% for classe in classes %}
                                 <option value={{classe.id}}>{{classe.nome}}</option>
                             {% endfor %}
@@ -115,7 +127,7 @@
                     </div>
                 </div>
                
-                <button type="submit" class="green-button">Avançar</button>
+                <button type="submit" class="green-button" id="bt-submmit">Avançar</button>
             </form>
 
 
@@ -139,4 +151,6 @@
     </footer>
 </div>
 </body>
+
+<script src="{% static 'script/registrar_fornecedor.js' %}"></script>
 </html>

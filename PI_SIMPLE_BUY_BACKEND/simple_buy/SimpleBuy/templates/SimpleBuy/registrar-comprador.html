@@ -23,6 +23,15 @@
     
 </head>
 <body>
+    {% if err %}
+        <a href="" class="message-label">
+            <div class="message" style="background-color: red;">
+                <h1>ERRO:</h1>
+                <h1>{{err}}</h1>
+            </div>
+        </a>
+    {% endif %}
+
 
     {% if comprador %}
         <a href="/inicio-administrador/{{user.nomeUsuario}}/" class="message-label">
@@ -55,46 +64,45 @@
         <div class="content-enterprise-register">
 
             <h1>REGISTRE PERFIL DE COMPRADOR</h1>
+
+            <h3 id="err-message" class="err-message"></h3>
             
             <form method="POST" action="/inicio-administrador/{{user.nomeUsuario}}/registrar-comprador">
+
                 {% csrf_token %}
                 <div class="container-form">
                     <div class="input-container">
                         <span>Nome completo:</span>
-                        <input type="text" name="complete_name">
+                        <input type="text" name="complete_name" id="complete_name">
                     </div>
 
                     <div class="input-container">
                         <span>Nome usuário:</span>
-                        <input type="text" name="user_name">
+                        <input type="text" name="user_name" id="user_name">
                     </div>
 
                     <div class="input-container">
                         <span>Email:</span>
-                        <input type="text" name="email">
+                        <input type="text" name="email" id="email">
                     </div>
 
                     <div class="input-container">
                         <span>Senha:</span>
-                        <input type="text" name="password">
+                        <input type="text" name="password" id="password">
                     </div>
 
                     <div class="input-container">
                         <span>Telefone:</span>
-                        <input type="text" name="phone_number" >
+                        <input type="text" name="phone_number" id="phone_number">
                     </div>
 
                     <div class="input-container">
                         <span>Confirmar senha:</span>
-                        <input type="text" name="confirm_password">
+                        <input type="text" name="confirm_password" id="confirm_password">
                     </div>
-    
-
                 </div>
-               
-                <button type="submit" class="green-button">REGISTRAR</button>
+                <button type="submit" class="green-button" id="bt-submmit">AVANÇAR</button>
             </form>
-
 
         </div>
 
@@ -116,4 +124,5 @@
     </footer>
 </div>
 </body>
+<script src="{% static 'script/register_adm.js' %}"></script>
 </html>

@@ -33,6 +33,7 @@
     {% endif %}
 
     {% if administrador %}
+
         <a href="/registrar-empresa/{{administrador.id}}/" class="message-label">
             <div class="message" style="background-color: green;">
                 <h1>ADMINISTRADOR: {{administrador.nomeUsuario}}</h1>
@@ -86,14 +87,9 @@
                         <span>Confirmar senha:</span>
                         <input type="text" name="confirm_password" id="confirm_password">
                     </div>
-    
-
                 </div>
-               
                 <button type="submit" class="green-button" id="bt-submmit">AVANÇAR</button>
             </form>
-
-
         </div>
 
 
