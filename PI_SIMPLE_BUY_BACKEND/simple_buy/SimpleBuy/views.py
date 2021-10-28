@@ -499,8 +499,6 @@ def gerar_pedido(request, nomeUsuario, item_id=0):
 
 def historico_compras(request, nomeUsuario):
     dao = GenericDao()
-    dao_itens_of = DaoItemOf()
-
     try:
         comprador = dao.get_by_username(Comprador, nomeUsuario)
         user = comprador
@@ -511,13 +509,10 @@ def historico_compras(request, nomeUsuario):
 
     ofs = dao.selectAll(OrdemFornecimento)
 
-
     context = {
         "user": user,
         "ofs": ofs
     }
-
-
 
     return render(request, 'SimpleBuy/historico-compras.html', context)
 

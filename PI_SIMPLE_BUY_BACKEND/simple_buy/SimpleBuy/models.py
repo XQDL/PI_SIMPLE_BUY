@@ -71,6 +71,8 @@ class EmpresaCompradora(models.Model):
     endereco = models.OneToOneField(Endereco, on_delete=models.CASCADE)
     telefone = models.CharField(max_length=200)
     administrador = models.ForeignKey(Administrador, on_delete=models.CASCADE)
+
+
     def __str__(self):
         return self.nome
 
