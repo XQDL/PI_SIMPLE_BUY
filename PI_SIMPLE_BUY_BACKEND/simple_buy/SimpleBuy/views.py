@@ -12,6 +12,7 @@ from .dao.DaoItemCotacao import DaoItemCotacao
 from .dao.DaoComprador import DaoComprador
 
 from .utils.validations import Profile_validate
+from .utils.ValidateLogin import ValidadeLogin
 
 from django.db import IntegrityError
 
@@ -29,32 +30,14 @@ def validate_login(request):
     user = request.POST.get('user')
     password = request.POST.get('password')
 
-    dao = DaoLogin()
+    validate_login = ValidadeLogin()
 
-    try:
-
-        adm = dao.validate_login(Administrador, user, password)
-        context = {
-            "user": adm,
-            "administrador": 1
-        }
-        return render(request, 'SimpleBuy/login.html', context)
+    context = validate_login.validate_and_get_context(user, password)
 
 
 
-    except:
-        try:
-            comprador = dao.validate_login(Comprador, user, password)
-            context = {
-                "user": comprador,
-                "comprador": 1
-            }
-            return render(request, 'SimpleBuy/login.html', context)
-        except:
-            context = {
-                "err": "LOGIN INVÁLIDO!"
-            }
-            return render(request, 'SimpleBuy/login.html', context)
+
+    return render(request, 'SimpleBuy/login.html', context)
 
 
 def aprovacoes_pendentes(request, nomeUsuario, res='', of_id=0):
@@ -678,6 +661,7 @@ def integrar_nota_fiscal(request, nomeUsuario, fornecedor_id=0, item_id=0, of_id
                 if item_of.cod_item.id == item_nf.cod_item.id:
                     item_of.recebido += item_nf.quantidade
 
+                    item_of = dao.update(item_of)
 
                     of = item_nf.num_of
 
@@ -685,7 +669,7 @@ def integrar_nota_fiscal(request, nomeUsuario, fornecedor_id=0, item_id=0, of_id
                     itens_of_temp = daoItemOf.get_itens_by_of(of)
                     tem_saldo = False
                     for i in itens_of_temp:
-                        if i.recebido <= i.quantidade:
+                        if i.recebido < i.quantidade:
                            tem_saldo = True
 
                     if not tem_saldo:

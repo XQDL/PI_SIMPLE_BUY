@@ -77,13 +77,13 @@
                     <th>Aprovar</th>
                     <th>Reprovar</th>
                 </tr>
-                                   {% for of in ofs %}
+                    {% for of in ofs %}
                         <tr>
                             <td>{{of.id}}</td>
                             <td>{{of.situacao}}</td>
                             <td>{{of.comprador}}</td>
                             <td>{{of.fornecedor}}</td>
-                            <td>Valor Total</td>
+                            <td>R${{of.valor_total}}</td>
                             <td><a href="info-of/{{of.id}}">Mais informações</a></td>
                             <td><a href="aprovacoes-pendentes/aprovar/{{of.id}}"><button class="confirm-button">Aprovar</button></a></td>
                             <td class="last"><a href="aprovacoes-pendentes/reprovar/{{of.id}}"><button class="reject-button">Reprovar</button></a></td>

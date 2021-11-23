@@ -23,7 +23,7 @@
 </head>
 <body>
 
-    {% if administrador %}
+    {% if user.plano > 0%}
         <a href="inicio-administrador/{{user.nomeUsuario}}" class="message-label" onload="redirect">
             <div class="message">
                 <h1>SUCESSO!</h1>
@@ -31,7 +31,7 @@
         </a>
     {% endif %}
 
-    {% if comprador %}
+    {% if not user.plano and user.nomeUsuario %}
         <a href="inicio-comprador/{{user.nomeUsuario}}" class="message-label">
             <div class="message">
                 <h1>SUCESSO!</h1>

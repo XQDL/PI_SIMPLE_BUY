@@ -1,4 +1,6 @@
 {% load static %}
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -76,7 +78,7 @@
 
             <div class="content-generate-order">
 
-                <h1>GERAR PEDIDO</h1>
+                <h1>SOLICITAR COMPRA</h1>
                 
                 <form method="POST" action="/inicio-comprador/{{user.nomeUsuario}}/gerar-pedido/{{item.id}}">
                     {% csrf_token %}

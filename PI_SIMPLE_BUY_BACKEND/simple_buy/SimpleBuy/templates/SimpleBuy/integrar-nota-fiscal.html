@@ -241,9 +241,9 @@
                                 <h3>Descrição</h3>
                                 <h3>Valor Unitário</h3>
                                 <h3>Quantidade</h3>
-                                <h3>Valor Total</h3>
                                 <h3>IPI</h3>
                                 <h3>ICMS</h3>
+                                <h3>Valor Total</h3>
                                 <h3>Frete</h3>
                                 {% if not of %}
                                     <h3>Selecionar OF</h3>
@@ -260,11 +260,11 @@
                                 {% endif %}
                                 <input type="text" name="id" value="{{item.id}}" disabled>
                                 <input type="text" name="descrição" value="{{item.descricao}}" disabled>
-                                <input type="text" name="valor_unitario">
-                                <input type="text" name="quantidade">
-                                <input type="text" name="valor-total" disabled>
-                                <input type="text" name="ipi">
-                                <input type="text" name="icms">
+                                <input type="text" name="valor_unitario" id="vlr_un" placeholder="R$">
+                                <input type="text" name="quantidade" id="qtd">
+                                <input type="text" name="ipi" placeholder="%" id="ipi">
+                                <input type="text" name="icms" placeholder="%" id="icms">
+                                <input type="text" name="valor-total" disabled id="vlr_tot" placeholder="R$">
                                 <select name="frete">
                                     <option value="cif">CIF</option>
                                     <option value="fob">FOB</option>
@@ -296,4 +296,5 @@
     </footer>
 </div>
 </body>
+<script src="{% static 'script/integrar_nf.js' %}"></script>
 </html>
